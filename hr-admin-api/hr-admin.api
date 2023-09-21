@@ -1,0 +1,35 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+import "api/admin.api"
+import "api/applicant.api"
+import "api/config.api"
+import "api/evaluation.api"
+import "api/exam.api"
+import "api/remarks.api"
+import "api/scores.api"
+import "api/statistics.api"
+import "api/timeconfig.api"
+import "api/times.api"
+import "api/sms.api"
+import "api/room.api"
+
+type PingResp {
+	Ping string `json:"ping"`
+}
+
+@server(
+	prefix : /api/admin
+)
+service hr-admin {
+	@doc "Ping"
+	@handler Ping
+	get /ping returns (PingResp)
+}

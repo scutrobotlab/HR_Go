@@ -1,0 +1,229 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	SelectTime {
+		ApplicantId int64 `json:"applicant_id"`
+		Group string `json:"group"`
+		TimeId int64 `json:"time_id"`
+	}
+
+	CanApplyResp {
+		Status bool `json:"status"`
+		Start string `json:"start"`
+		End string `json:"end"`
+	}
+
+	PostApplyReq {
+		Name string `json:"name"`
+		Gender string `json:"gender"`
+		Phone string `json:"phone"`
+		Intents []string `json:"intents"`
+		Parallel bool `json:"parallel"`
+		Form string `json:"form"`
+	}
+
+	PostApplyResp {
+		Id int64 `json:"id"`
+	}
+
+	CanSelectResp {
+		Status bool `json:"status"`
+		Start string `json:"start"`
+		End string `json:"end"`
+	}
+
+	SelectTimeReq {
+		TimeId int64 `json:"time_id,optional"`
+		Group string `json:"group"`
+	}
+
+	SelectTimeResp {
+		Time SelectTime `json:"time"`
+	}
+
+	LoginReq {
+		Token string `path:"token"`
+	}
+
+	LoginResp {
+		Nickname string `json:"nickname"`
+		OpenId string `json:"openid"`
+		HeadImgURL string `json:"headimgurl"`
+		Token string `json:"token"`
+	}
+
+	GetStepResp {
+		Step int32 `json:"step"`
+	}
+
+	GetWechatResp {
+		OpenId string `json:"openid"`
+		Nickname string `json:"nickname"`
+		Sex int32 `json:"sex"`
+		Language string `json:"language"`
+		City string `json:"city"`
+		Province string `json:"province"`
+		Country string `json:"country"`
+		HeadImgURL string `json:"headimgurl"`
+		Privilege []string `json:"privilege"`
+	}
+
+	Intent {
+		Group string `json:"group"`
+		ApplicantId int64 `json:"applicant_id"`
+		Finished bool `json:"finished"`
+	}
+
+	Applicant {
+		Id int64 `json:"id"`
+		WechatId string `json:"wechat_id"`
+		Name string `json:"name"`
+		Gender string `json:"gender"`
+		Phone string `json:"phone"`
+		Avatar string `json:"avatar"`
+		Form string `json:"form"`
+		Intents []Intent `json:"intents"`
+	}
+
+	GetFormResp {
+		Applicant Applicant `json:"applicant"`
+	}
+
+	GetIntentsReq {
+		WechatId string `form:"wechat_id"`
+	}
+
+	GetIntentsResp {
+		Intents []Intent `json:"intents"`
+	}
+
+	GetTimeReq {
+		Group string `form:"group"`
+		Rank int32 `form:"rank"`
+	}
+
+	Pivot {
+		ApplicantId int64 `json:"applicant_id"`
+		TimeId int64 `json:"time_id"`
+	}
+
+	SavedTime {
+		Id int64 `json:"id"`
+		Group string `json:"group"`
+		Date string `json:"date"`
+		Time string `json:"time"`
+		Rank int32 `json:"rank"`
+		Location string `json:"location"`
+		TotalCnt int32 `json:"total_cnt"`
+		Grade string `json:"grade"`
+		Campus string `json:"campus"`
+		Pivot Pivot `json:"pivot"`
+		ApplicantId int64 `json:"applicant_id"`
+		MeetingId string `json:"meeting_id"`
+	}
+
+	ChoosableTime {
+		Id int64 `json:"id"`
+		Group string `json:"group"`
+		Date string `json:"date"`
+		Time string `json:"time"`
+		Rank int32 `json:"rank"`
+		Location string `json:"location"`
+		TotalCnt int32 `json:"total_cnt"`
+		Grade string `json:"grade"`
+		Campus string `json:"campus"`
+		ApplicantsCount int32 `json:"applicants_count"`
+		LeftCnt int32 `json:"left_cnt"`
+	}
+
+	GetTimeResp {
+		Group string `json:"group"`
+		SavedTime SavedTime `json:"saved_time"`
+		Time []ChoosableTime `json:"time"`
+	}
+
+	AdmitGroup {
+		Group string `json:"group"`
+		Hint string `json:"hint"`
+	}
+
+	GetResultResp {
+		Status string `json:"status"`
+		Times []SavedTime `json:"times"`
+		Groups []AdmitGroup `json:"groups"`
+	}
+
+	GetReviewResp {
+		Text []string `json:"text"`
+	}
+)
+
+@server(
+	prefix: /api/joinus
+	group: joinus
+	// 不需要鉴权
+)
+service hr {
+	@doc "面试者登录"
+	@handler Login
+	post /login/:token (LoginReq) returns (LoginResp)
+
+	@doc "查询是否可以提交申请表"
+	@handler GetCanApply
+	get /can-apply returns (CanApplyResp)
+
+	@doc "查询是否可以选择面试时间"
+	@handler GetCanSelect
+	get /can-select returns (CanSelectResp)
+}
+
+@server(
+	prefix: /api/joinus
+	group: joinus
+	jwt: Auth
+)
+service hr {
+	@doc "提交申请表"
+	@handler PostApply
+	post /apply (PostApplyReq) returns (PostApplyResp)
+
+	@doc "提交面试时间选择"
+	@handler SelectTime
+	post /time (SelectTimeReq) returns (SelectTimeResp)
+
+	@doc "获取当前步骤"
+	@handler GetStep
+	get /step returns (GetStepResp)
+
+	@doc "获取微信信息"
+	@handler GetWechat
+	get /wechat returns (GetWechatResp)
+
+	@doc "获取申请表"
+	@handler GetForm
+	get /form returns (GetFormResp)
+
+	@doc "获取意向列表"
+	@handler GetIntents
+	get /intents (GetIntentsReq) returns (GetIntentsResp)
+
+	@doc "获取面试时间"
+	@handler GetTime
+	get /time (GetTimeReq) returns (GetTimeResp)
+
+	@doc "获取面试结果"
+	@handler GetResult
+	get /result returns (GetResultResp)
+
+	@doc "获取年度回顾"
+	@handler GetReview
+	get /review returns (GetReviewResp)
+}

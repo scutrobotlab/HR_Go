@@ -1,0 +1,36 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	TimeConfigItem {
+		Key string `json:"key"`
+		Value string `json:"value"`
+	}
+
+	PostTimeConfigReq {
+		TimeConfigs []TimeConfigItem `json:"timeConfigs"`
+	}
+
+	PostTimeConfigResp {
+		TimeConfigs []TimeConfigItem `json:"timeConfigs"`
+	}
+)
+
+@server(
+	prefix: /api/admin/time-config
+	group: timeconfig
+	jwt: Auth
+)
+service hr-admin {
+	// 与PHP版本略有不同，删去了Path参数key
+	@doc "更新时间配置"
+	@handler PostTimeConfig
+	post / (PostTimeConfigReq) returns (PostTimeConfigResp)
+}

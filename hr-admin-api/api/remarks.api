@@ -1,0 +1,69 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	GetRemarksReq {
+		Id int64 `path:"id"`
+	}
+
+	RemarksResp {
+		AdminId int64 `json:"admin_id"`
+		ApplicantId int64 `json:"applicant_id"`
+		Remark string `json:"remark"`
+	}
+
+	PostRemarksReq {
+		Id int64 `path:"id"`
+		Remark string `form:"remark"`
+	}
+
+	DeleteRemarksReq {
+		Id int64 `path:"id"`
+	}
+
+	GetRemarksListReq {
+		Id int64 `path:"id"`
+	}
+
+	RemarkItem {
+		AdminId int64 `json:"admin_id"`
+		ApplicantId int64 `json:"applicant_id"`
+		Remark string `json:"remark"`
+		AdminName string `json:"admin_name"`
+		UpdatedAt string `json:"updated_at"`
+	}
+
+	GetRemarksListResp {
+		Remarks []RemarkItem `json:"remarks"`
+	}
+)
+
+@server(
+	prefix: /api/admin/remarks
+	group: remarks
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取评价"
+	@handler GetRemarks
+	get /:id (GetRemarksReq) returns (RemarksResp)
+
+	@doc "更新评价"
+	@handler PostRemarks
+	post /:id (PostRemarksReq) returns (RemarksResp)
+
+	@doc "删除评价"
+	@handler DeleteRemarks
+	delete /:id (DeleteRemarksReq)
+
+	@doc "获取评价列表"
+	@handler GetRemarksList
+	get /list/:id (GetRemarksListReq) returns (GetRemarksListResp)
+}

@@ -1,0 +1,204 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	GetInfoReq {
+		Id int64 `path:"id"`
+	}
+
+	Intent {
+		Group string `json:"group"`
+		ApplicantId int64 `json:"applicant_id"`
+		Rank int32 `json:"rank"`
+		Parallel int32 `json:"parallel"`
+	}
+
+	Pivot {
+		ApplicantId int64 `json:"applicant_id"`
+		TimeId int64 `json:"time_id"`
+	}
+
+	SavedTime {
+		Id int64 `json:"id"`
+		Group string `json:"group"`
+		Date string `json:"date"`
+		Time string `json:"time"`
+		Rank int32 `json:"rank"`
+		Location string `json:"location"`
+		TotalCnt int32 `json:"total_cnt"`
+		Grade string `json:"grade"`
+		Campus string `json:"campus"`
+		Pivot Pivot `json:"pivot"`
+		ApplicantId int64 `json:"applicant_id"`
+		Extend map[string]interface{} `json:"extend"`
+		ApplicantTimeId int64 `json:"applicant_time_id"`
+	}
+
+	Admin {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		DefaultStandardId int64 `json:"default_standard_id"`
+	}
+
+	Admit {
+		AdminId int64 `json:"admin_id"`
+		ApplicantId int64 `json:"applicant_id"`
+		Group string `json:"group"`
+		Admin Admin `json:"admin"`
+		UpdatedAt string `json:"updated_at"`
+	}
+
+	Applicant {
+		Id int64 `json:"id"`
+		WechatId string `json:"wechat_id"`
+		Name string `json:"name"`
+		Gender string `json:"gender"`
+		Phone string `json:"phone"`
+		Avatar string `json:"avatar"`
+		Form map[string]interface{} `json:"form"`
+		Intents []Intent `json:"intents"`
+		Times []SavedTime `json:"times"`
+		Admits []Admit `json:"admits"`
+		CreatedAt string `json:"created_at"`
+		UpdatedAt string `json:"updated_at"`
+	}
+
+	GetInfoResp {
+		Applicant Applicant `json:"applicant"`
+	}
+
+	GetScoresReq {
+		Id int64 `path:"id"`
+	}
+
+	ScoreItem {
+		AdminId int64 `json:"admin_id"`
+		ApplicantId int64 `json:"applicant_id"`
+		Score float32 `json:"score"`
+		Group string `json:"group"`
+		StandardId int64 `json:"standard_id"`
+		EvaluationDetails string `json:"evaluation_details"`
+		Admin Admin `json:"admin"`
+	}
+
+	GetScoresResp {
+		Scores []ScoreItem `json:"scores"`
+	}
+
+	GetGroupReq {
+		Group string `form:"group"`
+		State string `form:"state"`
+		Page int32 `form:"page"`
+	}
+
+	GetGroupData {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		Gender string `json:"gender"`
+		Avatar string `json:"avatar"`
+		ScoresCount int32 `json:"scores_count"`
+		AvgScore float32 `json:"avg_score"`
+		Date string `json:"date"`
+		Time string `json:"time"`
+		Location string `json:"location"`
+		Extend map[string]interface{} `json:"extend"`
+		Admits []Admit `json:"admits"`
+	}
+
+	Link {
+		Url string `json:"url"`
+		Label string `json:"label"`
+		Active bool `json:"active"`
+	}
+
+	GetGroupResp {
+		CurrentPage int32 `json:"current_page"`
+		Data []GetGroupData `json:"data"`
+		FirstPageUrl string `json:"first_page_url"`
+		LastPage int32 `json:"last_page"`
+		LastPageUrl string `json:"last_page_url"`
+		Links []Link `json:"links"`
+		NextPageUrl string `json:"next_page_url"`
+		Path string `json:"path"`
+		PerPage int32 `json:"per_page"`
+		PrevPageUrl string `json:"prev_page_url"`
+		From int32 `json:"from"`
+		To int32 `json:"to"`
+		Total int32 `json:"total"`
+	}
+
+	NameListItem {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+	}
+
+	GetNameListResp {
+		List []NameListItem `json:"list"`
+	}
+
+	AdmitSetReq {
+		ApplicantId int64 `form:"applicant_id"`
+		Group string `form:"group"`
+	}
+
+	AdmitResetReq {
+		ApplicantId int64 `form:"applicant_id"`
+		Group string `form:"group"`
+	}
+
+	DeleteApplicantReq {
+		Id int64 `path:"id"`
+	}
+
+	SetApplicantTimeExtendReq {
+		AppicantId int64 `path:"applicant_id"`
+		Group string `path:"group"`
+		Extend map[string]interface{} `json:"extend"`
+	}
+)
+
+@server(
+	prefix: /api/admin/applicant
+	group: applicant
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取面试者信息"
+	@handler GetApplicantInfo
+	get /info/:id (GetInfoReq) returns (GetInfoResp)
+
+	@doc "获取面试者分数"
+	@handler GetApplicantScores
+	get /scores/:id (GetScoresReq) returns (GetScoresResp)
+
+	@doc "获取某组的面试者列表"
+	@handler GetApplicantGroup
+	get /group (GetGroupReq) returns (GetGroupResp)
+
+	@doc "获取面试者姓名列表用于搜索"
+	@handler GetNameList
+	get /name-list returns (GetNameListResp)
+
+	@doc "设置面试通过"
+	@handler AdmitSet
+	post /admit/set (AdmitSetReq)
+
+	@doc "撤销面试通过"
+	@handler AdmitReset
+	post /admit/reset (AdmitResetReq)
+
+	@doc "删除面试者"
+	@handler DeleteApplicant
+	delete /:id (DeleteApplicantReq)
+
+	@doc "设置面试时间扩展字段"
+	@handler SetApplicantTimeExtend
+	post /at-ext/:applicant_id/:group (SetApplicantTimeExtendReq)
+}

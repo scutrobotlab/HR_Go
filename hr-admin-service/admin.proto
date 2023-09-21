@@ -1,0 +1,700 @@
+syntax = "proto3";
+
+package hr_admin_service;
+option go_package = "./hr-admin-service";
+
+message PingRequest {
+  string ping = 1;
+}
+
+message PingResponse {
+  string pong = 1;
+}
+
+message AdminIdReq {
+  int64 adminId = 1;
+}
+
+message ApplicantIdReq {
+  int64 applicantId = 1;
+}
+
+message StatusResp {
+  bool ok = 1;
+}
+
+message SetApplicantAdmitReq {
+  int64 applicantId = 1;
+  string group = 2;
+  bool admit = 3;
+  int64 adminId = 4;
+}
+
+message GetApplicantsReq {
+  string group = 1;
+  string state = 2;
+  int32 page = 3;
+}
+
+message Intent {
+  string group = 1;
+  int64 applicantId = 2;
+  int32 rank = 3;
+  int32 parallel = 4;
+}
+
+message Time {
+  int64 id = 1;
+  string group = 2;
+  string date = 3;
+  string time = 4;
+  int32 rank = 5;
+  string location = 6;
+  int32 totalCnt = 7;
+  string grade = 8;
+  string campus = 9;
+  int64 applicantId = 10;
+  string extend = 11;
+  int64 applicantTimeId = 12;
+}
+
+message AbstractAdmin {
+  int64 id = 1;
+  string name = 2;
+  int64 defaultStandardId = 3;
+}
+
+message Admit {
+  int64 adminId = 1;
+  int64 applicantId = 2;
+  string group = 3;
+  AbstractAdmin admin = 4;
+  string updatedAt = 5;
+}
+
+message Applicant {
+  int64 id = 1;
+  string wechatId = 2;
+  string name = 3;
+  string gender = 4;
+  string phone = 5;
+  string avatar = 6;
+  string form = 7;
+  repeated Intent intents = 8;
+  repeated Time times = 9;
+  repeated Admit admits = 10;
+  string createdAt = 11;
+  string updatedAt = 12;
+}
+
+message Link {
+  string url = 1;
+  string label = 2;
+  bool active = 3;
+}
+
+message ApplicantListItem {
+  int64 id = 1;
+  string name = 2;
+  string gender = 3;
+  string avatar = 4;
+  int32 scoresCount = 5;
+  float avgScore = 6;
+  string date = 7;
+  string time = 8;
+  string location = 9;
+  string extend = 10;
+  repeated Admit admits = 11;
+}
+
+message GetApplicantsResp {
+  int32 currentPage = 1;
+  repeated ApplicantListItem data = 2;
+  string firstPageUrl = 3;
+  int32 lastPage = 4;
+  string lastPageUrl = 5;
+  repeated Link links = 6;
+  string nextPageUrl = 7;
+  string path = 8;
+  int32 perPage = 9;
+  string prevPageUrl = 10;
+  int32 from = 11;
+  int32 to = 12;
+  int32 total = 13;
+}
+
+message GetApplicantInfoResp {
+  Applicant applicant = 1;
+}
+
+message NameListItem {
+  int64 id = 1;
+  string name = 2;
+}
+
+message GetApplicantNameListResp {
+  repeated NameListItem nameList = 1;
+}
+
+message Score {
+  int64 adminId = 1;
+  int64 applicantId = 2;
+  string group = 3;
+  double score = 4;
+  int64 standardId = 5;
+  string evaluationDetail = 6;
+  AbstractAdmin admin = 7;
+}
+
+message GetApplicantScoresResp {
+  repeated Score scores = 1;
+}
+
+message DeleteApplicantReq {
+  int64 applicantId = 1;
+}
+
+message Standard {
+  string name = 1;
+  int32 weight = 2;
+}
+
+message AddEvaluationReq {
+  string name = 1;
+  repeated Standard standard = 2;
+  int64 adminId = 3;
+}
+
+message Evaluation {
+  int64 id = 1;
+  string name = 2;
+  int32 scoresCount = 3;
+  int64 updatedById = 4;
+  AbstractAdmin updatedBy = 5;
+  repeated Standard standard = 6;
+  string updatedAt = 7;
+}
+
+message AddEvaluationResp {
+  Evaluation evaluation = 1;
+}
+
+message DeleteEvaluationReq {
+  int64 evaluationId = 1;
+}
+
+message UpdateEvaluationReq {
+  int64 evaluationId = 1;
+  string name = 2;
+  repeated Standard standard = 3;
+  int64 adminId = 4;
+}
+
+message UpdateEvaluationResp {
+  Evaluation evaluation = 1;
+}
+
+message GetEvaluationInfoReq {
+  int64 evaluationId = 1;
+}
+
+message GetEvaluationInfoResp {
+  Evaluation evaluation = 1;
+}
+
+message GetEvaluationsResp {
+  repeated Evaluation evaluations = 1;
+}
+
+message CreateQuestionReq {
+  string group = 1;
+  string question = 2;
+}
+
+message Question {
+  int64 id = 1;
+  string group = 2;
+  string question = 3;
+}
+
+message QuestionAndAnswer {
+  int64 id = 1;
+  string group = 2;
+  string question = 3;
+  string answer = 4;
+}
+
+message CreateQuestionResp {
+  Question question = 1;
+}
+
+message DeleteQuestionReq {
+  int64 questionId = 1;
+}
+
+message UpdateQuestionReq {
+  Question question = 1;
+}
+
+message UpdateQuestionResp {
+  Question question = 1;
+}
+
+message GetQuestionsReq {
+  string group = 1;
+}
+
+message GetQuestionsResp {
+  repeated Question questions = 1;
+}
+
+message AdminLoginReq {
+  string code = 1;
+}
+
+message AdminGroup {
+  int64 id = 1;
+  string name = 2;
+  int32 power = 3;
+}
+
+message Admin {
+  int64 id = 1;
+  string name = 2;
+  string uuid = 3;
+  string email = 4;
+  string avatar = 5;
+  repeated AdminGroup groups = 6;
+  int64 defaultStandardId = 7;
+  bool smsEnabled = 8;
+}
+
+message AdminLoginResp {
+  Admin admin = 1;
+}
+
+message GetAdminInfoResp {
+  Admin admin = 1;
+}
+
+message SetDefaultStandardReq {
+  int64 adminId = 1;
+  int64 standardId = 2;
+}
+
+message GetRankReq {
+  int64 applicantId = 1;
+  string group = 2;
+}
+
+message GetRankResp {
+  int32 rank = 1;
+  int32 total = 2;
+}
+
+message GetScoreReq {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+  string group = 3;
+}
+
+message GetScoreResp {
+  Score score = 1;
+}
+
+message PostScoreReq {
+  int64 applicantId = 1;
+  double score = 2;
+  string group = 3;
+  int64 standardId = 4;
+  string evaluationDetails = 5;
+  int64 adminId = 6;
+}
+
+message PostScoreResp {
+  Score score = 1;
+}
+
+message DeleteScoreReq {
+  int64 applicantId = 1;
+  string group = 2;
+  int64 adminId = 3;
+}
+
+message GetRemarkReq {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+}
+
+message GetRemarkResp {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+  string remark = 3;
+}
+
+message PostRemarkReq {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+  string remark = 3;
+}
+
+message PostRemarkResp {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+  string remark = 3;
+}
+
+message DeleteRemarkReq {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+}
+
+message GetStatisticsClassifyReq {
+  string group = 1;
+  string key = 2;
+}
+
+message StatisticsClassify {
+  string key = 1;
+  int32 count = 2;
+}
+
+message GetStatisticsClassifyResp {
+  repeated StatisticsClassify class = 1;
+}
+
+message StatisticsDaily {
+  string date = 1;
+  int32 count = 2;
+}
+
+message GetStatisticsDailyNewResp {
+  repeated StatisticsDaily applicants = 1;
+}
+
+message TimeConfig {
+  string key = 1;
+  string value = 2;
+}
+
+message PostTimeConfigReq {
+  repeated TimeConfig timeConfigs = 1;
+}
+
+message PostTimeConfigResp {
+  repeated TimeConfig timeConfigs = 1;
+}
+
+message ExportTimesReq {
+  repeated string groups = 1;
+}
+
+message ExportTimesResp {
+  bytes file = 1;
+}
+
+message TimeItem {
+  map<string, string> data = 2;
+}
+
+message UploadTimesReq {
+  repeated string groups = 1;
+  repeated TimeItem Data = 2;
+}
+
+message ClearTimesReq {
+  repeated string group = 1;
+}
+
+message TimeStatistics {
+  string group = 1;
+  int32 count = 2;
+}
+
+message GetTimesStatisticsResp {
+  repeated TimeStatistics times = 1;
+}
+
+message GetApplicantQuestionsResp {
+  repeated QuestionAndAnswer questions = 1;
+}
+
+message GetRemarkListReq {
+  int64 applicantId = 1;
+}
+
+message Remark {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+  string remark = 3;
+  AbstractAdmin admin = 4;
+  string updatedAt = 5;
+}
+
+message GetRemarkListResp {
+  repeated Remark remarks = 1;
+}
+
+message SetApplicantTimeExtendReq {
+  int64 applicantId = 1;
+  int64 adminId = 2;
+  string group = 3;
+  string extend = 4;
+}
+
+message GetSmsConfigResp {
+  repeated string types = 1;
+  repeated string alerts = 2;
+}
+
+message GetApplicantSmsReq {
+  string typ = 1;
+  int32 page = 2;
+  int32 pageSize = 3;
+}
+
+message ApplicantSms {
+  int64 applicantId = 1;
+  string name = 2;
+  string phone = 3;
+  int32 status = 4;
+  string time = 5;
+  repeated string args = 6;
+  string content = 7;
+  int32 replyCnt = 8;
+}
+
+message GetApplicantSmsResp {
+  repeated ApplicantSms applicantSms = 1;
+  int32 total = 2;
+}
+
+message SendSmsReq {
+  int64 adminId = 1;
+  string typ = 2;
+  repeated int64 applicantIds = 3;
+}
+
+message GetOAuthConfigResp {
+  string clientId = 1;
+  string clientSecret = 2;
+  string adminUri = 3;
+  string wechatUri = 4;
+  string redirectUri = 5;
+}
+
+message HistorySms {
+  string senderName = 1;
+  string senderPhone = 2;
+  string receiverName = 3;
+  string receiverPhone = 4;
+  string content = 5;
+  string time = 6;
+  bool right = 7;
+}
+
+message GetHistorySmsResp {
+  repeated HistorySms historySms = 1;
+}
+
+message GetFrontendConfigResp {
+  string clientId = 1;
+  string redirectUri = 2;
+  string adminUri = 3;
+  string wechatUri = 4;
+  string baseUri = 5;
+  bool debug = 6;
+}
+
+message ReceiveSmsReq {
+  string phone = 1;
+  string content = 2;
+}
+
+message ReceiveSmsResp {
+  int32 code = 1;
+}
+
+message GetConfigReq {
+  string key = 1;
+}
+
+message GetConfigResp {
+  string key = 1;
+  string value = 2;
+}
+
+message UpdateConfigReq {
+  string key = 1;
+  string value = 2;
+}
+
+message UpdateConfigResp {
+  string key = 1;
+  string value = 2;
+}
+
+message GetSmsServiceConfigResp {
+  bool debug = 1;
+  bool enabled = 2;
+  string sendUrl = 3;
+  string userName = 4;
+}
+
+message Room {
+  int64 id = 1;
+  string name = 2;
+  string location = 3;
+  int32 status = 4;
+  repeated string admins = 5;
+  string applicant = 6;
+  string group = 7;
+  string time = 8;
+  string updatedAt = 9;
+  int64 applicantId = 10;
+  string updatedBy = 11;
+  string interviewerComment = 12;
+  string receiverComment = 13;
+  string groupLabel = 14;
+}
+
+message GetAllRoomResp {
+  repeated Room rooms = 1;
+  string myRoomName = 2;
+  int64 myRoomId = 3;
+}
+
+message SetMyRoomReq {
+  int64 adminId = 1;
+  int64 roomId = 2;
+}
+
+message PushableApplicant {
+  string name = 2;
+  string group = 3;
+  string time = 4;
+  int64 applicantId = 5;
+  int64 applicantTimeId = 6;
+}
+
+message  GetPushableListResp {
+  repeated PushableApplicant applicants = 1;
+}
+
+message PushApplicantReq {
+  int64 applicantId = 1;
+  int64 applicantTimeId = 2;
+  int64 roomId = 3;
+  int64 adminId = 4;
+}
+
+message SetRoomStatusReq {
+  int64 roomId = 1;
+  int32 status = 2;
+  int64 adminId = 3;
+}
+
+message SetRoomGroupReq {
+  int64 roomId = 1;
+  string group = 2;
+  int64 adminId = 3;
+}
+
+message SetRoomCommentReq {
+  int64 roomId = 1;
+  string comment = 2;
+  int64 adminId = 3;
+  int32 type = 4;
+}
+
+message GetScheduleReq {
+  string group = 1;
+  string date = 2;
+  string type = 3;
+  bool showNotSelected = 4;
+}
+
+message TimeTableItem {
+  string name = 1;
+  string start = 2;
+  string end = 3;
+  string color = 4;
+  string category = 5;
+  int64 id = 6;
+}
+
+message GetScheduleResp {
+  repeated TimeTableItem timeTable = 1;
+  repeated string categories = 2;
+  string focus = 3;
+}
+
+service HrService {
+  rpc Ping(PingRequest) returns(PingResponse);
+
+  rpc SetApplicantAdmit(SetApplicantAdmitReq) returns(StatusResp); // 设置面试者录取状态
+  rpc GetApplicants(GetApplicantsReq) returns(GetApplicantsResp); // 获取面试者列表
+  rpc GetApplicantInfo(ApplicantIdReq) returns(GetApplicantInfoResp); // 获取面试者信息
+  rpc GetApplicantNameList(AdminIdReq) returns(GetApplicantNameListResp); // 获取面试者姓名列表
+  rpc GetApplicantScores(ApplicantIdReq) returns(GetApplicantScoresResp); // 获取面试者分数列表
+  rpc DeleteApplicant(ApplicantIdReq) returns(StatusResp); // 删除面试者
+  rpc SetApplicantTimeExtend(SetApplicantTimeExtendReq) returns(StatusResp); // 设置面试时间扩展
+
+  rpc AddEvaluation(AddEvaluationReq) returns(AddEvaluationResp); // 添加评分标准
+  rpc DeleteEvaluation(DeleteEvaluationReq) returns(StatusResp); // 删除评分标准
+  rpc UpdateEvaluation(UpdateEvaluationReq) returns(UpdateEvaluationResp); // 更新评分标准
+  rpc GetEvaluationInfo(GetEvaluationInfoReq) returns(GetEvaluationInfoResp); // 获取评分标准信息
+  rpc GetEvaluations(AdminIdReq) returns(GetEvaluationsResp); // 获取评分标准列表
+
+  rpc CreateQuestion(CreateQuestionReq) returns(CreateQuestionResp); // 创建题目
+  rpc DeleteQuestion(DeleteQuestionReq) returns(StatusResp); // 删除题目
+  rpc UpdateQuestion(UpdateQuestionReq) returns(UpdateQuestionResp); // 更新题目
+  rpc GetQuestions(GetQuestionsReq) returns(GetQuestionsResp); // 获取题目列表
+  rpc GetApplicantQuestions(ApplicantIdReq) returns(GetApplicantQuestionsResp); // 获取面试者题目列表
+
+  rpc AdminLogin(AdminLoginReq) returns(AdminLoginResp); // 管理员登录
+  rpc AdminLogout(AdminIdReq) returns(StatusResp); // 管理员登出
+  rpc GetAdminInfo(AdminIdReq) returns(GetAdminInfoResp); // 获取管理员信息
+  rpc SetDefaultStandard(SetDefaultStandardReq) returns(StatusResp); // 设置默认评分标准
+  rpc GetOAuthConfig(AdminIdReq) returns(GetOAuthConfigResp); // 获取 OAuth 配置
+  rpc GetFrontendConfig(AdminIdReq) returns(GetFrontendConfigResp); // 获取前端配置
+
+  rpc GetRank(GetRankReq) returns(GetRankResp); // 获取排名
+  rpc GetScore(GetScoreReq) returns(GetScoreResp); // 获取评分
+  rpc PostScore(PostScoreReq) returns(PostScoreResp); // 提交评分
+  rpc DeleteScore(DeleteScoreReq) returns(StatusResp); // 删除评分
+
+  rpc GetRemark(GetRemarkReq) returns(GetRemarkResp); // 获取评价
+  rpc PostRemark(PostRemarkReq) returns(PostRemarkResp); // 提交评价
+  rpc DeleteRemark(DeleteRemarkReq) returns(StatusResp); // 删除评价
+  rpc GetRemarkList(GetRemarkListReq) returns(GetRemarkListResp); // 获取评价列表
+
+  rpc GetStatisticsClassify(GetStatisticsClassifyReq) returns(GetStatisticsClassifyResp); // 获取统计分类
+  rpc GetStatisticsDailyNew(AdminIdReq) returns(GetStatisticsDailyNewResp); // 获取每日新增统计
+
+  rpc PostTimeConfig(PostTimeConfigReq) returns(PostTimeConfigResp); // 提交时间配置
+
+  rpc ExportTimes(ExportTimesReq) returns(ExportTimesResp); // 导出时间
+  rpc UploadTimes(UploadTimesReq) returns(StatusResp); // 上传时间
+  rpc ClearTimes(ClearTimesReq) returns(StatusResp); // 清空时间
+  rpc GetTimesStatistics(AdminIdReq) returns(GetTimesStatisticsResp); // 获取时间统计
+  rpc GetSchedule(GetScheduleReq) returns(GetScheduleResp); // 获取面试时间表
+
+  rpc GetSmsConfig(AdminIdReq) returns(GetSmsConfigResp); // 获取短信配置
+  rpc GetApplicantSms(GetApplicantSmsReq) returns(GetApplicantSmsResp); // 获取面试者短信
+  rpc SendSms(SendSmsReq) returns(StatusResp); // 发送短信
+  rpc GetHistorySms(ApplicantIdReq) returns(GetHistorySmsResp); // 获取历史短信
+  rpc ReceiveSms(ReceiveSmsReq) returns(ReceiveSmsResp); // 接收短信
+
+  rpc GetConfig(GetConfigReq) returns(GetConfigResp); // 获取配置
+  rpc UpdateConfig(UpdateConfigReq) returns(UpdateConfigResp); // 更新配置
+  rpc GetSmsServiceConfig(AdminIdReq) returns(GetSmsServiceConfigResp); // 获取短信服务配置
+
+  rpc GetAllRoom(AdminIdReq) returns(GetAllRoomResp); // 获取所有房间
+  rpc SetMyRoom(SetMyRoomReq) returns(StatusResp); // 设置我的房间
+  rpc GetPushableList(AdminIdReq) returns(GetPushableListResp); // 获取可推送列表
+  rpc PushApplicant(PushApplicantReq) returns(StatusResp); // 推送面试者
+  rpc SetRoomStatus(SetRoomStatusReq) returns(StatusResp); // 设置房间状态
+  rpc SetRoomComment(SetRoomCommentReq) returns(StatusResp); // 设置房间留言
+  rpc SetRoomGroup(SetRoomGroupReq) returns(StatusResp); // 设置房间组别
+}

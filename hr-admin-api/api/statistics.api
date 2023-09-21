@@ -1,0 +1,49 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	DailyNewApplicant {
+		Date string `json:"date"`
+		Counts int32 `json:"counts"`
+	}
+
+	DailyNewResp {
+		Applicants []DailyNewApplicant `json:"applicants"`
+	}
+
+	ClassReq {
+		Group string `form:"group"`
+		Key string `form:"key"`
+	}
+
+	ClassItem {
+		Key string `json:"key"`
+		Count int32 `json:"count"`
+	}
+
+	ClassResp {
+		Class []ClassItem `json:"class"`
+	}
+)
+
+@server(
+	prefix: /api/admin/statistics
+	group: statistics
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取每日新增"
+	@handler GetDailyNew
+	get /dailynew returns (DailyNewResp)
+
+	@doc "获取分类统计"
+	@handler GetClass
+	get /class (ClassReq) returns (ClassResp)
+}

@@ -1,0 +1,106 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	ReceiveSmsReq {
+		Phone string `form:"m"`
+		Content string `form:"c"`
+	}
+
+	ReceiveSmsResp {
+		Code int32 `json:"code"`
+	}
+)
+
+@server(
+	prefix: /api/admin/sms
+	group: sms
+	//	jwt: Auth
+)
+service hr-admin {
+	@doc "接收短信"
+	@handler ReceiveSms
+	get /receive (ReceiveSmsReq) returns (ReceiveSmsResp)
+}
+
+type (
+	GetSmsConfigResp {
+		Types []string `json:"types"`
+		Alerts []string `json:"alerts"`
+	}
+
+	GetApplicantSmsReq {
+		Type string `path:"type"`
+		Page int32 `form:"page"`
+		PageSize int32 `form:"pageSize"`
+	}
+
+	ApplicantSms {
+		ApplicantId int64 `json:"id"`
+		Name string `json:"name"`
+		Phone string `json:"phone"`
+		Status int32 `json:"status"`
+		Time string `json:"time"`
+		Args []string `json:"args"`
+		Content string `json:"content"`
+		ReplyCnt int32 `json:"reply_cnt"`
+	}
+
+	GetApplicantSmsResp {
+		ApplicantSms []ApplicantSms `json:"applicantSms"`
+		Total int32 `json:"total"`
+	}
+
+	SendSmsReq {
+		Typ string `json:"typ"`
+		ApplicanrIds []int64 `json:"applicantIds"`
+	}
+
+	GetHistorySmsReq {
+		ApplicantId int64 `path:"id"`
+	}
+
+	HistorySms {
+		SenderName string `json:"senderName"`
+		SenderPhone string `json:"senderPhone"`
+		ReceiverName string `json:"receiverName"`
+		ReceiverPhone string `json:"receiverPhone"`
+		Content string `json:"content"`
+		Time string `json:"time"`
+		Right bool `json:"right"`
+	}
+
+	GetHistorySmsResp {
+		HistorySms []HistorySms `json:"historySms"`
+	}
+)
+
+@server(
+	prefix: /api/admin/sms
+	group: sms
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取短信配置"
+	@handler GetSmsConfig
+	get /config returns (GetSmsConfigResp)
+
+	@doc "获取面试者短信"
+	@handler GetApplicantSms
+	get /applicant/:type (GetApplicantSmsReq) returns (GetApplicantSmsResp)
+
+	@doc "发送短信"
+	@handler SendSms
+	post /send (SendSmsReq)
+
+	@doc "获取历史短信"
+	@handler GetHistorySms
+	get /history/:id (GetHistorySmsReq) returns (GetHistorySmsResp)
+}

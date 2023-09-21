@@ -1,0 +1,117 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	LoginReq {
+		code string `path:"code"`
+	}
+
+	AdminGroupPivot {
+		UserId int64 `json:"user_id"`
+		GroupId int64 `json:"group_id"`
+		Power int32 `json:"power"`
+	}
+
+	AdminGroup {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		Pivot AdminGroupPivot `json:"pivot"`
+	}
+
+	LoginResp {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		UUID string `json:"uuid"`
+		Email string `json:"email"`
+		Avatar string `json:"avatar"`
+		Groups []AdminGroup `json:"groups"`
+		Token string `json:"token"`
+	}
+
+	OAuth {
+		ClientId string `json:"client_id"`
+		RedirectUri string `json:"redirect_uri"`
+	}
+
+	Url {
+		BaseUri string `json:"base_uri"`
+		AdminUri string `json:"admin_uri"`
+		WechatUri string `json:"wechat_uri"`
+	}
+
+	FrontendConfig {
+		Debug bool `json:"debug"`
+		OAuth OAuth `json:"oauth"`
+		Url Url `json:"url"`
+	}
+)
+
+@server(
+	prefix: /api/admin
+	group: admin
+	// 不需要鉴权
+)
+service hr-admin {
+	@doc "管理员登录"
+	@handler Login
+	post /login/:code (LoginReq) returns (LoginResp)
+
+	@doc "获取前端配置"
+	@handler GetFrontendConfig
+	get /frontend-config returns (FrontendConfig)
+}
+
+type (
+	GetAdminResp {
+		Id int64 `json:"id"`
+		UUID string `json:"uuid"`
+		Name string `json:"name"`
+		Email string `json:"email"`
+		Avatar string `json:"avatar"`
+		Groups []AdminGroup `json:"groups"`
+		DefaultStandardId int64 `json:"default_standard_id"`
+		SmsEnabled bool `json:"sms_enabled"`
+	}
+
+	SetDefaultStandardReq {
+		StandardId int64 `form:"standard_id"`
+	}
+
+	OAuthConfig {
+		ClientId string `json:"client_id"`
+		ClientSecret string `json:"client_secret"`
+		AdminUri string `json:"admin_uri"`
+		WechatUri string `json:"wechat_uri"`
+		RedirectUri string `json:"redirect_uri"`
+	}
+)
+
+@server(
+	prefix: /api/admin
+	group: admin
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取管理员信息"
+	@handler GetAdminInfo
+	get /info returns (GetAdminResp)
+
+	@doc "退出登录"
+	@handler Logout
+	post /logout
+
+	@doc "设置默认评分标准"
+	@handler SetDefaultStandard
+	post /set-default-standard (SetDefaultStandardReq)
+
+	@doc "获取OAuth配置"
+	@handler GetOAuthConfig
+	get /oauth returns (OAuthConfig)
+}

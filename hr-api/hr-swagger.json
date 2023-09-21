@@ -1,0 +1,1397 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Human Resource",
+    "description": "华南虎面试系统",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/announce/{status}": {
+      "get": {
+        "summary": "获取发布状态",
+        "operationId": "GetAnnounceStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAnnounceStatusResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "announce"
+        ]
+      }
+    },
+    "/api/exam/": {
+      "get": {
+        "summary": "获取考试题目",
+        "operationId": "GetExam",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetExamResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      },
+      "post": {
+        "summary": "提交考试题目",
+        "operationId": "SetExam",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SetExamResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetExamReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      }
+    },
+    "/api/exam/guide": {
+      "get": {
+        "summary": "获取指导",
+        "operationId": "GetGuide",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGuideResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      }
+    },
+    "/api/form/get": {
+      "get": {
+        "summary": "获取表单格式",
+        "operationId": "GetForm",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFormResq"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "form"
+        ]
+      }
+    },
+    "/api/form/groups": {
+      "get": {
+        "summary": "获取表单分组",
+        "operationId": "GetFormGroups",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFormGroupsResq"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "form"
+        ]
+      }
+    },
+    "/api/form/intent": {
+      "get": {
+        "summary": "获取表单意向",
+        "operationId": "GetFormIntent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFormIntentResq"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "form"
+        ]
+      }
+    },
+    "/api/joinus/apply": {
+      "post": {
+        "summary": "提交申请表",
+        "operationId": "PostApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PostApplyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostApplyReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/can-apply": {
+      "get": {
+        "summary": "查询是否可以提交申请表",
+        "operationId": "GetCanApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CanApplyResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/can-select": {
+      "get": {
+        "summary": "查询是否可以选择面试时间",
+        "operationId": "GetCanSelect",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CanSelectResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/form": {
+      "get": {
+        "summary": "获取申请表",
+        "operationId": "GetForm",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFormResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/intents": {
+      "get": {
+        "summary": "获取意向列表",
+        "operationId": "GetIntents",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetIntentsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "wechat_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/login/{token}": {
+      "post": {
+        "summary": "面试者登录",
+        "operationId": "Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/result": {
+      "get": {
+        "summary": "获取面试结果",
+        "operationId": "GetResult",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetResultResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/review": {
+      "get": {
+        "summary": "获取年度回顾",
+        "operationId": "GetReview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetReviewResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/step": {
+      "get": {
+        "summary": "获取当前步骤",
+        "operationId": "GetStep",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetStepResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/time": {
+      "get": {
+        "summary": "获取面试时间",
+        "operationId": "GetTime",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTimeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rank",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      },
+      "post": {
+        "summary": "提交面试时间选择",
+        "operationId": "SelectTime",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SelectTimeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SelectTimeReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/joinus/wechat": {
+      "get": {
+        "summary": "获取微信信息",
+        "operationId": "GetWechat",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetWechatResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "joinus"
+        ]
+      }
+    },
+    "/api/ping": {
+      "get": {
+        "summary": "Ping",
+        "operationId": "Ping",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PingResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "hr"
+        ]
+      }
+    },
+    "/api/time-config/": {
+      "get": {
+        "summary": "获取时间配置",
+        "operationId": "GetTimeConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTimeConfigResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "timeconfig"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AdmitGroup": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "hint": {
+          "type": "string"
+        }
+      },
+      "title": "AdmitGroup",
+      "required": [
+        "group",
+        "hint"
+      ]
+    },
+    "Answer": {
+      "type": "object",
+      "properties": {
+        "question_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "answer": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Answer",
+      "required": [
+        "question_id",
+        "answer"
+      ]
+    },
+    "Applicant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "wechat_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "form": {
+          "type": "string"
+        },
+        "intents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Intent"
+          }
+        }
+      },
+      "title": "Applicant",
+      "required": [
+        "id",
+        "wechat_id",
+        "name",
+        "gender",
+        "phone",
+        "avatar",
+        "form",
+        "intents"
+      ]
+    },
+    "CanApplyResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      },
+      "title": "CanApplyResp",
+      "required": [
+        "status",
+        "start",
+        "end"
+      ]
+    },
+    "CanSelectResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      },
+      "title": "CanSelectResp",
+      "required": [
+        "status",
+        "start",
+        "end"
+      ]
+    },
+    "ChoosableTime": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "location": {
+          "type": "string"
+        },
+        "total_cnt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "grade": {
+          "type": "string"
+        },
+        "campus": {
+          "type": "string"
+        },
+        "applicants_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "left_cnt": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ChoosableTime",
+      "required": [
+        "id",
+        "group",
+        "date",
+        "time",
+        "rank",
+        "location",
+        "total_cnt",
+        "grade",
+        "campus",
+        "applicants_count",
+        "left_cnt"
+      ]
+    },
+    "FormItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "required": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "regexp": {
+          "type": "string"
+        },
+        "max_length": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FormItem",
+      "required": [
+        "id",
+        "name",
+        "key",
+        "type",
+        "options",
+        "regexp",
+        "max_length"
+      ]
+    },
+    "GetAnnounceStatusReq": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "GetAnnounceStatusReq",
+      "required": [
+        "status"
+      ]
+    },
+    "GetAnnounceStatusResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      },
+      "title": "GetAnnounceStatusResp",
+      "required": [
+        "id",
+        "status",
+        "body"
+      ]
+    },
+    "GetExamReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "GetExamReq",
+      "required": [
+        "group"
+      ]
+    },
+    "GetExamResp": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Question"
+          }
+        }
+      },
+      "title": "GetExamResp",
+      "required": [
+        "applicant_id",
+        "questions"
+      ]
+    },
+    "GetFormGroupsResq": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetFormGroupsResq",
+      "required": [
+        "groups"
+      ]
+    },
+    "GetFormIntentResq": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "$ref": "#/definitions/IntentConfig"
+        }
+      },
+      "title": "GetFormIntentResq",
+      "required": [
+        "intent"
+      ]
+    },
+    "GetFormResp": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/Applicant"
+        }
+      },
+      "title": "GetFormResp",
+      "required": [
+        "applicant"
+      ]
+    },
+    "GetFormResq": {
+      "type": "object",
+      "properties": {
+        "form": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FormItem"
+          }
+        }
+      },
+      "title": "GetFormResq",
+      "required": [
+        "form"
+      ]
+    },
+    "GetGuideReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "GetGuideReq",
+      "required": [
+        "group"
+      ]
+    },
+    "GetGuideResp": {
+      "type": "object",
+      "properties": {
+        "guide": {
+          "type": "string"
+        }
+      },
+      "title": "GetGuideResp",
+      "required": [
+        "guide"
+      ]
+    },
+    "GetIntentsReq": {
+      "type": "object",
+      "properties": {
+        "wechat_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetIntentsReq",
+      "required": [
+        "wechat_id"
+      ]
+    },
+    "GetIntentsResp": {
+      "type": "object",
+      "properties": {
+        "intents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Intent"
+          }
+        }
+      },
+      "title": "GetIntentsResp",
+      "required": [
+        "intents"
+      ]
+    },
+    "GetResultResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "times": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SavedTime"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdmitGroup"
+          }
+        }
+      },
+      "title": "GetResultResp",
+      "required": [
+        "status",
+        "times",
+        "groups"
+      ]
+    },
+    "GetReviewResp": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetReviewResp",
+      "required": [
+        "text"
+      ]
+    },
+    "GetStepResp": {
+      "type": "object",
+      "properties": {
+        "step": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetStepResp",
+      "required": [
+        "step"
+      ]
+    },
+    "GetTimeConfigResp": {
+      "type": "object",
+      "properties": {
+        "timeConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeConfigItem"
+          }
+        }
+      },
+      "title": "GetTimeConfigResp",
+      "required": [
+        "timeConfigs"
+      ]
+    },
+    "GetTimeReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetTimeReq",
+      "required": [
+        "group",
+        "rank"
+      ]
+    },
+    "GetTimeResp": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "saved_time": {
+          "$ref": "#/definitions/SavedTime"
+        },
+        "time": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ChoosableTime"
+          }
+        }
+      },
+      "title": "GetTimeResp",
+      "required": [
+        "group",
+        "saved_time",
+        "time"
+      ]
+    },
+    "GetWechatResp": {
+      "type": "object",
+      "properties": {
+        "openid": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "language": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "province": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "headimgurl": {
+          "type": "string"
+        },
+        "privilege": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetWechatResp",
+      "required": [
+        "openid",
+        "nickname",
+        "sex",
+        "language",
+        "city",
+        "province",
+        "country",
+        "headimgurl",
+        "privilege"
+      ]
+    },
+    "Intent": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "finished": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "Intent",
+      "required": [
+        "group",
+        "applicant_id",
+        "finished"
+      ]
+    },
+    "IntentConfig": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "max": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "parallel": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "IntentConfig",
+      "required": [
+        "min",
+        "max",
+        "parallel"
+      ]
+    },
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "LoginReq",
+      "required": [
+        "token"
+      ]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "nickname": {
+          "type": "string"
+        },
+        "openid": {
+          "type": "string"
+        },
+        "headimgurl": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "LoginResp",
+      "required": [
+        "nickname",
+        "openid",
+        "headimgurl",
+        "token"
+      ]
+    },
+    "PingResp": {
+      "type": "object",
+      "properties": {
+        "ping": {
+          "type": "string"
+        }
+      },
+      "title": "PingResp",
+      "required": [
+        "ping"
+      ]
+    },
+    "Pivot": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "time_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Pivot",
+      "required": [
+        "applicant_id",
+        "time_id"
+      ]
+    },
+    "PostApplyReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "intents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "parallel": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "form": {
+          "type": "string"
+        }
+      },
+      "title": "PostApplyReq",
+      "required": [
+        "name",
+        "gender",
+        "phone",
+        "intents",
+        "parallel",
+        "form"
+      ]
+    },
+    "PostApplyResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PostApplyResp",
+      "required": [
+        "id"
+      ]
+    },
+    "Question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        }
+      },
+      "title": "Question",
+      "required": [
+        "id",
+        "question",
+        "answer"
+      ]
+    },
+    "SavedTime": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "location": {
+          "type": "string"
+        },
+        "total_cnt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "grade": {
+          "type": "string"
+        },
+        "campus": {
+          "type": "string"
+        },
+        "pivot": {
+          "$ref": "#/definitions/Pivot"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "meeting_id": {
+          "type": "string"
+        }
+      },
+      "title": "SavedTime",
+      "required": [
+        "id",
+        "group",
+        "date",
+        "time",
+        "rank",
+        "location",
+        "total_cnt",
+        "grade",
+        "campus",
+        "pivot",
+        "applicant_id",
+        "meeting_id"
+      ]
+    },
+    "SelectTime": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "time_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "SelectTime",
+      "required": [
+        "applicant_id",
+        "group",
+        "time_id"
+      ]
+    },
+    "SelectTimeReq": {
+      "type": "object",
+      "properties": {
+        "time_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "SelectTimeReq",
+      "required": [
+        "group"
+      ]
+    },
+    "SelectTimeResp": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "$ref": "#/definitions/SelectTime"
+        }
+      },
+      "title": "SelectTimeResp",
+      "required": [
+        "time"
+      ]
+    },
+    "SetExamReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Answer"
+          }
+        }
+      },
+      "title": "SetExamReq",
+      "required": [
+        "group",
+        "answers"
+      ]
+    },
+    "SetExamResp": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Question"
+          }
+        }
+      },
+      "title": "SetExamResp",
+      "required": [
+        "applicant_id",
+        "questions"
+      ]
+    },
+    "TimeConfigItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "TimeConfigItem",
+      "required": [
+        "key",
+        "value"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

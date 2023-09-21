@@ -1,0 +1,100 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	GetExamGroupReq {
+		group string `path:"group"`
+	}
+
+	GetExamGroupQuestion {
+		Id int64 `json:"id"`
+		Question string `json:"question"`
+	}
+
+	GetExamGroupResp {
+		Questions []GetExamGroupQuestion `json:"questions"`
+	}
+
+	CreateExamReq {
+		Group string `json:"group"`
+		Question string `json:"question"`
+	}
+
+	Question {
+		Id int64 `json:"id"`
+		Group string `json:"group"`
+		Question string `json:"question"`
+	}
+
+	CreateExamResp {
+		Question Question `json:"question"`
+	}
+
+	DeleteExamReq {
+		Id int64 `path:"id"`
+	}
+
+	DeleteExamResp {
+		Id int64 `json:"id"`
+	}
+
+	UpdateExamReq {
+		Id int64 `json:"id"`
+		Group string `json:"group"`
+		Question string `json:"question"`
+	}
+
+	UpdateExamResp {
+		Id int64 `json:"id"`
+	}
+
+	GetExamByApplicantIdReq {
+		ApplicantId int64 `form:"applicantId"`
+	}
+
+	QuestionAndAnswer {
+		QuestionId int64 `json:"questionId"`
+		Group string `json:"group"`
+		Question string `json:"question"`
+		Answer string `json:"answer"`
+	}
+
+	GetExamByApplicantIdResp {
+		ApplicantId int64 `json:"applicantId"`
+		Questions []QuestionAndAnswer `json:"questions"`
+	}
+)
+
+@server(
+	prefix: /api/admin/exam
+	group: exam
+	jwt: Auth
+)
+service hr-admin {
+	@doc "根据组别查询面试题目"
+	@handler GetExamGroup
+	get /group/:group (GetExamGroupReq) returns (GetExamGroupResp)
+
+	@doc "创建面试题目"
+	@handler CreateExam
+	post /create (CreateExamReq) returns (CreateExamResp)
+
+	@doc "删除面试题目"
+	@handler DeleteExam
+	delete /delete/:id (DeleteExamReq) returns (DeleteExamResp)
+
+	@doc "更新面试题目"
+	@handler UpdateExam
+	post /update (UpdateExamReq) returns (UpdateExamResp)
+
+	@doc "根据面试者ID查询面试题目"
+	@handler GetExamByApplicantId
+	get /id (GetExamByApplicantIdReq) returns (GetExamByApplicantIdResp)
+}

@@ -1,0 +1,68 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	GetExamReq {
+		Group string `form:"group"`
+	}
+
+	Question {
+		Id int64 `json:"id"`
+		Question string `json:"question"`
+		Answer string `json:"answer"`
+	}
+
+	GetExamResp {
+		ApplicantId int64 `json:"applicant_id"`
+		Questions []Question `json:"questions"`
+	}
+
+	Answer {
+		QuestionId int64 `json:"question_id"`
+		Answer int32 `json:"answer"`
+	}
+
+	SetExamReq {
+		Group string `json:"group"`
+		Answers []Answer `json:"answers"`
+	}
+
+	SetExamResp {
+		ApplicantId int64 `json:"applicant_id"`
+		Questions []Question `json:"questions"`
+	}
+
+	GetGuideReq {
+		Group string `form:"group"`
+	}
+
+	GetGuideResp {
+		Guide string `json:"guide"`
+	}
+)
+
+@server(
+	prefix: /api/exam
+	group: exam
+	jwt: Auth
+)
+service hr {
+	@doc "获取考试题目"
+	@handler GetExam
+	get / (GetExamReq) returns (GetExamResp)
+
+	@doc "提交考试题目"
+	@handler SetExam
+	post / (SetExamReq) returns (SetExamResp)
+
+	@doc "获取指导"
+	@handler GetGuide
+	get /guide (GetGuideReq) returns (GetGuideResp)
+}

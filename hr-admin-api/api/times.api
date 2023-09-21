@@ -1,0 +1,82 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	StatisticsItem {
+		Group string `json:"group"`
+		Count int32 `json:"count"`
+	}
+
+	GetStatisticsResp {
+		Times []StatisticsItem `json:"times"`
+	}
+
+	ClearTimeReq {
+		Groups []string `json:"groups"`
+	}
+
+	GetExportReq {
+		Groups []string `form:"groups"`
+	}
+
+	PostUploadReq {
+		Groups []string `json:"groups"`
+		Data []map[string]string `json:"data"`
+	}
+
+	GetScheduleReq {
+		Group string `form:"group"`
+		Date string `form:"date,optional"`
+		Type string `form:"type"`
+		ShowNotSelected bool `form:"showNotSelected,optional"`
+	}
+
+	TimeTableItem {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		Start string `json:"start"`
+		End string `json:"end"`
+		Color string `json:"color"`
+		Category string `json:"category"`
+	}
+
+	GetScheduleResp {
+		TimeTable []TimeTableItem `json:"timeTable"`
+		Categories []string `json:"categories"`
+		Focus string `json:"focus"`
+	}
+)
+
+@server(
+	prefix: /api/admin/times
+	group: times
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取时间统计"
+	@handler GetStatistics
+	get /statistics returns (GetStatisticsResp)
+
+	@doc "清空时间"
+	@handler ClearTime
+	delete /clear (ClearTimeReq)
+
+	@doc "导出时间"
+	@handler GetExport
+	get /export (GetExportReq) // return export.csv
+
+	@doc "上传时间"
+	@handler PostUpload
+	post /upload (PostUploadReq)
+
+	@doc "日程表"
+	@handler GetSchedule
+	get /schedule (GetScheduleReq) returns (GetScheduleResp)
+}

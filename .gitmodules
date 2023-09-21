@@ -1,0 +1,3 @@
+[submodule "hr-front"]
+	path = hr-front
+	url = https://github.com/scutrobotlab/HR_Frontend

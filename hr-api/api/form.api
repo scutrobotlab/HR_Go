@@ -1,0 +1,59 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	IntentConfig {
+		Min int32 `json:"min"`
+		Max int32 `json:"max"`
+		Parallel bool `json:"parallel"`
+	}
+
+	FormItem {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		Key string `json:"key"`
+		Type string `json:"type"`
+		Required int32 `json:"required"`
+		Options []string `json:"options"`
+		Regexp string `json:"regexp"`
+		MaxLength int32 `json:"max_length"`
+	}
+
+	GetFormIntentResq {
+		Intent IntentConfig `json:"intent"`
+	}
+
+	GetFormGroupsResq {
+		Groups []string `json:"groups"`
+	}
+
+	GetFormResq {
+		Form []FormItem `json:"form"`
+	}
+)
+
+@server(
+	prefix: /api/form
+	group: form
+	// 不需要鉴权
+)
+service hr {
+	@doc "获取表单意向"
+	@handler GetFormIntent
+	get /intent returns (GetFormIntentResq)
+
+	@doc "获取表单分组"
+	@handler GetFormGroups
+	get /groups returns (GetFormGroupsResq)
+
+	@doc "获取表单格式"
+	@handler GetForm
+	get /get returns (GetFormResq)
+}

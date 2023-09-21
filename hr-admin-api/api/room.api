@@ -1,0 +1,107 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	Room {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		Location string `json:"location"`
+		Status int32 `json:"status"`
+		Admins []string `json:"admins"`
+		Applicant string `json:"applicant"`
+		Group string `json:"group"`
+		Time string `json:"time"`
+		UpdatedAt string `json:"updatedAt"`
+		ApplicantId int64 `json:"applicantId"`
+		UpdatedBy string `json:"updatedBy"`
+		InterviewerComment string `json:"interviewerComment"`
+		ReceiverComment string `json:"receiverComment"`
+		GroupLabel string `json:"groupLabel"`
+	}
+
+	GetRoomResp {
+		Rooms []Room `json:"rooms"`
+		MyRoomName string `json:"myRoomName"`
+		MyRoomId int64 `json:"myRoomId"`
+	}
+
+	SetMyRoomReq {
+		RoomId int64 `form:"roomId"`
+	}
+
+	PushableApplicant {
+		ApplicantId int64 `json:"applicantId"`
+		Name string `json:"name"`
+		Group string `json:"group"`
+		Time string `json:"time"`
+		ApplicantTimeId int64 `json:"applicantTimeId"`
+	}
+
+	GetPushableListResp {
+		Applicants []PushableApplicant `json:"applicants"`
+	}
+
+	PushApplicantReq {
+		RoomId int64 `form:"roomId"`
+		ApplicantId int64 `form:"applicantId"`
+		ApplicantTimeId int64 `form:"applicantTimeId"`
+	}
+
+	SetRoomStatusReq {
+		RoomId int64 `form:"roomId"`
+		Status int32 `form:"status"`
+	}
+
+	SetRoomCommentReq {
+		RoomId int64 `path:"roomId"`
+		Type int32 `json:"type"`
+		Comment string `json:"comment"`
+	}
+
+	SetRoomGroupReq {
+		RoomId int64 `form:"roomId"`
+		Group string `form:"group,optional"`
+	}
+)
+
+@server(
+	prefix: /api/admin/room
+	group: room
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取所有面试室"
+	@handler GetAllRoom
+	get /all returns (GetRoomResp)
+
+	@doc "设置我的值班场次"
+	@handler SetMyRoom
+	post /my (SetMyRoomReq)
+
+	@doc "获取可推送人员列表"
+	@handler GetPushableList
+	get /pushable returns (GetPushableListResp)
+
+	@doc "推送人员"
+	@handler PushApplicant
+	post /push (PushApplicantReq)
+
+	@doc "设置教室状态"
+	@handler SetRoomStatus
+	post /status (SetRoomStatusReq)
+
+	@doc "设置教室留言"
+	@handler SetRoomComment
+	post /comment/:roomId (SetRoomCommentReq)
+
+	@doc "设置教室组别"
+	@handler SetRoomGroup
+	post /group (SetRoomGroupReq)
+}

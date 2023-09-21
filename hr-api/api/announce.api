@@ -1,0 +1,32 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	GetAnnounceStatusReq {
+		Status string `path:"status"`
+	}
+
+	GetAnnounceStatusResp {
+		Id int64 `json:"id"`
+		Status string `json:"status"`
+		Body string `json:"body"`
+	}
+)
+
+@server(
+	prefix: /api/announce
+	group: announce
+	jwt: Auth
+)
+service hr {
+	@doc "获取发布状态"
+	@handler GetAnnounceStatus
+	get /:status (GetAnnounceStatusReq) returns (GetAnnounceStatusResp)
+}

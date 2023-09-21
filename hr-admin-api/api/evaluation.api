@@ -1,0 +1,94 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	Standard {
+		Name string `json:"name"`
+		Weight int32 `json:"weight"`
+	}
+
+	EvaluationStandard {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		ScoresCount int32 `json:"scores_count"`
+		LastEditAdminId int64 `json:"last_edit_admin_id"`
+		LastEditAdmin EvaluationAdmin `json:"last_edit_admin"`
+		Standard []Standard `json:"standard"`
+		UpdatedAt string `json:"updated_at"`
+	}
+
+	GetEvaluationInfoReq {
+		Id int64 `path:"id"`
+	}
+
+	GetEvaluationInfoResp {
+		EvaluationStandard EvaluationStandard `json:"evaluation_standard"`
+	}
+
+	EvaluationAdmin {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		DefaultStandardId int64 `json:"default_standard_id"`
+	}
+
+	GetEvaluationListResp {
+		List []EvaluationStandard `json:"list"`
+	}
+
+	AddEvaluationReq {
+		Name string `json:"name"`
+		Standard []Standard `json:"standard"`
+	}
+
+	AddEvaluationResp {
+		EvaluationStandard EvaluationStandard `json:"evaluation_standard"`
+	}
+
+	UpdateEvaluationReq {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		Standard []Standard `json:"standard"`
+	}
+
+	UpdateEvaluationResp {
+		EvaluationStandard EvaluationStandard `json:"evaluation_standard"`
+	}
+
+	DeleteEvaluationReq {
+		Id int64 `json:"id"`
+	}
+)
+
+@server(
+	prefix: /api/admin/evaluation
+	group: evaluation
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取评价标准信息"
+	@handler GetEvaluationInfo
+	get /info/:id (GetEvaluationInfoReq) returns (GetEvaluationInfoResp)
+
+	@doc "获取评价标准列表"
+	@handler GetEvaluationList
+	get /list returns (GetEvaluationListResp)
+
+	@doc "添加评价标准"
+	@handler AddEvaluation
+	post /add (AddEvaluationReq) returns (AddEvaluationResp)
+
+	@doc "更新评价标准"
+	@handler UpdateEvaluation
+	post /update (UpdateEvaluationReq) returns (UpdateEvaluationResp)
+
+	@doc "删除评价标准"
+	@handler DeleteEvaluation
+	post /delete (DeleteEvaluationReq)
+}

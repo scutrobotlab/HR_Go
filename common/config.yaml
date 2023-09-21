@@ -1,0 +1,17 @@
+debug: false
+url:
+  baseUrl:
+  adminUrl:
+  wechatUrl:
+groups:
+  - 机械
+  - 电控
+  - 视觉
+intents:
+  min: 1
+  max: 2
+  parallel: false
+oAuth:
+  clientID:
+  clientSecret:
+  redirectUrl:

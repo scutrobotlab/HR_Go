@@ -1,0 +1,12 @@
+Name: admin.rpc
+ListenOn: 0.0.0.0:8091
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: admin.rpc
+DataSource: "root:123456@(localhost:3306)/hr?charset=utf8mb4&parseTime=True&loc=Local"
+SmsBaoConfig:
+  SendUrl: "https://api.smsbao.com/sms"
+  Debug: false
+  UserName: ""
+  Password: ""

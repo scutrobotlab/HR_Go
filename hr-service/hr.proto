@@ -1,0 +1,260 @@
+syntax = "proto3";
+
+package hr_service;
+option go_package = "./hr-service";
+
+message PingRequest {
+  string ping = 1;
+}
+
+message PingResponse {
+  string pong = 1;
+}
+
+message ApplicantIdReq {
+  int64 applicantId = 1;
+}
+
+message GetAnnounceStatusReq {
+  int64 applicantId = 1;
+  string status = 2;
+}
+
+message GetAnnounceStatusResp {
+  int64 id = 1;
+  string status = 2;
+  string body = 3;
+}
+
+message GetExamReq {
+  int64 applicantId = 1;
+  string group = 2;
+}
+
+message Question {
+  int64 id = 1;
+  string question = 2;
+  string answer = 3;
+}
+
+message GetExamResp {
+  int64 applicantId = 1;
+  repeated Question questions = 2;
+}
+
+message Answer {
+  int64 questionId = 1;
+  string answer = 2;
+}
+
+message PostExamReq {
+  int64 applicantId = 1;
+  string group = 2;
+  repeated Answer answers = 3;
+}
+
+message PostExamResp {
+  int64 applicantId = 1;
+  repeated Question questions = 2;
+}
+
+message FormItem {
+  int64 id = 1;
+  string name = 2;
+  string key = 3;
+  string type = 4;
+  bool required = 5;
+  repeated string options = 6;
+  string regexp = 7;
+  int32 maxLength = 8;
+}
+
+message GetFormFormatResp {
+  repeated FormItem forms = 1;
+}
+
+message GetFormGroupsResp {
+  repeated string groups = 1;
+}
+
+message GetFormIntentResp {
+  int32 min = 1;
+  int32 max = 2;
+  bool parallel = 3;
+}
+
+message LoginReq {
+  string token = 1;
+}
+
+message LoginResp {
+  string nickname = 1;
+  string openid = 2;
+  string headimgurl = 3;
+  int64 applicantId = 5;
+}
+
+message GetWechatInfoResp {
+  string openid = 1;
+  string nickname = 2;
+  int32 sex = 3;
+  string language = 4;
+  string city = 5;
+  string province = 6;
+  string country = 7;
+  string headimgurl = 8;
+  repeated string privilege = 9;
+}
+
+message PostApplyReq {
+  int64 applicantId = 1;
+  string name = 2;
+  string gender = 3;
+  string phone = 4;
+  repeated string intents = 5;
+  bool parallel = 6;
+  string form = 7;
+}
+
+message PostApplyResp {
+  int64 id = 1;
+}
+
+message GetCanJoinReq {
+  string key = 1;
+}
+
+message GetCanJoinResp {
+  bool status = 1;
+  string start = 2;
+  string end = 3;
+}
+
+message IntentItem {
+  string group = 1;
+  int64 applicantId = 2;
+  bool finished = 3;
+}
+
+message GetMyFormResp {
+  int64 id = 1;
+  string wechatId = 2;
+  string name = 3;
+  string gender = 4;
+  string phone = 5;
+  string avatar = 6;
+  string form = 7;
+  repeated IntentItem intents = 8;
+}
+
+message TimeItem {
+  int64 id = 1;
+  string group = 2;
+  string date = 3;
+  string time = 4;
+  int32 rank = 5;
+  string location = 6;
+  int32 totalCnt = 7;
+  string grade = 8;
+  string campus = 9;
+  int64 applicantId = 10;
+  int32 leftCnt = 11;
+  string meetingId = 12;
+}
+
+message AdmitGroup {
+  string group = 1;
+  string hint = 2;
+}
+
+message GetMyResultResp {
+  string status = 1;
+  repeated TimeItem times = 2;
+  repeated AdmitGroup groups = 3;
+}
+
+message GetMyStepResp {
+  int32 step = 1;
+}
+
+message GetIntentListResp {
+  repeated IntentItem intents = 1;
+}
+
+message GetTimeReq {
+  int64 applicantId = 1;
+  string group = 2;
+  int32 rank = 3;
+}
+
+message GetTimeResp {
+  string group = 1;
+  TimeItem savedTime = 2;
+  repeated TimeItem times = 3;
+}
+
+message SelectTimeReq {
+  int64 applicantId = 1;
+  int64 timeId = 2;
+  string group = 3;
+}
+
+message SelectTimeResp {
+  int64 applicantId = 1;
+  string group = 2;
+  int64 timeId = 3;
+}
+
+message TimeConfig {
+  string key = 1;
+  string value = 2;
+}
+
+message GetTimeConfigResp {
+  repeated TimeConfig timeConfigs = 1;
+}
+
+message GetReviewResp {
+  repeated string text = 1;
+}
+
+message GetGuideReq {
+  string group = 1;
+}
+
+message GetGuideResp {
+  string guide = 1;
+}
+
+service HrService {
+  rpc Ping(PingRequest) returns(PingResponse);
+
+  // announce
+  rpc GetAnnounceStatus(GetAnnounceStatusReq) returns(GetAnnounceStatusResp); // 获取公告状态
+
+  // exam
+  rpc GetExam(GetExamReq) returns(GetExamResp); // 获取考试题目
+  rpc PostExam(PostExamReq) returns(PostExamResp);  // 提交考试题目
+  rpc GetGuide(GetGuideReq) returns(GetGuideResp); // 获取面试指南
+
+  // form
+  rpc GetFormFormat(ApplicantIdReq) returns(GetFormFormatResp); // 获取表单格式
+  rpc GetFormGroups(ApplicantIdReq) returns(GetFormGroupsResp); // 获取表单分组
+  rpc GetFormIntent(ApplicantIdReq) returns(GetFormIntentResp); // 获取表单意向
+
+  // join-us
+  rpc Login(LoginReq) returns(LoginResp); // 登录
+  rpc GetWechatInfo(ApplicantIdReq) returns(GetWechatInfoResp); // 获取微信信息
+  rpc PostApply(PostApplyReq) returns(PostApplyResp); // 提交申请
+  rpc GetCanJoin(GetCanJoinReq) returns(GetCanJoinResp); // 获取是否可以参加
+  rpc GetMyForm(ApplicantIdReq) returns(GetMyFormResp); // 获取我的表单
+  rpc GetMyResult(ApplicantIdReq) returns(GetMyResultResp); // 获取我的结果
+  rpc GetMyStep(ApplicantIdReq) returns(GetMyStepResp); // 获取我的步骤
+  rpc GetIntentList(ApplicantIdReq) returns(GetIntentListResp); // 获取意向列表
+  rpc GetTime(GetTimeReq) returns(GetTimeResp); // 获取面试时间
+  rpc SelectTime(SelectTimeReq) returns(SelectTimeResp); // 选择面试时间
+  rpc GetReview(ApplicantIdReq) returns(GetReviewResp); // 获取面试评价
+
+  // time-config
+  rpc GetTimeConfig(ApplicantIdReq) returns(GetTimeConfigResp); // 获取时间配置
+}

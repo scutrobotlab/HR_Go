@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	TimeConfigItem {
+		Key string `json:"key"`
+		Value string `json:"value"`
+	}
+
+	GetTimeConfigResp {
+		TimeConfigs []TimeConfigItem `json:"timeConfigs"`
+	}
+)
+
+@server(
+	prefix: /api/time-config
+	group: timeconfig
+	// 不需要鉴权
+)
+service hr {
+	@doc "获取时间配置"
+	@handler GetTimeConfig
+	get / returns (GetTimeConfigResp)
+}

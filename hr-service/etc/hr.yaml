@@ -1,0 +1,8 @@
+Name: hr.rpc
+ListenOn: 0.0.0.0:8090
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: hr.rpc
+AdminServiceKey: admin.rpc
+DataSource: "root:123456@(localhost:3306)/hr?charset=utf8mb4&parseTime=True&loc=Local"

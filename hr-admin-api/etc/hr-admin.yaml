@@ -1,0 +1,10 @@
+Name: hr-admin
+Host: 0.0.0.0
+Port: 8889
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: admin.rpc
+Auth:
+  AccessSecret: "12345678.debug"
+  AccessExpire: 28800

@@ -1,0 +1,3939 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Human Resource",
+    "description": "华南虎面试系统",
+    "version": "v1"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/admin/applicant/admit/reset": {
+      "post": {
+        "summary": "撤销面试通过",
+        "operationId": "AdmitReset",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdmitResetReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/applicant/admit/set": {
+      "post": {
+        "summary": "设置面试通过",
+        "operationId": "AdmitSet",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdmitSetReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/applicant/at-ext/{applicant_id}/{group}": {
+      "post": {
+        "summary": "设置面试时间扩展字段",
+        "operationId": "SetApplicantTimeExtend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "applicant_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "group",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetApplicantTimeExtendReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/applicant/group": {
+      "get": {
+        "summary": "获取某组的面试者列表",
+        "operationId": "GetApplicantGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGroupResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/applicant/info/{id}": {
+      "get": {
+        "summary": "获取面试者信息",
+        "operationId": "GetApplicantInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/applicant/name-list": {
+      "get": {
+        "summary": "获取面试者姓名列表用于搜索",
+        "operationId": "GetNameList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetNameListResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/applicant/scores/{id}": {
+      "get": {
+        "summary": "获取面试者分数",
+        "operationId": "GetApplicantScores",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetScoresResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/applicant/{id}": {
+      "delete": {
+        "summary": "删除面试者",
+        "operationId": "DeleteApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteApplicantReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "applicant"
+        ]
+      }
+    },
+    "/api/admin/config/key/{key}": {
+      "get": {
+        "summary": "获取配置",
+        "operationId": "GetConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "config"
+        ]
+      },
+      "post": {
+        "summary": "设置配置",
+        "operationId": "SetConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SetConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetConfigReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "config"
+        ]
+      }
+    },
+    "/api/admin/config/sms-service": {
+      "get": {
+        "summary": "获取短信服务配置",
+        "operationId": "GetSmsServiceConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSmsServiceConfigResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "config"
+        ]
+      }
+    },
+    "/api/admin/evaluation/add": {
+      "post": {
+        "summary": "添加评价标准",
+        "operationId": "AddEvaluation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AddEvaluationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddEvaluationReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "evaluation"
+        ]
+      }
+    },
+    "/api/admin/evaluation/delete": {
+      "post": {
+        "summary": "删除评价标准",
+        "operationId": "DeleteEvaluation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteEvaluationReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "evaluation"
+        ]
+      }
+    },
+    "/api/admin/evaluation/info/{id}": {
+      "get": {
+        "summary": "获取评价标准信息",
+        "operationId": "GetEvaluationInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetEvaluationInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "evaluation"
+        ]
+      }
+    },
+    "/api/admin/evaluation/list": {
+      "get": {
+        "summary": "获取评价标准列表",
+        "operationId": "GetEvaluationList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetEvaluationListResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "evaluation"
+        ]
+      }
+    },
+    "/api/admin/evaluation/update": {
+      "post": {
+        "summary": "更新评价标准",
+        "operationId": "UpdateEvaluation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateEvaluationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateEvaluationReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "evaluation"
+        ]
+      }
+    },
+    "/api/admin/exam/create": {
+      "post": {
+        "summary": "创建面试题目",
+        "operationId": "CreateExam",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateExamResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateExamReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      }
+    },
+    "/api/admin/exam/delete/{id}": {
+      "delete": {
+        "summary": "删除面试题目",
+        "operationId": "DeleteExam",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteExamResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteExamReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      }
+    },
+    "/api/admin/exam/group/{group}": {
+      "get": {
+        "summary": "根据组别查询面试题目",
+        "operationId": "GetExamGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetExamGroupResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      }
+    },
+    "/api/admin/exam/id": {
+      "get": {
+        "summary": "根据面试者ID查询面试题目",
+        "operationId": "GetExamByApplicantId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetExamByApplicantIdResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "applicantId",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      }
+    },
+    "/api/admin/exam/update": {
+      "post": {
+        "summary": "更新面试题目",
+        "operationId": "UpdateExam",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateExamResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateExamReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "exam"
+        ]
+      }
+    },
+    "/api/admin/frontend-config": {
+      "get": {
+        "summary": "获取前端配置",
+        "operationId": "GetFrontendConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FrontendConfig"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/admin/info": {
+      "get": {
+        "summary": "获取管理员信息",
+        "operationId": "GetAdminInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAdminResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/admin/login/{code}": {
+      "post": {
+        "summary": "管理员登录",
+        "operationId": "Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/admin/logout": {
+      "post": {
+        "summary": "退出登录",
+        "operationId": "Logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/admin/oauth": {
+      "get": {
+        "summary": "获取OAuth配置",
+        "operationId": "GetOAuthConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/OAuthConfig"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/admin/ping": {
+      "get": {
+        "summary": "Ping",
+        "operationId": "Ping",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PingResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "hr-admin"
+        ]
+      }
+    },
+    "/api/admin/rank/{group}/{id}": {
+      "get": {
+        "summary": "获取面试者排名",
+        "operationId": "GetRank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetRankResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "scores"
+        ]
+      }
+    },
+    "/api/admin/remarks/list/{id}": {
+      "get": {
+        "summary": "获取评价列表",
+        "operationId": "GetRemarksList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetRemarksListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "remarks"
+        ]
+      }
+    },
+    "/api/admin/remarks/{id}": {
+      "get": {
+        "summary": "获取评价",
+        "operationId": "GetRemarks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RemarksResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "remarks"
+        ]
+      },
+      "delete": {
+        "summary": "删除评价",
+        "operationId": "DeleteRemarks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteRemarksReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "remarks"
+        ]
+      },
+      "post": {
+        "summary": "更新评价",
+        "operationId": "PostRemarks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RemarksResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostRemarksReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "remarks"
+        ]
+      }
+    },
+    "/api/admin/room/all": {
+      "get": {
+        "summary": "获取所有面试室",
+        "operationId": "GetAllRoom",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetRoomResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "room"
+        ]
+      }
+    },
+    "/api/admin/room/comment/{roomId}": {
+      "post": {
+        "summary": "设置教室留言",
+        "operationId": "SetRoomComment",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetRoomCommentReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "room"
+        ]
+      }
+    },
+    "/api/admin/room/group": {
+      "post": {
+        "summary": "设置教室组别",
+        "operationId": "SetRoomGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetRoomGroupReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "room"
+        ]
+      }
+    },
+    "/api/admin/room/my": {
+      "post": {
+        "summary": "设置我的值班场次",
+        "operationId": "SetMyRoom",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetMyRoomReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "room"
+        ]
+      }
+    },
+    "/api/admin/room/push": {
+      "post": {
+        "summary": "推送人员",
+        "operationId": "PushApplicant",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PushApplicantReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "room"
+        ]
+      }
+    },
+    "/api/admin/room/pushable": {
+      "get": {
+        "summary": "获取可推送人员列表",
+        "operationId": "GetPushableList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPushableListResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "room"
+        ]
+      }
+    },
+    "/api/admin/room/status": {
+      "post": {
+        "summary": "设置教室状态",
+        "operationId": "SetRoomStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetRoomStatusReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "room"
+        ]
+      }
+    },
+    "/api/admin/scores/{id}": {
+      "get": {
+        "summary": "获取面试者评分",
+        "operationId": "GetScores",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Score"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "group",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "scores"
+        ]
+      },
+      "delete": {
+        "summary": "删除面试者评分",
+        "operationId": "DeleteScore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteScoreResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteScoreReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "scores"
+        ]
+      },
+      "post": {
+        "summary": "提交面试者评分",
+        "operationId": "PostScore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/Score"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostScoreReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "scores"
+        ]
+      }
+    },
+    "/api/admin/set-default-standard": {
+      "post": {
+        "summary": "设置默认评分标准",
+        "operationId": "SetDefaultStandard",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetDefaultStandardReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/api/admin/sms/applicant/{type}": {
+      "get": {
+        "summary": "获取面试者短信",
+        "operationId": "GetApplicantSms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetApplicantSmsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "sms"
+        ]
+      }
+    },
+    "/api/admin/sms/config": {
+      "get": {
+        "summary": "获取短信配置",
+        "operationId": "GetSmsConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSmsConfigResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "sms"
+        ]
+      }
+    },
+    "/api/admin/sms/history/{id}": {
+      "get": {
+        "summary": "获取历史短信",
+        "operationId": "GetHistorySms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetHistorySmsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "sms"
+        ]
+      }
+    },
+    "/api/admin/sms/receive": {
+      "get": {
+        "summary": "接收短信",
+        "operationId": "ReceiveSms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ReceiveSmsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "m",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "c",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "sms"
+        ]
+      }
+    },
+    "/api/admin/sms/send": {
+      "post": {
+        "summary": "发送短信",
+        "operationId": "SendSms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendSmsReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "sms"
+        ]
+      }
+    },
+    "/api/admin/statistics/class": {
+      "get": {
+        "summary": "获取分类统计",
+        "operationId": "GetClass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ClassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "statistics"
+        ]
+      }
+    },
+    "/api/admin/statistics/dailynew": {
+      "get": {
+        "summary": "获取每日新增",
+        "operationId": "GetDailyNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DailyNewResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "statistics"
+        ]
+      }
+    },
+    "/api/admin/time-config/": {
+      "post": {
+        "summary": "更新时间配置",
+        "operationId": "PostTimeConfig",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PostTimeConfigResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostTimeConfigReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "timeconfig"
+        ]
+      }
+    },
+    "/api/admin/times/clear": {
+      "delete": {
+        "summary": "清空时间",
+        "operationId": "ClearTime",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClearTimeReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "times"
+        ]
+      }
+    },
+    "/api/admin/times/export": {
+      "get": {
+        "summary": "导出时间",
+        "operationId": "GetExport",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "groups",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "times"
+        ]
+      }
+    },
+    "/api/admin/times/schedule": {
+      "get": {
+        "summary": "日程表",
+        "operationId": "GetSchedule",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetScheduleResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "group",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "showNotSelected",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "times"
+        ]
+      }
+    },
+    "/api/admin/times/statistics": {
+      "get": {
+        "summary": "获取时间统计",
+        "operationId": "GetStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetStatisticsResp"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "times"
+        ]
+      }
+    },
+    "/api/admin/times/upload": {
+      "post": {
+        "summary": "上传时间",
+        "operationId": "PostUpload",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {}
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostUploadReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "times"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AddEvaluationReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "standard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Standard"
+          }
+        }
+      },
+      "title": "AddEvaluationReq",
+      "required": [
+        "name",
+        "standard"
+      ]
+    },
+    "AddEvaluationResp": {
+      "type": "object",
+      "properties": {
+        "evaluation_standard": {
+          "$ref": "#/definitions/EvaluationStandard"
+        }
+      },
+      "title": "AddEvaluationResp",
+      "required": [
+        "evaluation_standard"
+      ]
+    },
+    "Admin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "default_standard_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Admin",
+      "required": [
+        "id",
+        "name",
+        "default_standard_id"
+      ]
+    },
+    "AdminGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pivot": {
+          "$ref": "#/definitions/AdminGroupPivot"
+        }
+      },
+      "title": "AdminGroup",
+      "required": [
+        "id",
+        "name",
+        "pivot"
+      ]
+    },
+    "AdminGroupPivot": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "power": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "AdminGroupPivot",
+      "required": [
+        "user_id",
+        "group_id",
+        "power"
+      ]
+    },
+    "Admit": {
+      "type": "object",
+      "properties": {
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "admin": {
+          "$ref": "#/definitions/Admin"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "title": "Admit",
+      "required": [
+        "admin_id",
+        "applicant_id",
+        "group",
+        "admin",
+        "updated_at"
+      ]
+    },
+    "AdmitResetReq": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "AdmitResetReq",
+      "required": [
+        "applicant_id",
+        "group"
+      ]
+    },
+    "AdmitSetReq": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "AdmitSetReq",
+      "required": [
+        "applicant_id",
+        "group"
+      ]
+    },
+    "Applicant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "wechat_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "form": {
+          "$ref": "#/definitions/mapstringinterface"
+        },
+        "intents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Intent"
+          }
+        },
+        "times": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SavedTime"
+          }
+        },
+        "admits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Admit"
+          }
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "title": "Applicant",
+      "required": [
+        "id",
+        "wechat_id",
+        "name",
+        "gender",
+        "phone",
+        "avatar",
+        "form",
+        "intents",
+        "times",
+        "admits",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "ApplicantSms": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "time": {
+          "type": "string"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "content": {
+          "type": "string"
+        },
+        "reply_cnt": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ApplicantSms",
+      "required": [
+        "id",
+        "name",
+        "phone",
+        "status",
+        "time",
+        "args",
+        "content",
+        "reply_cnt"
+      ]
+    },
+    "ClassItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ClassItem",
+      "required": [
+        "key",
+        "count"
+      ]
+    },
+    "ClassReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        }
+      },
+      "title": "ClassReq",
+      "required": [
+        "group",
+        "key"
+      ]
+    },
+    "ClassResp": {
+      "type": "object",
+      "properties": {
+        "class": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClassItem"
+          }
+        }
+      },
+      "title": "ClassResp",
+      "required": [
+        "class"
+      ]
+    },
+    "ClearTimeReq": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "ClearTimeReq",
+      "required": [
+        "groups"
+      ]
+    },
+    "CreateExamReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "title": "CreateExamReq",
+      "required": [
+        "group",
+        "question"
+      ]
+    },
+    "CreateExamResp": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "$ref": "#/definitions/Question"
+        }
+      },
+      "title": "CreateExamResp",
+      "required": [
+        "question"
+      ]
+    },
+    "DailyNewApplicant": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "counts": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "DailyNewApplicant",
+      "required": [
+        "date",
+        "counts"
+      ]
+    },
+    "DailyNewResp": {
+      "type": "object",
+      "properties": {
+        "applicants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DailyNewApplicant"
+          }
+        }
+      },
+      "title": "DailyNewResp",
+      "required": [
+        "applicants"
+      ]
+    },
+    "DeleteApplicantReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteApplicantReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteEvaluationReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteEvaluationReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteExamReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteExamReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteExamResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteExamResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteRemarksReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteRemarksReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteScoreReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "DeleteScoreReq",
+      "required": [
+        "id",
+        "group"
+      ]
+    },
+    "DeleteScoreResp": {
+      "type": "object",
+      "title": "DeleteScoreResp"
+    },
+    "EvaluationAdmin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "default_standard_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "EvaluationAdmin",
+      "required": [
+        "id",
+        "name",
+        "default_standard_id"
+      ]
+    },
+    "EvaluationDetail": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "title": "EvaluationDetail",
+      "required": [
+        "name",
+        "weight",
+        "score"
+      ]
+    },
+    "EvaluationStandard": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scores_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last_edit_admin_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_edit_admin": {
+          "$ref": "#/definitions/EvaluationAdmin"
+        },
+        "standard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Standard"
+          }
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "title": "EvaluationStandard",
+      "required": [
+        "id",
+        "name",
+        "scores_count",
+        "last_edit_admin_id",
+        "last_edit_admin",
+        "standard",
+        "updated_at"
+      ]
+    },
+    "FrontendConfig": {
+      "type": "object",
+      "properties": {
+        "debug": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "oauth": {
+          "$ref": "#/definitions/OAuth"
+        },
+        "url": {
+          "$ref": "#/definitions/Url"
+        }
+      },
+      "title": "FrontendConfig",
+      "required": [
+        "debug",
+        "oauth",
+        "url"
+      ]
+    },
+    "GetAdminResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminGroup"
+          }
+        },
+        "default_standard_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sms_enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "GetAdminResp",
+      "required": [
+        "id",
+        "uuid",
+        "name",
+        "email",
+        "avatar",
+        "groups",
+        "default_standard_id",
+        "sms_enabled"
+      ]
+    },
+    "GetApplicantSmsReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetApplicantSmsReq",
+      "required": [
+        "type",
+        "page",
+        "pageSize"
+      ]
+    },
+    "GetApplicantSmsResp": {
+      "type": "object",
+      "properties": {
+        "applicantSms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApplicantSms"
+          }
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetApplicantSmsResp",
+      "required": [
+        "applicantSms",
+        "total"
+      ]
+    },
+    "GetConfigReq": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "title": "GetConfigReq",
+      "required": [
+        "key"
+      ]
+    },
+    "GetConfigResp": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "GetConfigResp",
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "GetEvaluationInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetEvaluationInfoReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetEvaluationInfoResp": {
+      "type": "object",
+      "properties": {
+        "evaluation_standard": {
+          "$ref": "#/definitions/EvaluationStandard"
+        }
+      },
+      "title": "GetEvaluationInfoResp",
+      "required": [
+        "evaluation_standard"
+      ]
+    },
+    "GetEvaluationListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EvaluationStandard"
+          }
+        }
+      },
+      "title": "GetEvaluationListResp",
+      "required": [
+        "list"
+      ]
+    },
+    "GetExamByApplicantIdReq": {
+      "type": "object",
+      "properties": {
+        "applicantId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetExamByApplicantIdReq",
+      "required": [
+        "applicantId"
+      ]
+    },
+    "GetExamByApplicantIdResp": {
+      "type": "object",
+      "properties": {
+        "applicantId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuestionAndAnswer"
+          }
+        }
+      },
+      "title": "GetExamByApplicantIdResp",
+      "required": [
+        "applicantId",
+        "questions"
+      ]
+    },
+    "GetExamGroupQuestion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "title": "GetExamGroupQuestion",
+      "required": [
+        "id",
+        "question"
+      ]
+    },
+    "GetExamGroupReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "GetExamGroupReq",
+      "required": [
+        "group"
+      ]
+    },
+    "GetExamGroupResp": {
+      "type": "object",
+      "properties": {
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetExamGroupQuestion"
+          }
+        }
+      },
+      "title": "GetExamGroupResp",
+      "required": [
+        "questions"
+      ]
+    },
+    "GetExportReq": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetExportReq",
+      "required": [
+        "groups"
+      ]
+    },
+    "GetGroupData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "scores_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "avg_score": {
+          "type": "number",
+          "format": "float"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "extend": {
+          "$ref": "#/definitions/mapstringinterface"
+        },
+        "admits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Admit"
+          }
+        }
+      },
+      "title": "GetGroupData",
+      "required": [
+        "id",
+        "name",
+        "gender",
+        "avatar",
+        "scores_count",
+        "avg_score",
+        "date",
+        "time",
+        "location",
+        "extend",
+        "admits"
+      ]
+    },
+    "GetGroupReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetGroupReq",
+      "required": [
+        "group",
+        "state",
+        "page"
+      ]
+    },
+    "GetGroupResp": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetGroupData"
+          }
+        },
+        "first_page_url": {
+          "type": "string"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "last_page_url": {
+          "type": "string"
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "next_page_url": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetGroupResp",
+      "required": [
+        "current_page",
+        "data",
+        "first_page_url",
+        "last_page",
+        "last_page_url",
+        "links",
+        "next_page_url",
+        "path",
+        "per_page",
+        "prev_page_url",
+        "from",
+        "to",
+        "total"
+      ]
+    },
+    "GetHistorySmsReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetHistorySmsReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetHistorySmsResp": {
+      "type": "object",
+      "properties": {
+        "historySms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HistorySms"
+          }
+        }
+      },
+      "title": "GetHistorySmsResp",
+      "required": [
+        "historySms"
+      ]
+    },
+    "GetInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetInfoReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetInfoResp": {
+      "type": "object",
+      "properties": {
+        "applicant": {
+          "$ref": "#/definitions/Applicant"
+        }
+      },
+      "title": "GetInfoResp",
+      "required": [
+        "applicant"
+      ]
+    },
+    "GetNameListResp": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NameListItem"
+          }
+        }
+      },
+      "title": "GetNameListResp",
+      "required": [
+        "list"
+      ]
+    },
+    "GetPushableListResp": {
+      "type": "object",
+      "properties": {
+        "applicants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PushableApplicant"
+          }
+        }
+      },
+      "title": "GetPushableListResp",
+      "required": [
+        "applicants"
+      ]
+    },
+    "GetRankReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetRankReq",
+      "required": [
+        "group",
+        "id"
+      ]
+    },
+    "GetRankResp": {
+      "type": "object",
+      "properties": {
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetRankResp",
+      "required": [
+        "rank",
+        "total"
+      ]
+    },
+    "GetRemarksListReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetRemarksListReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetRemarksListResp": {
+      "type": "object",
+      "properties": {
+        "remarks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RemarkItem"
+          }
+        }
+      },
+      "title": "GetRemarksListResp",
+      "required": [
+        "remarks"
+      ]
+    },
+    "GetRemarksReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetRemarksReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetRoomResp": {
+      "type": "object",
+      "properties": {
+        "rooms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Room"
+          }
+        },
+        "myRoomName": {
+          "type": "string"
+        },
+        "myRoomId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetRoomResp",
+      "required": [
+        "rooms",
+        "myRoomName",
+        "myRoomId"
+      ]
+    },
+    "GetScheduleReq": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "showNotSelected": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "GetScheduleReq",
+      "required": [
+        "group",
+        "type"
+      ]
+    },
+    "GetScheduleResp": {
+      "type": "object",
+      "properties": {
+        "timeTable": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeTableItem"
+          }
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "focus": {
+          "type": "string"
+        }
+      },
+      "title": "GetScheduleResp",
+      "required": [
+        "timeTable",
+        "categories",
+        "focus"
+      ]
+    },
+    "GetScoreReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "GetScoreReq",
+      "required": [
+        "id",
+        "group"
+      ]
+    },
+    "GetScoresReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetScoresReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetScoresResp": {
+      "type": "object",
+      "properties": {
+        "scores": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScoreItem"
+          }
+        }
+      },
+      "title": "GetScoresResp",
+      "required": [
+        "scores"
+      ]
+    },
+    "GetSmsConfigResp": {
+      "type": "object",
+      "properties": {
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "alerts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetSmsConfigResp",
+      "required": [
+        "types",
+        "alerts"
+      ]
+    },
+    "GetSmsServiceConfigResp": {
+      "type": "object",
+      "properties": {
+        "debug": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "enabled": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "sendUrl": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        }
+      },
+      "title": "GetSmsServiceConfigResp",
+      "required": [
+        "debug",
+        "enabled",
+        "sendUrl",
+        "userName"
+      ]
+    },
+    "GetStatisticsResp": {
+      "type": "object",
+      "properties": {
+        "times": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatisticsItem"
+          }
+        }
+      },
+      "title": "GetStatisticsResp",
+      "required": [
+        "times"
+      ]
+    },
+    "HistorySms": {
+      "type": "object",
+      "properties": {
+        "senderName": {
+          "type": "string"
+        },
+        "senderPhone": {
+          "type": "string"
+        },
+        "receiverName": {
+          "type": "string"
+        },
+        "receiverPhone": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "right": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "HistorySms",
+      "required": [
+        "senderName",
+        "senderPhone",
+        "receiverName",
+        "receiverPhone",
+        "content",
+        "time",
+        "right"
+      ]
+    },
+    "Intent": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "parallel": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Intent",
+      "required": [
+        "group",
+        "applicant_id",
+        "rank",
+        "parallel"
+      ]
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "Link",
+      "required": [
+        "url",
+        "label",
+        "active"
+      ]
+    },
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "LoginReq",
+      "required": [
+        "code"
+      ]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdminGroup"
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "LoginResp",
+      "required": [
+        "id",
+        "name",
+        "uuid",
+        "email",
+        "avatar",
+        "groups",
+        "token"
+      ]
+    },
+    "NameListItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "NameListItem",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "OAuth": {
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "type": "string"
+        },
+        "redirect_uri": {
+          "type": "string"
+        }
+      },
+      "title": "OAuth",
+      "required": [
+        "client_id",
+        "redirect_uri"
+      ]
+    },
+    "OAuthConfig": {
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "type": "string"
+        },
+        "client_secret": {
+          "type": "string"
+        },
+        "admin_uri": {
+          "type": "string"
+        },
+        "wechat_uri": {
+          "type": "string"
+        },
+        "redirect_uri": {
+          "type": "string"
+        }
+      },
+      "title": "OAuthConfig",
+      "required": [
+        "client_id",
+        "client_secret",
+        "admin_uri",
+        "wechat_uri",
+        "redirect_uri"
+      ]
+    },
+    "PingResp": {
+      "type": "object",
+      "properties": {
+        "ping": {
+          "type": "string"
+        }
+      },
+      "title": "PingResp",
+      "required": [
+        "ping"
+      ]
+    },
+    "Pivot": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "time_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Pivot",
+      "required": [
+        "applicant_id",
+        "time_id"
+      ]
+    },
+    "PostRemarksReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "title": "PostRemarksReq",
+      "required": [
+        "id",
+        "remark"
+      ]
+    },
+    "PostScoreReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "score": {
+          "type": "number",
+          "format": "float"
+        },
+        "standard_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "evaluation_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EvaluationDetail"
+          }
+        }
+      },
+      "title": "PostScoreReq",
+      "required": [
+        "id",
+        "group",
+        "score",
+        "standard_id",
+        "evaluation_details"
+      ]
+    },
+    "PostTimeConfigReq": {
+      "type": "object",
+      "properties": {
+        "timeConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeConfigItem"
+          }
+        }
+      },
+      "title": "PostTimeConfigReq",
+      "required": [
+        "timeConfigs"
+      ]
+    },
+    "PostTimeConfigResp": {
+      "type": "object",
+      "properties": {
+        "timeConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeConfigItem"
+          }
+        }
+      },
+      "title": "PostTimeConfigResp",
+      "required": [
+        "timeConfigs"
+      ]
+    },
+    "PostUploadReq": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/map[string]string"
+          }
+        }
+      },
+      "title": "PostUploadReq",
+      "required": [
+        "groups",
+        "data"
+      ]
+    },
+    "PushApplicantReq": {
+      "type": "object",
+      "properties": {
+        "roomId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "applicantId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "applicantTimeId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PushApplicantReq",
+      "required": [
+        "roomId",
+        "applicantId",
+        "applicantTimeId"
+      ]
+    },
+    "PushableApplicant": {
+      "type": "object",
+      "properties": {
+        "applicantId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "applicantTimeId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PushableApplicant",
+      "required": [
+        "applicantId",
+        "name",
+        "group",
+        "time",
+        "applicantTimeId"
+      ]
+    },
+    "Question": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "title": "Question",
+      "required": [
+        "id",
+        "group",
+        "question"
+      ]
+    },
+    "QuestionAndAnswer": {
+      "type": "object",
+      "properties": {
+        "questionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        }
+      },
+      "title": "QuestionAndAnswer",
+      "required": [
+        "questionId",
+        "group",
+        "question",
+        "answer"
+      ]
+    },
+    "ReceiveSmsReq": {
+      "type": "object",
+      "properties": {
+        "m": {
+          "type": "string"
+        },
+        "c": {
+          "type": "string"
+        }
+      },
+      "title": "ReceiveSmsReq",
+      "required": [
+        "m",
+        "c"
+      ]
+    },
+    "ReceiveSmsResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ReceiveSmsResp",
+      "required": [
+        "code"
+      ]
+    },
+    "RemarkItem": {
+      "type": "object",
+      "properties": {
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remark": {
+          "type": "string"
+        },
+        "admin_name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "title": "RemarkItem",
+      "required": [
+        "admin_id",
+        "applicant_id",
+        "remark",
+        "admin_name",
+        "updated_at"
+      ]
+    },
+    "RemarksResp": {
+      "type": "object",
+      "properties": {
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remark": {
+          "type": "string"
+        }
+      },
+      "title": "RemarksResp",
+      "required": [
+        "admin_id",
+        "applicant_id",
+        "remark"
+      ]
+    },
+    "Room": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "admins": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "applicant": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "applicantId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updatedBy": {
+          "type": "string"
+        },
+        "interviewerComment": {
+          "type": "string"
+        },
+        "receiverComment": {
+          "type": "string"
+        },
+        "groupLabel": {
+          "type": "string"
+        }
+      },
+      "title": "Room",
+      "required": [
+        "id",
+        "name",
+        "location",
+        "status",
+        "admins",
+        "applicant",
+        "group",
+        "time",
+        "updatedAt",
+        "applicantId",
+        "updatedBy",
+        "interviewerComment",
+        "receiverComment",
+        "groupLabel"
+      ]
+    },
+    "SavedTime": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "location": {
+          "type": "string"
+        },
+        "total_cnt": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "grade": {
+          "type": "string"
+        },
+        "campus": {
+          "type": "string"
+        },
+        "pivot": {
+          "$ref": "#/definitions/Pivot"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "extend": {
+          "$ref": "#/definitions/mapstringinterface"
+        },
+        "applicant_time_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "SavedTime",
+      "required": [
+        "id",
+        "group",
+        "date",
+        "time",
+        "rank",
+        "location",
+        "total_cnt",
+        "grade",
+        "campus",
+        "pivot",
+        "applicant_id",
+        "extend",
+        "applicant_time_id"
+      ]
+    },
+    "Score": {
+      "type": "object",
+      "properties": {
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "score": {
+          "type": "number",
+          "format": "float"
+        },
+        "group": {
+          "type": "string"
+        },
+        "standard_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "evaluation_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EvaluationDetail"
+          }
+        },
+        "admin": {
+          "$ref": "#/definitions/ScoresAdmin"
+        }
+      },
+      "title": "Score",
+      "required": [
+        "admin_id",
+        "applicant_id",
+        "score",
+        "group",
+        "standard_id",
+        "evaluation_details",
+        "admin"
+      ]
+    },
+    "ScoreItem": {
+      "type": "object",
+      "properties": {
+        "admin_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "score": {
+          "type": "number",
+          "format": "float"
+        },
+        "group": {
+          "type": "string"
+        },
+        "standard_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "evaluation_details": {
+          "type": "string"
+        },
+        "admin": {
+          "$ref": "#/definitions/Admin"
+        }
+      },
+      "title": "ScoreItem",
+      "required": [
+        "admin_id",
+        "applicant_id",
+        "score",
+        "group",
+        "standard_id",
+        "evaluation_details",
+        "admin"
+      ]
+    },
+    "ScoresAdmin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "default_standard_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ScoresAdmin",
+      "required": [
+        "id",
+        "name",
+        "default_standard_id"
+      ]
+    },
+    "SendSmsReq": {
+      "type": "object",
+      "properties": {
+        "typ": {
+          "type": "string"
+        },
+        "applicantIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "SendSmsReq",
+      "required": [
+        "typ",
+        "applicantIds"
+      ]
+    },
+    "SetApplicantTimeExtendReq": {
+      "type": "object",
+      "properties": {
+        "applicant_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "extend": {
+          "$ref": "#/definitions/mapstringinterface"
+        }
+      },
+      "title": "SetApplicantTimeExtendReq",
+      "required": [
+        "applicant_id",
+        "group",
+        "extend"
+      ]
+    },
+    "SetConfigReq": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "SetConfigReq",
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "SetConfigResp": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "SetConfigResp",
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "SetDefaultStandardReq": {
+      "type": "object",
+      "properties": {
+        "standard_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "SetDefaultStandardReq",
+      "required": [
+        "standard_id"
+      ]
+    },
+    "SetMyRoomReq": {
+      "type": "object",
+      "properties": {
+        "roomId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "SetMyRoomReq",
+      "required": [
+        "roomId"
+      ]
+    },
+    "SetRoomCommentReq": {
+      "type": "object",
+      "properties": {
+        "roomId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "comment": {
+          "type": "string"
+        }
+      },
+      "title": "SetRoomCommentReq",
+      "required": [
+        "roomId",
+        "type",
+        "comment"
+      ]
+    },
+    "SetRoomGroupReq": {
+      "type": "object",
+      "properties": {
+        "roomId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "SetRoomGroupReq",
+      "required": [
+        "roomId"
+      ]
+    },
+    "SetRoomStatusReq": {
+      "type": "object",
+      "properties": {
+        "roomId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "SetRoomStatusReq",
+      "required": [
+        "roomId",
+        "status"
+      ]
+    },
+    "Standard": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Standard",
+      "required": [
+        "name",
+        "weight"
+      ]
+    },
+    "StatisticsItem": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "string"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "StatisticsItem",
+      "required": [
+        "group",
+        "count"
+      ]
+    },
+    "TimeConfigItem": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "TimeConfigItem",
+      "required": [
+        "key",
+        "value"
+      ]
+    },
+    "TimeTableItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        }
+      },
+      "title": "TimeTableItem",
+      "required": [
+        "id",
+        "name",
+        "start",
+        "end",
+        "color",
+        "category"
+      ]
+    },
+    "UpdateEvaluationReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "standard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Standard"
+          }
+        }
+      },
+      "title": "UpdateEvaluationReq",
+      "required": [
+        "id",
+        "name",
+        "standard"
+      ]
+    },
+    "UpdateEvaluationResp": {
+      "type": "object",
+      "properties": {
+        "evaluation_standard": {
+          "$ref": "#/definitions/EvaluationStandard"
+        }
+      },
+      "title": "UpdateEvaluationResp",
+      "required": [
+        "evaluation_standard"
+      ]
+    },
+    "UpdateExamReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "group": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateExamReq",
+      "required": [
+        "id",
+        "group",
+        "question"
+      ]
+    },
+    "UpdateExamResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateExamResp",
+      "required": [
+        "id"
+      ]
+    },
+    "Url": {
+      "type": "object",
+      "properties": {
+        "base_uri": {
+          "type": "string"
+        },
+        "admin_uri": {
+          "type": "string"
+        },
+        "wechat_uri": {
+          "type": "string"
+        }
+      },
+      "title": "Url",
+      "required": [
+        "base_uri",
+        "admin_uri",
+        "wechat_uri"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

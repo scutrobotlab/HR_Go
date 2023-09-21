@@ -1,0 +1,56 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	GetConfigReq {
+		Key string `path:"key"`
+	}
+
+	GetConfigResp {
+		Key string `json:"key"`
+		Value string `json:"value"`
+	}
+
+	SetConfigReq {
+		Key string `path:"key"`
+		Value string `form:"value"`
+	}
+
+	SetConfigResp {
+		Key string `json:"key"`
+		Value string `json:"value"`
+	}
+
+	GetSmsServiceConfigResp {
+		Debug bool `json:"debug"`
+		Enabled bool `json:"enabled"`
+		SendUrl string `json:"sendUrl"`
+		UserName string `json:"userName"`
+	}
+)
+
+@server(
+	prefix: /api/admin/config
+	group: config
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取配置"
+	@handler GetConfig
+	get /key/:key (GetConfigReq) returns (GetConfigResp)
+
+	@doc "设置配置"
+	@handler SetConfig
+	post /key/:key (SetConfigReq) returns (SetConfigResp)
+
+	@doc "获取短信服务配置"
+	@handler GetSmsServiceConfig
+	get /sms-service returns (GetSmsServiceConfigResp)
+}

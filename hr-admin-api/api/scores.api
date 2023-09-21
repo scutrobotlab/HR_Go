@@ -1,0 +1,96 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+type (
+	GetScoreReq {
+		Id int64 `path:"id"`
+		Group string `form:"group"`
+	}
+
+	ScoresAdmin {
+		Id int64 `json:"id"`
+		Name string `json:"name"`
+		DefaultStandardId int64 `json:"default_standard_id"`
+	}
+
+	EvaluationDetail {
+		Name string `json:"name"`
+		Weight int32 `json:"weight"`
+		Score float32 `json:"score"`
+	}
+
+	Score {
+		AdminId int64 `json:"admin_id"`
+		ApplicantId int64 `json:"applicant_id"`
+		Score float32 `json:"score"`
+		Group string `json:"group"`
+		StandardId int64 `json:"standard_id"`
+		EvaluationDetails []EvaluationDetail `json:"evaluation_details"`
+		Admin ScoresAdmin `json:"admin"`
+	}
+
+	PostScoreReq {
+		Id int64 `path:"id"`
+		Group string `json:"group"`
+		Score float32 `json:"score"`
+		StandardId int64 `json:"standard_id"`
+		EvaluationDetails []EvaluationDetail `json:"evaluation_details"`
+	}
+
+	DeleteScoreReq {
+		Id int64 `path:"id"`
+		Group string `form:"group"`
+	}
+
+	DeleteScoreResp {
+	}
+)
+
+@server(
+	prefix: /api/admin/scores
+	group: scores
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取面试者评分"
+	@handler GetScores
+	get /:id (GetScoreReq) returns (Score)
+
+	@doc "提交面试者评分"
+	@handler PostScore
+	post /:id (PostScoreReq) returns (Score)
+
+	@doc "删除面试者评分"
+	@handler DeleteScore
+	delete /:id (DeleteScoreReq) returns (DeleteScoreResp)
+}
+
+type (
+	GetRankReq {
+		Group string `path:"group"`
+		Id int64 `path:"id"`
+	}
+
+	GetRankResp {
+		Rank int32 `json:"rank"`
+		Total int32 `json:"total"`
+	}
+)
+
+@server(
+	prefix: /api/admin/rank
+	group: scores
+	jwt: Auth
+)
+service hr-admin {
+	@doc "获取面试者排名"
+	@handler GetRank
+	get /:group/:id (GetRankReq) returns (GetRankResp)
+}

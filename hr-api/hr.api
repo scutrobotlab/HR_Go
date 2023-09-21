@@ -1,0 +1,28 @@
+syntax = "v1"
+
+info(
+	title: "Human Resource"
+	desc: "华南虎面试系统"
+	author: "22-信息-常霆钰"
+	email: "1067088037@qq.com"
+	version: "v1"
+)
+
+import "api/announce.api"
+import "api/exam.api"
+import "api/form.api"
+import "api/joinus.api"
+import "api/timeconfig.api"
+
+type PingResp {
+	Ping string `json:"ping"`
+}
+
+@server(
+	prefix : /api
+)
+service hr {
+	@doc "Ping"
+	@handler Ping
+	get /ping returns (PingResp)
+}

@@ -1,0 +1,54 @@
+version: "2"
+networks:
+  hr:
+    external: true
+services:
+  hr-admin-service:
+    image: scutrobotlab/hr-admin-service:latest
+    restart: always
+    volumes:
+      - ./config/hr-admin-service.yaml:/app/etc/config.yaml
+      - ./config/common.yaml:/app/etc/common.yaml
+    environment:
+      - COMMON_CONFIG_PATH=/app/etc/common.yaml
+    networks:
+      - hr
+  hr-service:
+    image: scutrobotlab/hr-service:latest
+    restart: always
+    volumes:
+      - ./config/hr-service.yaml:/app/etc/config.yaml
+      - ./config/common.yaml:/app/etc/common.yaml
+    environment:
+      - COMMON_CONFIG_PATH=/app/etc/common.yaml
+    networks:
+      - hr
+  hr-api:
+    image: scutrobotlab/hr-api:latest
+    restart: always
+    volumes:
+      - ./config/hr-api.yaml:/app/etc/config.yaml
+      - ./config/common.yaml:/app/etc/common.yaml
+    environment:
+      - COMMON_CONFIG_PATH=/app/etc/common.yaml
+    networks:
+      - hr
+  hr-admin-api:
+    image: scutrobotlab/hr-admin-api:latest
+    restart: always
+    volumes:
+      - ./config/hr-admin-api.yaml:/app/etc/config.yaml
+      - ./config/common.yaml:/app/etc/common.yaml
+    environment:
+      - COMMON_CONFIG_PATH=/app/etc/common.yaml
+    networks:
+      - hr
+  hr-front:
+    image: scutrobotlab/hr-front:latest
+    restart: always
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - hr
+    ports:
+      - "8000:80"

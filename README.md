@@ -1,5 +1,7 @@
 # 华南虎面试系统后端
 
+使用说明和技术实现见Wiki
+
 ## 前端请访问 [HR_Frontend](https://github.com/scutrobotlab/HR_Frontend)
 
 ## 官方 Demo
@@ -51,13 +53,9 @@ https://hr-demo.scutbot.cn/admin
 
 ![面试系统交流群](assets/面试系统交流群.png)
 
-## 使用说明
+## [使用说明 Wiki](https://github.com/scutrobotlab/HR_Go/wiki/使用说明)
 
-请阅读[使用说明](https://github.com/scutrobotlab/HR_Go/wiki/使用说明)
-
-## 技术实现
-
-请阅读[技术实现](https://github.com/scutrobotlab/HR_Go/wiki/技术实现)
+## [技术实现 Wiki](https://github.com/scutrobotlab/HR_Go/wiki/技术实现)
 
 ## 迭代历程
 

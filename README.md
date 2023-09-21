@@ -89,7 +89,7 @@ https://hr-demo.scutbot.cn/admin
 
 林钜聪 @dnomd343
 
-罗柴文 @WintBit
+罗棨文 @WintBit
 
 陈俊达 @ChenJD
 

@@ -37,13 +37,15 @@ https://hr-demo.scutbot.cn/admin
 
 [华南虎面试系统介绍演示_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1DC4y1f7Fh)
 
-**完整介绍视频** 截止2023年9月21日 播放量达到 8700
+截止2023年9月21日 播放量达到 8700 位列“华工机器人实验室”B站账号第三名
 
-位列“华工机器人实验室”B站账号第三名
+![55cd141f9679755a3d298ce15d5d45850886f82a](assets/55cd141f9679755a3d298ce15d5d45850886f82a.jpg)
 
 [RMU 2024  招新专题课程沙龙 01：华南理工大学 招新数据的收集与使用_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Gh4y1Y73x)
 
 **RoboMaster赛务君** 邀请华南虎直播的招新课程沙龙
+
+![609f41af717bbcc4e0287dde2f978ceb0551c2f7](assets/609f41af717bbcc4e0287dde2f978ceb0551c2f7.jpg)
 
 ## 官方交流群
 

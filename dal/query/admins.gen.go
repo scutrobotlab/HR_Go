@@ -46,15 +46,15 @@ type admin struct {
 	adminDo
 
 	ALL               field.Asterisk
-	ID                field.Int64  // ID
+	ID                field.Int64
 	Name              field.String // 管理员姓名
 	DefaultStandardID field.Int64  // 默认评分标准ID
 	Profile           field.String // 管理员信息
 	SmsEnabled        field.Bool   // 是否开启短信
 	RoomID            field.Int64  // 房间ID
-	DeletedAt         field.Field  // 删除时间
-	CreatedAt         field.Time   // 创建时间
-	UpdatedAt         field.Time   // 更新时间
+	DeletedAt         field.Field
+	CreatedAt         field.Time
+	UpdatedAt         field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -223,10 +223,6 @@ func (a adminDo) Select(conds ...field.Expr) IAdminDo {
 
 func (a adminDo) Where(conds ...gen.Condition) IAdminDo {
 	return a.withDO(a.DO.Where(conds...))
-}
-
-func (a adminDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IAdminDo {
-	return a.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (a adminDo) Order(conds ...field.Expr) IAdminDo {

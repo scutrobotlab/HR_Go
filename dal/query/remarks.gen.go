@@ -44,13 +44,13 @@ type remark struct {
 	remarkDo
 
 	ALL         field.Asterisk
-	ID          field.Int64  // ID
+	ID          field.Int64
 	AdminID     field.Int64  // 管理员ID
 	ApplicantID field.Int64  // 申请ID
 	Remark      field.String // 评价
-	DeletedAt   field.Field  // 删除时间
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
+	DeletedAt   field.Field
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -215,10 +215,6 @@ func (r remarkDo) Select(conds ...field.Expr) IRemarkDo {
 
 func (r remarkDo) Where(conds ...gen.Condition) IRemarkDo {
 	return r.withDO(r.DO.Where(conds...))
-}
-
-func (r remarkDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IRemarkDo {
-	return r.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (r remarkDo) Order(conds ...field.Expr) IRemarkDo {

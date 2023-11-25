@@ -12,8 +12,8 @@ const TableNameTimeConfig = "time_configs"
 
 // TimeConfig mapped from table <time_configs>
 type TimeConfig struct {
-	Key   string    `gorm:"column:key;primaryKey;comment:键" json:"key"`
-	Value time.Time `gorm:"column:value;not null;default:CURRENT_TIMESTAMP;comment:值" json:"value"`
+	Key   string    `gorm:"column:key;primaryKey;comment:键" json:"key"`   // 键
+	Value time.Time `gorm:"column:value;not null;comment:值" json:"value"` // 值
 }
 
 // TableName TimeConfig's table name

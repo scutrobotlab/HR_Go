@@ -14,13 +14,13 @@ const TableNameAdmit = "admits"
 
 // Admit mapped from table <admits>
 type Admit struct {
-	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true;comment:ID" json:"id"`
-	Group_      string         `gorm:"column:group;not null;comment:录取组别" json:"group"`
-	AdminID     int64          `gorm:"column:admin_id;not null;comment:操作录取的管理员" json:"admin_id"`
-	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"`
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deleted_at"`
-	CreatedAt   time.Time      `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"updated_at"`
+	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
+	Group_      string         `gorm:"column:group;not null;comment:录取组别" json:"group"`               // 录取组别
+	AdminID     int64          `gorm:"column:admin_id;not null;comment:操作录取的管理员" json:"admin_id"`     // 操作录取的管理员
+	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"` // 申请ID
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
 }
 
 // TableName Admit's table name

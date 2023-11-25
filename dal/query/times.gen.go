@@ -49,7 +49,7 @@ type time struct {
 	timeDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ID
+	ID        field.Int64
 	Group_    field.String // 组别
 	Time      field.Time   // 时间
 	Rank      field.Int32  // 顺序
@@ -58,9 +58,9 @@ type time struct {
 	Campus    field.String // 校区
 	Grade     field.String // 年级
 	MeetingID field.String // 会议ID
-	DeletedAt field.Field  // 删除时间
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	DeletedAt field.Field
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -235,10 +235,6 @@ func (t timeDo) Select(conds ...field.Expr) ITimeDo {
 
 func (t timeDo) Where(conds ...gen.Condition) ITimeDo {
 	return t.withDO(t.DO.Where(conds...))
-}
-
-func (t timeDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) ITimeDo {
-	return t.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (t timeDo) Order(conds ...field.Expr) ITimeDo {

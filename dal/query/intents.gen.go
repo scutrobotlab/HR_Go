@@ -45,14 +45,14 @@ type intent struct {
 	intentDo
 
 	ALL         field.Asterisk
-	ID          field.Int64  // ID
+	ID          field.Int64
 	Rank        field.Int32  // 意愿顺序
 	Group_      field.String // 意愿组别
 	Parallel    field.Bool   // 是否平行志愿
 	ApplicantID field.Int64  // 申请ID
-	DeletedAt   field.Field  // 删除时间
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
+	DeletedAt   field.Field
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -219,10 +219,6 @@ func (i intentDo) Select(conds ...field.Expr) IIntentDo {
 
 func (i intentDo) Where(conds ...gen.Condition) IIntentDo {
 	return i.withDO(i.DO.Where(conds...))
-}
-
-func (i intentDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IIntentDo {
-	return i.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (i intentDo) Order(conds ...field.Expr) IIntentDo {

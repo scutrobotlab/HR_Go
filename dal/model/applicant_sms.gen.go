@@ -14,16 +14,16 @@ const TableNameApplicantSm = "applicant_sms"
 
 // ApplicantSm mapped from table <applicant_sms>
 type ApplicantSm struct {
-	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true;comment:ID" json:"id"`
-	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请者ID" json:"applicant_id"`
-	Typ         string         `gorm:"column:typ;not null;comment:类型" json:"typ"`
-	Status      int32          `gorm:"column:status;not null;comment:状态" json:"status"`
-	Args        string         `gorm:"column:args;not null;comment:变量" json:"args"`
-	Content     string         `gorm:"column:content;not null;comment:内容" json:"content"`
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deleted_at"`
-	CreatedAt   time.Time      `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"updated_at"`
-	CreatedBy   int64          `gorm:"column:created_by;not null;comment:创建者" json:"created_by"`
+	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
+	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请者ID" json:"applicant_id"` // 申请者ID
+	Typ         string         `gorm:"column:typ;not null;comment:类型" json:"typ"`                      // 类型
+	Status      int32          `gorm:"column:status;not null;comment:状态" json:"status"`                // 状态
+	Args        string         `gorm:"column:args;not null;comment:变量" json:"args"`                    // 变量
+	Content     string         `gorm:"column:content;not null;comment:内容" json:"content"`              // 内容
+	CreatedBy   int64          `gorm:"column:created_by;not null;comment:创建者" json:"created_by"`       // 创建者
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
 }
 
 // TableName ApplicantSm's table name

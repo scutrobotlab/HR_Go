@@ -29,7 +29,6 @@ var (
 	Form               *form
 	Guide              *guide
 	Intent             *intent
-	Migration          *migration
 	Question           *question
 	ReceiveSm          *receiveSm
 	Remark             *remark
@@ -53,7 +52,6 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	Form = &Q.Form
 	Guide = &Q.Guide
 	Intent = &Q.Intent
-	Migration = &Q.Migration
 	Question = &Q.Question
 	ReceiveSm = &Q.ReceiveSm
 	Remark = &Q.Remark
@@ -78,7 +76,6 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		Form:               newForm(db, opts...),
 		Guide:              newGuide(db, opts...),
 		Intent:             newIntent(db, opts...),
-		Migration:          newMigration(db, opts...),
 		Question:           newQuestion(db, opts...),
 		ReceiveSm:          newReceiveSm(db, opts...),
 		Remark:             newRemark(db, opts...),
@@ -104,7 +101,6 @@ type Query struct {
 	Form               form
 	Guide              guide
 	Intent             intent
-	Migration          migration
 	Question           question
 	ReceiveSm          receiveSm
 	Remark             remark
@@ -131,7 +127,6 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		Form:               q.Form.clone(db),
 		Guide:              q.Guide.clone(db),
 		Intent:             q.Intent.clone(db),
-		Migration:          q.Migration.clone(db),
 		Question:           q.Question.clone(db),
 		ReceiveSm:          q.ReceiveSm.clone(db),
 		Remark:             q.Remark.clone(db),
@@ -165,7 +160,6 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		Form:               q.Form.replaceDB(db),
 		Guide:              q.Guide.replaceDB(db),
 		Intent:             q.Intent.replaceDB(db),
-		Migration:          q.Migration.replaceDB(db),
 		Question:           q.Question.replaceDB(db),
 		ReceiveSm:          q.ReceiveSm.replaceDB(db),
 		Remark:             q.Remark.replaceDB(db),
@@ -189,7 +183,6 @@ type queryCtx struct {
 	Form               IFormDo
 	Guide              IGuideDo
 	Intent             IIntentDo
-	Migration          IMigrationDo
 	Question           IQuestionDo
 	ReceiveSm          IReceiveSmDo
 	Remark             IRemarkDo
@@ -213,7 +206,6 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		Form:               q.Form.WithContext(ctx),
 		Guide:              q.Guide.WithContext(ctx),
 		Intent:             q.Intent.WithContext(ctx),
-		Migration:          q.Migration.WithContext(ctx),
 		Question:           q.Question.WithContext(ctx),
 		ReceiveSm:          q.ReceiveSm.WithContext(ctx),
 		Remark:             q.Remark.WithContext(ctx),

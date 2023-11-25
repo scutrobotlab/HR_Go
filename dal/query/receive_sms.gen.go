@@ -43,12 +43,12 @@ type receiveSm struct {
 	receiveSmDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ID
+	ID        field.Int64
 	Phone     field.String // 手机号码
 	Content   field.String // 内容
-	DeletedAt field.Field  // 删除时间
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	DeletedAt field.Field
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -211,10 +211,6 @@ func (r receiveSmDo) Select(conds ...field.Expr) IReceiveSmDo {
 
 func (r receiveSmDo) Where(conds ...gen.Condition) IReceiveSmDo {
 	return r.withDO(r.DO.Where(conds...))
-}
-
-func (r receiveSmDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IReceiveSmDo {
-	return r.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (r receiveSmDo) Order(conds ...field.Expr) IReceiveSmDo {

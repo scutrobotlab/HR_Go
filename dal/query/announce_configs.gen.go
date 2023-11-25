@@ -40,7 +40,7 @@ type announceConfig struct {
 	announceConfigDo
 
 	ALL    field.Asterisk
-	ID     field.Int64  // ID
+	ID     field.Int64
 	Status field.String // 状态名称
 	Body   field.String // 状态内容
 
@@ -199,10 +199,6 @@ func (a announceConfigDo) Select(conds ...field.Expr) IAnnounceConfigDo {
 
 func (a announceConfigDo) Where(conds ...gen.Condition) IAnnounceConfigDo {
 	return a.withDO(a.DO.Where(conds...))
-}
-
-func (a announceConfigDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IAnnounceConfigDo {
-	return a.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (a announceConfigDo) Order(conds ...field.Expr) IAnnounceConfigDo {

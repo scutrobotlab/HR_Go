@@ -33,10 +33,10 @@ func newApplicantSm(db *gorm.DB, opts ...gen.DOOption) applicantSm {
 	_applicantSm.Status = field.NewInt32(tableName, "status")
 	_applicantSm.Args = field.NewString(tableName, "args")
 	_applicantSm.Content = field.NewString(tableName, "content")
+	_applicantSm.CreatedBy = field.NewInt64(tableName, "created_by")
 	_applicantSm.DeletedAt = field.NewField(tableName, "deleted_at")
 	_applicantSm.CreatedAt = field.NewTime(tableName, "created_at")
 	_applicantSm.UpdatedAt = field.NewTime(tableName, "updated_at")
-	_applicantSm.CreatedBy = field.NewInt64(tableName, "created_by")
 
 	_applicantSm.fillFieldMap()
 
@@ -47,16 +47,16 @@ type applicantSm struct {
 	applicantSmDo
 
 	ALL         field.Asterisk
-	ID          field.Int64  // ID
+	ID          field.Int64
 	ApplicantID field.Int64  // 申请者ID
 	Typ         field.String // 类型
 	Status      field.Int32  // 状态
 	Args        field.String // 变量
 	Content     field.String // 内容
-	DeletedAt   field.Field  // 删除时间
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
 	CreatedBy   field.Int64  // 创建者
+	DeletedAt   field.Field
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -79,10 +79,10 @@ func (a *applicantSm) updateTableName(table string) *applicantSm {
 	a.Status = field.NewInt32(table, "status")
 	a.Args = field.NewString(table, "args")
 	a.Content = field.NewString(table, "content")
+	a.CreatedBy = field.NewInt64(table, "created_by")
 	a.DeletedAt = field.NewField(table, "deleted_at")
 	a.CreatedAt = field.NewTime(table, "created_at")
 	a.UpdatedAt = field.NewTime(table, "updated_at")
-	a.CreatedBy = field.NewInt64(table, "created_by")
 
 	a.fillFieldMap()
 
@@ -106,10 +106,10 @@ func (a *applicantSm) fillFieldMap() {
 	a.fieldMap["status"] = a.Status
 	a.fieldMap["args"] = a.Args
 	a.fieldMap["content"] = a.Content
+	a.fieldMap["created_by"] = a.CreatedBy
 	a.fieldMap["deleted_at"] = a.DeletedAt
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["updated_at"] = a.UpdatedAt
-	a.fieldMap["created_by"] = a.CreatedBy
 }
 
 func (a applicantSm) clone(db *gorm.DB) applicantSm {
@@ -227,10 +227,6 @@ func (a applicantSmDo) Select(conds ...field.Expr) IApplicantSmDo {
 
 func (a applicantSmDo) Where(conds ...gen.Condition) IApplicantSmDo {
 	return a.withDO(a.DO.Where(conds...))
-}
-
-func (a applicantSmDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IApplicantSmDo {
-	return a.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (a applicantSmDo) Order(conds ...field.Expr) IApplicantSmDo {

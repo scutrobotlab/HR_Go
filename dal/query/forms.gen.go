@@ -48,7 +48,7 @@ type form struct {
 	formDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ID
+	ID        field.Int64
 	Name      field.String // 显示名称
 	Key       field.String // 存储键
 	Type      field.String // 表单类型 {text-field,select,textarea}
@@ -56,9 +56,9 @@ type form struct {
 	Options   field.String // 选项列表（若type=select）
 	Regexp    field.String // 正则校验
 	MaxLength field.Int32  // 最大长度
-	DeletedAt field.Field  // 删除时间
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	DeletedAt field.Field
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -231,10 +231,6 @@ func (f formDo) Select(conds ...field.Expr) IFormDo {
 
 func (f formDo) Where(conds ...gen.Condition) IFormDo {
 	return f.withDO(f.DO.Where(conds...))
-}
-
-func (f formDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IFormDo {
-	return f.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (f formDo) Order(conds ...field.Expr) IFormDo {

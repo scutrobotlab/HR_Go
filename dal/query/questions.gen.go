@@ -43,12 +43,12 @@ type question struct {
 	questionDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ID
+	ID        field.Int64
 	Question  field.String // 问题内容
 	Group_    field.String // 问题所属组别
-	DeletedAt field.Field  // 删除时间
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	DeletedAt field.Field
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -211,10 +211,6 @@ func (q questionDo) Select(conds ...field.Expr) IQuestionDo {
 
 func (q questionDo) Where(conds ...gen.Condition) IQuestionDo {
 	return q.withDO(q.DO.Where(conds...))
-}
-
-func (q questionDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IQuestionDo {
-	return q.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (q questionDo) Order(conds ...field.Expr) IQuestionDo {

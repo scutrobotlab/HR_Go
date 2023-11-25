@@ -14,16 +14,16 @@ const TableNameScore = "scores"
 
 // Score mapped from table <scores>
 type Score struct {
-	ID                int64          `gorm:"column:id;primaryKey;autoIncrement:true;comment:ID" json:"id"`
-	AdminID           int64          `gorm:"column:admin_id;not null;comment:管理员ID" json:"admin_id"`
-	ApplicantID       int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"`
-	Group_            string         `gorm:"column:group;not null;comment:组别" json:"group"`
-	Score             float64        `gorm:"column:score;not null;default:0.00;comment:打分" json:"score"`
-	StandardID        int64          `gorm:"column:standard_id;comment:打分标准" json:"standard_id"`
-	EvaluationDetails string         `gorm:"column:evaluation_details;comment:评价详情" json:"evaluation_details"`
-	DeletedAt         gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deleted_at"`
-	CreatedAt         time.Time      `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"created_at"`
-	UpdatedAt         time.Time      `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"updated_at"`
+	ID                int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
+	AdminID           int64          `gorm:"column:admin_id;not null;comment:管理员ID" json:"admin_id"`           // 管理员ID
+	ApplicantID       int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"`    // 申请ID
+	Group_            string         `gorm:"column:group;not null;comment:组别" json:"group"`                    // 组别
+	Score             float64        `gorm:"column:score;not null;comment:打分" json:"score"`                    // 打分
+	StandardID        int64          `gorm:"column:standard_id;comment:打分标准" json:"standard_id"`               // 打分标准
+	EvaluationDetails string         `gorm:"column:evaluation_details;comment:评价详情" json:"evaluation_details"` // 评价详情
+	DeletedAt         gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt         time.Time      `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt         time.Time      `gorm:"column:updated_at" json:"updated_at"`
 }
 
 // TableName Score's table name

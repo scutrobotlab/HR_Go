@@ -32,6 +32,11 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		os.Exit(1)
 		return nil
 	}
+	err = common.AutoMigrate(db)
+	if err != nil {
+		logx.Error("gorm auto migrate error", err)
+		return nil
+	}
 	commonConf, err := common.GetConfig("../common/config.yaml")
 	if err != nil {
 		logx.Error("common config load error", err)
@@ -56,6 +61,11 @@ func NewServiceContext4Test(c config.Config) *ServiceContext {
 		Logger: getGormLogger(logger.Info),
 	})
 	if err != nil {
+		return nil
+	}
+	err = common.AutoMigrate(db)
+	if err != nil {
+		logx.Error("gorm auto migrate error", err)
 		return nil
 	}
 	commonConf, err := common.GetConfig("../../../common/config.yaml")

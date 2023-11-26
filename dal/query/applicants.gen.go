@@ -35,6 +35,7 @@ func newApplicant(db *gorm.DB, opts ...gen.DOOption) applicant {
 	_applicant.Avatar = field.NewString(tableName, "avatar")
 	_applicant.Profile = field.NewString(tableName, "profile")
 	_applicant.Form = field.NewString(tableName, "form")
+	_applicant.Password = field.NewString(tableName, "password")
 	_applicant.DeletedAt = field.NewField(tableName, "deleted_at")
 	_applicant.CreatedAt = field.NewTime(tableName, "created_at")
 	_applicant.UpdatedAt = field.NewTime(tableName, "updated_at")
@@ -56,6 +57,7 @@ type applicant struct {
 	Avatar    field.String // 头像URL
 	Profile   field.String // 微信简介
 	Form      field.String // 申请表单
+	Password  field.String // 密码
 	DeletedAt field.Field
 	CreatedAt field.Time
 	UpdatedAt field.Time
@@ -83,6 +85,7 @@ func (a *applicant) updateTableName(table string) *applicant {
 	a.Avatar = field.NewString(table, "avatar")
 	a.Profile = field.NewString(table, "profile")
 	a.Form = field.NewString(table, "form")
+	a.Password = field.NewString(table, "password")
 	a.DeletedAt = field.NewField(table, "deleted_at")
 	a.CreatedAt = field.NewTime(table, "created_at")
 	a.UpdatedAt = field.NewTime(table, "updated_at")
@@ -102,7 +105,7 @@ func (a *applicant) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *applicant) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 11)
+	a.fieldMap = make(map[string]field.Expr, 12)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["wechat_id"] = a.WechatID
 	a.fieldMap["name"] = a.Name
@@ -111,6 +114,7 @@ func (a *applicant) fillFieldMap() {
 	a.fieldMap["avatar"] = a.Avatar
 	a.fieldMap["profile"] = a.Profile
 	a.fieldMap["form"] = a.Form
+	a.fieldMap["password"] = a.Password
 	a.fieldMap["deleted_at"] = a.DeletedAt
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["updated_at"] = a.UpdatedAt

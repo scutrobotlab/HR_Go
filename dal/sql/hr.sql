@@ -4,14 +4,18 @@ create table hr.admins
 (
     id                  bigint auto_increment
         primary key,
-    name                varchar(32) not null comment '管理员姓名',
-    default_standard_id bigint      null comment '默认评分标准ID',
-    profile             json        null comment '管理员信息',
-    sms_enabled         tinyint(1)  not null comment '是否开启短信',
-    room_id             bigint      not null comment '房间ID',
-    deleted_at          datetime(3) null,
-    created_at          datetime(3) null,
-    updated_at          datetime(3) null
+    name                varchar(32)  not null comment '管理员姓名',
+    default_standard_id bigint       null comment '默认评分标准ID',
+    profile             json         null comment '管理员信息',
+    sms_enabled         tinyint(1)   not null comment '是否开启短信',
+    room_id             bigint       not null comment '房间ID',
+    password            varchar(128) null comment '密码',
+    `groups`            json         null comment '组别',
+    deleted_at          datetime(3)  null,
+    created_at          datetime(3)  null,
+    updated_at          datetime(3)  null,
+    constraint admins_name_unique
+        unique (name)
 );
 
 create table hr.admits
@@ -97,6 +101,7 @@ create table hr.applicants
     avatar     varchar(255) not null comment '头像URL',
     profile    json         not null comment '微信简介',
     form       json         not null comment '申请表单',
+    password   varchar(64)  null comment '密码',
     deleted_at datetime(3)  null,
     created_at datetime(3)  null,
     updated_at datetime(3)  null,

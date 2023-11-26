@@ -22,6 +22,7 @@ type Applicant struct {
 	Avatar    string         `gorm:"column:avatar;type:varchar(255);not null;comment:头像URL" json:"avatar"`                                                            // 头像URL
 	Profile   string         `gorm:"column:profile;type:json;not null;comment:微信简介" json:"profile"`                                                                   // 微信简介
 	Form      string         `gorm:"column:form;type:json;not null;comment:申请表单" json:"form"`                                                                         // 申请表单
+	Password  string         `gorm:"column:password;type:varchar(64);comment:密码" json:"password"`                                                                     // 密码
 	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
 	CreatedAt time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
 	UpdatedAt time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`

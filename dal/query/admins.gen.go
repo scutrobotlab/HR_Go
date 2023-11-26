@@ -33,6 +33,8 @@ func newAdmin(db *gorm.DB, opts ...gen.DOOption) admin {
 	_admin.Profile = field.NewString(tableName, "profile")
 	_admin.SmsEnabled = field.NewBool(tableName, "sms_enabled")
 	_admin.RoomID = field.NewInt64(tableName, "room_id")
+	_admin.Password = field.NewString(tableName, "password")
+	_admin.Groups = field.NewString(tableName, "groups")
 	_admin.DeletedAt = field.NewField(tableName, "deleted_at")
 	_admin.CreatedAt = field.NewTime(tableName, "created_at")
 	_admin.UpdatedAt = field.NewTime(tableName, "updated_at")
@@ -52,6 +54,8 @@ type admin struct {
 	Profile           field.String // 管理员信息
 	SmsEnabled        field.Bool   // 是否开启短信
 	RoomID            field.Int64  // 房间ID
+	Password          field.String // 密码
+	Groups            field.String // 组别
 	DeletedAt         field.Field
 	CreatedAt         field.Time
 	UpdatedAt         field.Time
@@ -77,6 +81,8 @@ func (a *admin) updateTableName(table string) *admin {
 	a.Profile = field.NewString(table, "profile")
 	a.SmsEnabled = field.NewBool(table, "sms_enabled")
 	a.RoomID = field.NewInt64(table, "room_id")
+	a.Password = field.NewString(table, "password")
+	a.Groups = field.NewString(table, "groups")
 	a.DeletedAt = field.NewField(table, "deleted_at")
 	a.CreatedAt = field.NewTime(table, "created_at")
 	a.UpdatedAt = field.NewTime(table, "updated_at")
@@ -96,13 +102,15 @@ func (a *admin) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *admin) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 9)
+	a.fieldMap = make(map[string]field.Expr, 11)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["name"] = a.Name
 	a.fieldMap["default_standard_id"] = a.DefaultStandardID
 	a.fieldMap["profile"] = a.Profile
 	a.fieldMap["sms_enabled"] = a.SmsEnabled
 	a.fieldMap["room_id"] = a.RoomID
+	a.fieldMap["password"] = a.Password
+	a.fieldMap["groups"] = a.Groups
 	a.fieldMap["deleted_at"] = a.DeletedAt
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["updated_at"] = a.UpdatedAt

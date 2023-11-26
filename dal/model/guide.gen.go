@@ -14,12 +14,12 @@ const TableNameGuide = "guide"
 
 // Guide mapped from table <guide>
 type Guide struct {
-	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	Group_    string         `gorm:"column:group;not null;comment:组别" json:"group"` // 组别
-	Guide     string         `gorm:"column:guide;not null;comment:指南" json:"guide"` // 指南
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID        int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	Group_    string         `gorm:"column:group;type:varchar(32);not null;uniqueIndex:guide_group_unique,priority:1;comment:组别" json:"group"` // 组别
+	Guide     string         `gorm:"column:guide;type:json;not null;comment:指南" json:"guide"`                                                  // 指南
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Guide's table name

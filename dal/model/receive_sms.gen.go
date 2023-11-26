@@ -14,12 +14,12 @@ const TableNameReceiveSm = "receive_sms"
 
 // ReceiveSm mapped from table <receive_sms>
 type ReceiveSm struct {
-	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	Phone     string         `gorm:"column:phone;not null;comment:手机号码" json:"phone"`   // 手机号码
-	Content   string         `gorm:"column:content;not null;comment:内容" json:"content"` // 内容
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID        int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	Phone     string         `gorm:"column:phone;type:varchar(16);not null;index:receive_sms_phone_index,priority:1;comment:手机号码" json:"phone"` // 手机号码
+	Content   string         `gorm:"column:content;type:text;not null;comment:内容" json:"content"`                                               // 内容
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName ReceiveSm's table name

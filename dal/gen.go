@@ -10,8 +10,10 @@ const dsn = "root:123456@(localhost:3306)/hr?charset=utf8mb4&parseTime=True&loc=
 
 func main() {
 	g := gen.NewGenerator(gen.Config{
-		OutPath: "./query",
-		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface, // generate mode
+		OutPath:           "./query",
+		Mode:              gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface, // generate mode
+		FieldWithTypeTag:  true,
+		FieldWithIndexTag: true,
 	})
 
 	db, _ := gorm.Open(mysql.Open(dsn))

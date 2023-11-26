@@ -14,15 +14,15 @@ const TableNameApplicantTime = "applicant_times"
 
 // ApplicantTime mapped from table <applicant_times>
 type ApplicantTime struct {
-	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"` // 申请ID
-	Group_      string         `gorm:"column:group;not null;comment:申请组别" json:"group"`               // 申请组别
-	TimeID      int64          `gorm:"column:time_id;not null;comment:时间ID" json:"time_id"`           // 时间ID
-	RoomID      int64          `gorm:"column:room_id;not null;comment:房间ID" json:"room_id"`           // 房间ID
-	Extend      string         `gorm:"column:extend;comment:扩展信息" json:"extend"`                      // 扩展信息
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID          int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	ApplicantID int64          `gorm:"column:applicant_id;type:bigint;not null;uniqueIndex:applicant_times_applicant_id_group_unique,priority:1;uniqueIndex:applicant_times_applicant_id_time_id_unique,priority:1;comment:申请ID" json:"applicant_id"` // 申请ID
+	Group_      string         `gorm:"column:group;type:varchar(32);not null;uniqueIndex:applicant_times_applicant_id_group_unique,priority:2;comment:申请组别" json:"group"`                                                                             // 申请组别
+	TimeID      int64          `gorm:"column:time_id;type:bigint;not null;uniqueIndex:applicant_times_applicant_id_time_id_unique,priority:2;comment:时间ID" json:"time_id"`                                                                            // 时间ID
+	RoomID      int64          `gorm:"column:room_id;type:bigint;not null;comment:房间ID" json:"room_id"`                                                                                                                                               // 房间ID
+	Extend      string         `gorm:"column:extend;type:json;comment:扩展信息" json:"extend"`                                                                                                                                                            // 扩展信息
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt   time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt   time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName ApplicantTime's table name

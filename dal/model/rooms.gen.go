@@ -14,19 +14,19 @@ const TableNameRoom = "rooms"
 
 // Room mapped from table <rooms>
 type Room struct {
-	ID                 int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	Name               string         `gorm:"column:name;not null;comment:房间名称" json:"name"`                             // 房间名称
-	Location           string         `gorm:"column:location;not null;comment:房间位置" json:"location"`                     // 房间位置
-	Status             int32          `gorm:"column:status;not null;comment:状态 0-已停用 1-休息中 2-等待中 3-已占用" json:"status"`   // 状态 0-已停用 1-休息中 2-等待中 3-已占用
-	StatusUpdatedAt    time.Time      `gorm:"column:status_updated_at;not null;comment:状态更新时间" json:"status_updated_at"` // 状态更新时间
-	ApplicantTimeID    int64          `gorm:"column:applicant_time_id;not null;comment:申请时间ID" json:"applicant_time_id"` // 申请时间ID
-	InterviewerComment string         `gorm:"column:interviewer_comment;comment:面试官留言" json:"interviewer_comment"`       // 面试官留言
-	ReceiverComment    string         `gorm:"column:receiver_comment;comment:接待者留言" json:"receiver_comment"`             // 接待者留言
-	GroupLabel         string         `gorm:"column:group_label;not null;comment:组别标签" json:"group_label"`               // 组别标签
-	UpdatedBy          int64          `gorm:"column:updated_by;not null;comment:更新者" json:"updated_by"`                  // 更新者
-	DeletedAt          gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt          time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt          time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID                 int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	Name               string         `gorm:"column:name;type:varchar(32);not null;uniqueIndex:rooms_name_unique,priority:1;comment:房间名称" json:"name"`                                     // 房间名称
+	Location           string         `gorm:"column:location;type:varchar(32);not null;comment:房间位置" json:"location"`                                                                      // 房间位置
+	Status             int32          `gorm:"column:status;type:int;not null;comment:状态 0-已停用 1-休息中 2-等待中 3-已占用" json:"status"`                                                            // 状态 0-已停用 1-休息中 2-等待中 3-已占用
+	StatusUpdatedAt    time.Time      `gorm:"column:status_updated_at;type:datetime(3);not null;comment:状态更新时间" json:"status_updated_at"`                                                  // 状态更新时间
+	ApplicantTimeID    int64          `gorm:"column:applicant_time_id;type:bigint;not null;uniqueIndex:rooms_applicant_time_id_unique,priority:1;comment:申请时间ID" json:"applicant_time_id"` // 申请时间ID
+	InterviewerComment string         `gorm:"column:interviewer_comment;type:text;comment:面试官留言" json:"interviewer_comment"`                                                               // 面试官留言
+	ReceiverComment    string         `gorm:"column:receiver_comment;type:text;comment:接待者留言" json:"receiver_comment"`                                                                     // 接待者留言
+	GroupLabel         string         `gorm:"column:group_label;type:varchar(64);not null;comment:组别标签" json:"group_label"`                                                                // 组别标签
+	UpdatedBy          int64          `gorm:"column:updated_by;type:bigint;not null;comment:更新者" json:"updated_by"`                                                                        // 更新者
+	DeletedAt          gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt          time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt          time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Room's table name

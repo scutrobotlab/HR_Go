@@ -14,16 +14,16 @@ const TableNameApplicantSm = "applicant_sms"
 
 // ApplicantSm mapped from table <applicant_sms>
 type ApplicantSm struct {
-	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请者ID" json:"applicant_id"` // 申请者ID
-	Typ         string         `gorm:"column:typ;not null;comment:类型" json:"typ"`                      // 类型
-	Status      int32          `gorm:"column:status;not null;comment:状态" json:"status"`                // 状态
-	Args        string         `gorm:"column:args;not null;comment:变量" json:"args"`                    // 变量
-	Content     string         `gorm:"column:content;not null;comment:内容" json:"content"`              // 内容
-	CreatedBy   int64          `gorm:"column:created_by;not null;comment:创建者" json:"created_by"`       // 创建者
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID          int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	ApplicantID int64          `gorm:"column:applicant_id;type:bigint;not null;index:applicant_sms_applicant_id_typ_status_index,priority:1;comment:申请者ID" json:"applicant_id"` // 申请者ID
+	Typ         string         `gorm:"column:typ;type:varchar(32);not null;index:applicant_sms_applicant_id_typ_status_index,priority:2;comment:类型" json:"typ"`                 // 类型
+	Status      int32          `gorm:"column:status;type:int;not null;index:applicant_sms_applicant_id_typ_status_index,priority:3;comment:状态" json:"status"`                   // 状态
+	Args        string         `gorm:"column:args;type:json;not null;comment:变量" json:"args"`                                                                                   // 变量
+	Content     string         `gorm:"column:content;type:text;not null;comment:内容" json:"content"`                                                                             // 内容
+	CreatedBy   int64          `gorm:"column:created_by;type:bigint;not null;comment:创建者" json:"created_by"`                                                                    // 创建者
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt   time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt   time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName ApplicantSm's table name

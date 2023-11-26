@@ -14,12 +14,12 @@ const TableNameQuestion = "questions"
 
 // Question mapped from table <questions>
 type Question struct {
-	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	Question  string         `gorm:"column:question;not null;comment:问题内容" json:"question"` // 问题内容
-	Group_    string         `gorm:"column:group;not null;comment:问题所属组别" json:"group"`     // 问题所属组别
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID        int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	Question  string         `gorm:"column:question;type:text;not null;comment:问题内容" json:"question"`    // 问题内容
+	Group_    string         `gorm:"column:group;type:varchar(32);not null;comment:问题所属组别" json:"group"` // 问题所属组别
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Question's table name

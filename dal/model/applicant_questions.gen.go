@@ -14,13 +14,13 @@ const TableNameApplicantQuestion = "applicant_questions"
 
 // ApplicantQuestion mapped from table <applicant_questions>
 type ApplicantQuestion struct {
-	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"` // 申请ID
-	QuestionID  int64          `gorm:"column:question_id;not null;comment:问题ID" json:"question_id"`   // 问题ID
-	Answer      string         `gorm:"column:answer;comment:答案" json:"answer"`                        // 答案
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID          int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	ApplicantID int64          `gorm:"column:applicant_id;type:bigint;not null;uniqueIndex:applicant_questions_applicant_id_question_id_unique,priority:1;comment:申请ID" json:"applicant_id"` // 申请ID
+	QuestionID  int64          `gorm:"column:question_id;type:bigint;not null;uniqueIndex:applicant_questions_applicant_id_question_id_unique,priority:2;comment:问题ID" json:"question_id"`   // 问题ID
+	Answer      string         `gorm:"column:answer;type:varchar(32);comment:答案" json:"answer"`                                                                                              // 答案
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt   time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt   time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName ApplicantQuestion's table name

@@ -14,16 +14,16 @@ const TableNameScore = "scores"
 
 // Score mapped from table <scores>
 type Score struct {
-	ID                int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	AdminID           int64          `gorm:"column:admin_id;not null;comment:管理员ID" json:"admin_id"`           // 管理员ID
-	ApplicantID       int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"`    // 申请ID
-	Group_            string         `gorm:"column:group;not null;comment:组别" json:"group"`                    // 组别
-	Score             float64        `gorm:"column:score;not null;comment:打分" json:"score"`                    // 打分
-	StandardID        int64          `gorm:"column:standard_id;comment:打分标准" json:"standard_id"`               // 打分标准
-	EvaluationDetails string         `gorm:"column:evaluation_details;comment:评价详情" json:"evaluation_details"` // 评价详情
-	DeletedAt         gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt         time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt         time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID                int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	AdminID           int64          `gorm:"column:admin_id;type:bigint;not null;uniqueIndex:scores_applicant_id_admin_id_group_unique,priority:2;comment:管理员ID" json:"admin_id"`        // 管理员ID
+	ApplicantID       int64          `gorm:"column:applicant_id;type:bigint;not null;uniqueIndex:scores_applicant_id_admin_id_group_unique,priority:1;comment:申请ID" json:"applicant_id"` // 申请ID
+	Group_            string         `gorm:"column:group;type:varchar(32);not null;uniqueIndex:scores_applicant_id_admin_id_group_unique,priority:3;comment:组别" json:"group"`            // 组别
+	Score             float64        `gorm:"column:score;type:double;not null;comment:打分" json:"score"`                                                                                  // 打分
+	StandardID        int64          `gorm:"column:standard_id;type:bigint;comment:打分标准" json:"standard_id"`                                                                             // 打分标准
+	EvaluationDetails string         `gorm:"column:evaluation_details;type:json;comment:评价详情" json:"evaluation_details"`                                                                 // 评价详情
+	DeletedAt         gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt         time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt         time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Score's table name

@@ -24,3 +24,6 @@ docker:
 	cd hr-admin-api && goctl docker --version 1.20 && cd ..
 	cd hr-service && goctl docker --version 1.20 && cd ..
 	cd hr-admin-service && goctl docker --version 1.20 && cd ..
+
+init_config:
+	cp common/config.yaml.example common/config.yaml

@@ -14,13 +14,13 @@ const TableNameRemark = "remarks"
 
 // Remark mapped from table <remarks>
 type Remark struct {
-	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	AdminID     int64          `gorm:"column:admin_id;not null;comment:管理员ID" json:"admin_id"`        // 管理员ID
-	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"` // 申请ID
-	Remark      string         `gorm:"column:remark;not null;comment:评价" json:"remark"`               // 评价
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID          int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	AdminID     int64          `gorm:"column:admin_id;type:bigint;not null;uniqueIndex:remarks_applicant_id_admin_id_unique,priority:2;comment:管理员ID" json:"admin_id"`        // 管理员ID
+	ApplicantID int64          `gorm:"column:applicant_id;type:bigint;not null;uniqueIndex:remarks_applicant_id_admin_id_unique,priority:1;comment:申请ID" json:"applicant_id"` // 申请ID
+	Remark      string         `gorm:"column:remark;type:text;not null;comment:评价" json:"remark"`                                                                             // 评价
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt   time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt   time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Remark's table name

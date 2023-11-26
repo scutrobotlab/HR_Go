@@ -14,15 +14,15 @@ const TableNameAdmin = "admins"
 
 // Admin mapped from table <admins>
 type Admin struct {
-	ID                int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	Name              string         `gorm:"column:name;not null;comment:管理员姓名" json:"name"`                         // 管理员姓名
-	DefaultStandardID int64          `gorm:"column:default_standard_id;comment:默认评分标准ID" json:"default_standard_id"` // 默认评分标准ID
-	Profile           string         `gorm:"column:profile;comment:管理员信息" json:"profile"`                            // 管理员信息
-	SmsEnabled        bool           `gorm:"column:sms_enabled;not null;comment:是否开启短信" json:"sms_enabled"`          // 是否开启短信
-	RoomID            int64          `gorm:"column:room_id;not null;comment:房间ID" json:"room_id"`                    // 房间ID
-	DeletedAt         gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt         time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt         time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID                int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	Name              string         `gorm:"column:name;type:varchar(32);not null;comment:管理员姓名" json:"name"`                    // 管理员姓名
+	DefaultStandardID int64          `gorm:"column:default_standard_id;type:bigint;comment:默认评分标准ID" json:"default_standard_id"` // 默认评分标准ID
+	Profile           string         `gorm:"column:profile;type:json;comment:管理员信息" json:"profile"`                              // 管理员信息
+	SmsEnabled        bool           `gorm:"column:sms_enabled;type:tinyint(1);not null;comment:是否开启短信" json:"sms_enabled"`      // 是否开启短信
+	RoomID            int64          `gorm:"column:room_id;type:bigint;not null;comment:房间ID" json:"room_id"`                    // 房间ID
+	DeletedAt         gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt         time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt         time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Admin's table name

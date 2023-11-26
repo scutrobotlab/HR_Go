@@ -14,14 +14,14 @@ const TableNameIntent = "intents"
 
 // Intent mapped from table <intents>
 type Intent struct {
-	ID          int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	Rank        int32          `gorm:"column:rank;not null;comment:意愿顺序" json:"rank"`                 // 意愿顺序
-	Group_      string         `gorm:"column:group;not null;comment:意愿组别" json:"group"`               // 意愿组别
-	Parallel    bool           `gorm:"column:parallel;not null;comment:是否平行志愿" json:"parallel"`       // 是否平行志愿
-	ApplicantID int64          `gorm:"column:applicant_id;not null;comment:申请ID" json:"applicant_id"` // 申请ID
-	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt   time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt   time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID          int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	Rank        int32          `gorm:"column:rank;type:int;not null;comment:意愿顺序" json:"rank"`                    // 意愿顺序
+	Group_      string         `gorm:"column:group;type:varchar(32);not null;comment:意愿组别" json:"group"`          // 意愿组别
+	Parallel    bool           `gorm:"column:parallel;type:tinyint(1);not null;comment:是否平行志愿" json:"parallel"`   // 是否平行志愿
+	ApplicantID int64          `gorm:"column:applicant_id;type:bigint;not null;comment:申请ID" json:"applicant_id"` // 申请ID
+	DeletedAt   gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt   time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt   time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Intent's table name

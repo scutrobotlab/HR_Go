@@ -14,17 +14,17 @@ const TableNameApplicant = "applicants"
 
 // Applicant mapped from table <applicants>
 type Applicant struct {
-	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	WechatID  string         `gorm:"column:wechat_id;not null;comment:微信OpenID" json:"wechat_id"`          // 微信OpenID
-	Name      string         `gorm:"column:name;not null;comment:姓名" json:"name"`                          // 姓名
-	Gender    int32          `gorm:"column:gender;not null;comment:性别 0-未知 1-男性 2-女性 9-未说明" json:"gender"` // 性别 0-未知 1-男性 2-女性 9-未说明
-	Phone     string         `gorm:"column:phone;not null;comment:手机号码" json:"phone"`                      // 手机号码
-	Avatar    string         `gorm:"column:avatar;not null;comment:头像URL" json:"avatar"`                   // 头像URL
-	Profile   string         `gorm:"column:profile;not null;comment:微信简介" json:"profile"`                  // 微信简介
-	Form      string         `gorm:"column:form;not null;comment:申请表单" json:"form"`                        // 申请表单
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID        int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	WechatID  string         `gorm:"column:wechat_id;type:varchar(32);not null;uniqueIndex:applicants_wechat_id_unique,priority:1;comment:微信OpenID" json:"wechat_id"` // 微信OpenID
+	Name      string         `gorm:"column:name;type:varchar(32);not null;comment:姓名" json:"name"`                                                                    // 姓名
+	Gender    int32          `gorm:"column:gender;type:int;not null;comment:性别 0-未知 1-男性 2-女性 9-未说明" json:"gender"`                                                   // 性别 0-未知 1-男性 2-女性 9-未说明
+	Phone     string         `gorm:"column:phone;type:varchar(16);not null;comment:手机号码" json:"phone"`                                                                // 手机号码
+	Avatar    string         `gorm:"column:avatar;type:varchar(255);not null;comment:头像URL" json:"avatar"`                                                            // 头像URL
+	Profile   string         `gorm:"column:profile;type:json;not null;comment:微信简介" json:"profile"`                                                                   // 微信简介
+	Form      string         `gorm:"column:form;type:json;not null;comment:申请表单" json:"form"`                                                                         // 申请表单
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName Applicant's table name

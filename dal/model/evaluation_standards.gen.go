@@ -14,13 +14,13 @@ const TableNameEvaluationStandard = "evaluation_standards"
 
 // EvaluationStandard mapped from table <evaluation_standards>
 type EvaluationStandard struct {
-	ID              int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	Name            string         `gorm:"column:name;not null;comment:标准名称" json:"name"`                                   // 标准名称
-	Standard        string         `gorm:"column:standard;not null;comment:评估标准" json:"standard"`                           // 评估标准
-	LastEditAdminID int64          `gorm:"column:last_edit_admin_id;not null;comment:最后编辑的管理员ID" json:"last_edit_admin_id"` // 最后编辑的管理员ID
-	DeletedAt       gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
-	CreatedAt       time.Time      `gorm:"column:created_at" json:"created_at"`
-	UpdatedAt       time.Time      `gorm:"column:updated_at" json:"updated_at"`
+	ID              int64          `gorm:"column:id;type:bigint;primaryKey;autoIncrement:true" json:"id"`
+	Name            string         `gorm:"column:name;type:varchar(32);not null;comment:标准名称" json:"name"`                              // 标准名称
+	Standard        string         `gorm:"column:standard;type:json;not null;comment:评估标准" json:"standard"`                             // 评估标准
+	LastEditAdminID int64          `gorm:"column:last_edit_admin_id;type:bigint;not null;comment:最后编辑的管理员ID" json:"last_edit_admin_id"` // 最后编辑的管理员ID
+	DeletedAt       gorm.DeletedAt `gorm:"column:deleted_at;type:datetime(3)" json:"deleted_at"`
+	CreatedAt       time.Time      `gorm:"column:created_at;type:datetime(3)" json:"created_at"`
+	UpdatedAt       time.Time      `gorm:"column:updated_at;type:datetime(3)" json:"updated_at"`
 }
 
 // TableName EvaluationStandard's table name

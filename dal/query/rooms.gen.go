@@ -36,10 +36,10 @@ func newRoom(db *gorm.DB, opts ...gen.DOOption) room {
 	_room.InterviewerComment = field.NewString(tableName, "interviewer_comment")
 	_room.ReceiverComment = field.NewString(tableName, "receiver_comment")
 	_room.GroupLabel = field.NewString(tableName, "group_label")
+	_room.UpdatedBy = field.NewInt64(tableName, "updated_by")
 	_room.DeletedAt = field.NewField(tableName, "deleted_at")
 	_room.CreatedAt = field.NewTime(tableName, "created_at")
 	_room.UpdatedAt = field.NewTime(tableName, "updated_at")
-	_room.UpdatedBy = field.NewInt64(tableName, "updated_by")
 
 	_room.fillFieldMap()
 
@@ -50,7 +50,7 @@ type room struct {
 	roomDo
 
 	ALL                field.Asterisk
-	ID                 field.Int64  // ID
+	ID                 field.Int64
 	Name               field.String // 房间名称
 	Location           field.String // 房间位置
 	Status             field.Int32  // 状态 0-已停用 1-休息中 2-等待中 3-已占用
@@ -59,10 +59,10 @@ type room struct {
 	InterviewerComment field.String // 面试官留言
 	ReceiverComment    field.String // 接待者留言
 	GroupLabel         field.String // 组别标签
-	DeletedAt          field.Field  // 删除时间
-	CreatedAt          field.Time   // 创建时间
-	UpdatedAt          field.Time   // 更新时间
 	UpdatedBy          field.Int64  // 更新者
+	DeletedAt          field.Field
+	CreatedAt          field.Time
+	UpdatedAt          field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -88,10 +88,10 @@ func (r *room) updateTableName(table string) *room {
 	r.InterviewerComment = field.NewString(table, "interviewer_comment")
 	r.ReceiverComment = field.NewString(table, "receiver_comment")
 	r.GroupLabel = field.NewString(table, "group_label")
+	r.UpdatedBy = field.NewInt64(table, "updated_by")
 	r.DeletedAt = field.NewField(table, "deleted_at")
 	r.CreatedAt = field.NewTime(table, "created_at")
 	r.UpdatedAt = field.NewTime(table, "updated_at")
-	r.UpdatedBy = field.NewInt64(table, "updated_by")
 
 	r.fillFieldMap()
 
@@ -118,10 +118,10 @@ func (r *room) fillFieldMap() {
 	r.fieldMap["interviewer_comment"] = r.InterviewerComment
 	r.fieldMap["receiver_comment"] = r.ReceiverComment
 	r.fieldMap["group_label"] = r.GroupLabel
+	r.fieldMap["updated_by"] = r.UpdatedBy
 	r.fieldMap["deleted_at"] = r.DeletedAt
 	r.fieldMap["created_at"] = r.CreatedAt
 	r.fieldMap["updated_at"] = r.UpdatedAt
-	r.fieldMap["updated_by"] = r.UpdatedBy
 }
 
 func (r room) clone(db *gorm.DB) room {
@@ -239,10 +239,6 @@ func (r roomDo) Select(conds ...field.Expr) IRoomDo {
 
 func (r roomDo) Where(conds ...gen.Condition) IRoomDo {
 	return r.withDO(r.DO.Where(conds...))
-}
-
-func (r roomDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IRoomDo {
-	return r.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (r roomDo) Order(conds ...field.Expr) IRoomDo {

@@ -44,13 +44,13 @@ type evaluationStandard struct {
 	evaluationStandardDo
 
 	ALL             field.Asterisk
-	ID              field.Int64  // ID
+	ID              field.Int64
 	Name            field.String // 标准名称
 	Standard        field.String // 评估标准
 	LastEditAdminID field.Int64  // 最后编辑的管理员ID
-	DeletedAt       field.Field  // 删除时间
-	CreatedAt       field.Time   // 创建时间
-	UpdatedAt       field.Time   // 更新时间
+	DeletedAt       field.Field
+	CreatedAt       field.Time
+	UpdatedAt       field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -215,10 +215,6 @@ func (e evaluationStandardDo) Select(conds ...field.Expr) IEvaluationStandardDo 
 
 func (e evaluationStandardDo) Where(conds ...gen.Condition) IEvaluationStandardDo {
 	return e.withDO(e.DO.Where(conds...))
-}
-
-func (e evaluationStandardDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IEvaluationStandardDo {
-	return e.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (e evaluationStandardDo) Order(conds ...field.Expr) IEvaluationStandardDo {

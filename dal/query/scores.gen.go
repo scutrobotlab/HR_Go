@@ -47,16 +47,16 @@ type score struct {
 	scoreDo
 
 	ALL               field.Asterisk
-	ID                field.Int64   // ID
+	ID                field.Int64
 	AdminID           field.Int64   // 管理员ID
 	ApplicantID       field.Int64   // 申请ID
 	Group_            field.String  // 组别
 	Score             field.Float64 // 打分
 	StandardID        field.Int64   // 打分标准
 	EvaluationDetails field.String  // 评价详情
-	DeletedAt         field.Field   // 删除时间
-	CreatedAt         field.Time    // 创建时间
-	UpdatedAt         field.Time    // 更新时间
+	DeletedAt         field.Field
+	CreatedAt         field.Time
+	UpdatedAt         field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -227,10 +227,6 @@ func (s scoreDo) Select(conds ...field.Expr) IScoreDo {
 
 func (s scoreDo) Where(conds ...gen.Condition) IScoreDo {
 	return s.withDO(s.DO.Where(conds...))
-}
-
-func (s scoreDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IScoreDo {
-	return s.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (s scoreDo) Order(conds ...field.Expr) IScoreDo {

@@ -14,17 +14,17 @@ const TableNameApplicant = "applicants"
 
 // Applicant mapped from table <applicants>
 type Applicant struct {
-	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true;comment:ID" json:"id"`
-	WechatID  string         `gorm:"column:wechat_id;not null;comment:微信OpenID" json:"wechat_id"`
-	Name      string         `gorm:"column:name;not null;comment:姓名" json:"name"`
-	Gender    int32          `gorm:"column:gender;not null;comment:性别 0-未知 1-男性 2-女性 9-未说明" json:"gender"`
-	Phone     string         `gorm:"column:phone;not null;comment:手机号码" json:"phone"`
-	Avatar    string         `gorm:"column:avatar;not null;comment:头像URL" json:"avatar"`
-	Profile   string         `gorm:"column:profile;not null;comment:微信简介" json:"profile"`
-	Form      string         `gorm:"column:form;not null;comment:申请表单" json:"form"`
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deleted_at"`
-	CreatedAt time.Time      `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"created_at"`
-	UpdatedAt time.Time      `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"updated_at"`
+	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
+	WechatID  string         `gorm:"column:wechat_id;not null;comment:微信OpenID" json:"wechat_id"`          // 微信OpenID
+	Name      string         `gorm:"column:name;not null;comment:姓名" json:"name"`                          // 姓名
+	Gender    int32          `gorm:"column:gender;not null;comment:性别 0-未知 1-男性 2-女性 9-未说明" json:"gender"` // 性别 0-未知 1-男性 2-女性 9-未说明
+	Phone     string         `gorm:"column:phone;not null;comment:手机号码" json:"phone"`                      // 手机号码
+	Avatar    string         `gorm:"column:avatar;not null;comment:头像URL" json:"avatar"`                   // 头像URL
+	Profile   string         `gorm:"column:profile;not null;comment:微信简介" json:"profile"`                  // 微信简介
+	Form      string         `gorm:"column:form;not null;comment:申请表单" json:"form"`                        // 申请表单
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt time.Time      `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updated_at"`
 }
 
 // TableName Applicant's table name

@@ -44,13 +44,13 @@ type admit struct {
 	admitDo
 
 	ALL         field.Asterisk
-	ID          field.Int64  // ID
+	ID          field.Int64
 	Group_      field.String // 录取组别
 	AdminID     field.Int64  // 操作录取的管理员
 	ApplicantID field.Int64  // 申请ID
-	DeletedAt   field.Field  // 删除时间
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
+	DeletedAt   field.Field
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -215,10 +215,6 @@ func (a admitDo) Select(conds ...field.Expr) IAdmitDo {
 
 func (a admitDo) Where(conds ...gen.Condition) IAdmitDo {
 	return a.withDO(a.DO.Where(conds...))
-}
-
-func (a admitDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IAdmitDo {
-	return a.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (a admitDo) Order(conds ...field.Expr) IAdmitDo {

@@ -35,8 +35,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `rooms` WRITE;
 INSERT INTO `rooms`
-VALUES (1, '31-501', '', 0, current_timestamp(), 0, '', '', '电控', NULL, current_timestamp(), current_timestamp(), 0),
-       (2, '31-502', '', 0, current_timestamp(), 0, '', '', '机械', NULL, current_timestamp(), current_timestamp(), 0),
-       (3, '31-503', '', 0, current_timestamp(), 0, '', '', '视觉', NULL, current_timestamp(), current_timestamp(), 0),
-       (4, '31-504', '', 0, current_timestamp(), 0, '', '', '宣运', NULL, current_timestamp(), current_timestamp(), 0);
+VALUES (1, '31-501', '', 0, current_timestamp(), 0, '', '', '电控', 0, NULL, current_timestamp(), current_timestamp()),
+       (2, '31-502', '', 0, current_timestamp(), 0, '', '', '机械', 0, NULL, current_timestamp(), current_timestamp()),
+       (3, '31-503', '', 0, current_timestamp(), 0, '', '', '视觉', 0, NULL, current_timestamp(), current_timestamp()),
+       (4, '31-504', '', 0, current_timestamp(), 0, '', '', '宣运', 0, NULL, current_timestamp(), current_timestamp());
 UNLOCK TABLES;

@@ -197,10 +197,6 @@ func (t timeConfigDo) Where(conds ...gen.Condition) ITimeConfigDo {
 	return t.withDO(t.DO.Where(conds...))
 }
 
-func (t timeConfigDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) ITimeConfigDo {
-	return t.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
-}
-
 func (t timeConfigDo) Order(conds ...field.Expr) ITimeConfigDo {
 	return t.withDO(t.DO.Order(conds...))
 }

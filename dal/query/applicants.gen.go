@@ -48,7 +48,7 @@ type applicant struct {
 	applicantDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ID
+	ID        field.Int64
 	WechatID  field.String // 微信OpenID
 	Name      field.String // 姓名
 	Gender    field.Int32  // 性别 0-未知 1-男性 2-女性 9-未说明
@@ -56,9 +56,9 @@ type applicant struct {
 	Avatar    field.String // 头像URL
 	Profile   field.String // 微信简介
 	Form      field.String // 申请表单
-	DeletedAt field.Field  // 删除时间
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	DeletedAt field.Field
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -231,10 +231,6 @@ func (a applicantDo) Select(conds ...field.Expr) IApplicantDo {
 
 func (a applicantDo) Where(conds ...gen.Condition) IApplicantDo {
 	return a.withDO(a.DO.Where(conds...))
-}
-
-func (a applicantDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IApplicantDo {
-	return a.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (a applicantDo) Order(conds ...field.Expr) IApplicantDo {

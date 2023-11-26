@@ -32,6 +32,11 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		os.Exit(1)
 		return nil
 	}
+	err = common.AutoMigrate(db)
+	if err != nil {
+		logx.Error("gorm auto migrate error", err)
+		return nil
+	}
 	commonConf, err := common.GetConfig("../common/config.yaml")
 	if err != nil {
 		logx.Error("common config load error", err)
@@ -58,7 +63,12 @@ func NewServiceContext4Test(c config.Config) *ServiceContext {
 	if err != nil {
 		return nil
 	}
-	commonConf, err := common.GetConfig("../common/config.yaml")
+	err = common.AutoMigrate(db)
+	if err != nil {
+		logx.Error("gorm auto migrate error", err)
+		return nil
+	}
+	commonConf, err := common.GetConfig("../../../common/config.yaml")
 	if err != nil {
 		return nil
 	}
@@ -69,9 +79,6 @@ func NewServiceContext4Test(c config.Config) *ServiceContext {
 		Config: c,
 		Query:  query.Use(db),
 		Db:     db,
-		AdminService: hr_admin_service.NewHrServiceClient(zrpc.MustNewClient(zrpc.RpcClientConf{
-			Etcd: adminEtcd,
-		}).Conn()),
 	}
 }
 

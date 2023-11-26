@@ -44,13 +44,13 @@ type applicantQuestion struct {
 	applicantQuestionDo
 
 	ALL         field.Asterisk
-	ID          field.Int64  // ID
+	ID          field.Int64
 	ApplicantID field.Int64  // 申请ID
 	QuestionID  field.Int64  // 问题ID
 	Answer      field.String // 答案
-	DeletedAt   field.Field  // 删除时间
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
+	DeletedAt   field.Field
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -215,10 +215,6 @@ func (a applicantQuestionDo) Select(conds ...field.Expr) IApplicantQuestionDo {
 
 func (a applicantQuestionDo) Where(conds ...gen.Condition) IApplicantQuestionDo {
 	return a.withDO(a.DO.Where(conds...))
-}
-
-func (a applicantQuestionDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IApplicantQuestionDo {
-	return a.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (a applicantQuestionDo) Order(conds ...field.Expr) IApplicantQuestionDo {

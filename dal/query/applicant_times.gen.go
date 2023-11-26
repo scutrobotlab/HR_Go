@@ -46,15 +46,15 @@ type applicantTime struct {
 	applicantTimeDo
 
 	ALL         field.Asterisk
-	ID          field.Int64  // ID
+	ID          field.Int64
 	ApplicantID field.Int64  // 申请ID
 	Group_      field.String // 申请组别
 	TimeID      field.Int64  // 时间ID
 	RoomID      field.Int64  // 房间ID
 	Extend      field.String // 扩展信息
-	DeletedAt   field.Field  // 删除时间
-	CreatedAt   field.Time   // 创建时间
-	UpdatedAt   field.Time   // 更新时间
+	DeletedAt   field.Field
+	CreatedAt   field.Time
+	UpdatedAt   field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -223,10 +223,6 @@ func (a applicantTimeDo) Select(conds ...field.Expr) IApplicantTimeDo {
 
 func (a applicantTimeDo) Where(conds ...gen.Condition) IApplicantTimeDo {
 	return a.withDO(a.DO.Where(conds...))
-}
-
-func (a applicantTimeDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IApplicantTimeDo {
-	return a.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (a applicantTimeDo) Order(conds ...field.Expr) IApplicantTimeDo {

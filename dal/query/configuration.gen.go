@@ -43,12 +43,12 @@ type configuration struct {
 	configurationDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ID
+	ID        field.Int64
 	Key       field.String // 键
 	Value     field.String // 值
-	DeletedAt field.Field  // 删除时间
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	DeletedAt field.Field
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -211,10 +211,6 @@ func (c configurationDo) Select(conds ...field.Expr) IConfigurationDo {
 
 func (c configurationDo) Where(conds ...gen.Condition) IConfigurationDo {
 	return c.withDO(c.DO.Where(conds...))
-}
-
-func (c configurationDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IConfigurationDo {
-	return c.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (c configurationDo) Order(conds ...field.Expr) IConfigurationDo {

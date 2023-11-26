@@ -14,12 +14,12 @@ const TableNameConfiguration = "configuration"
 
 // Configuration mapped from table <configuration>
 type Configuration struct {
-	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true;comment:ID" json:"id"`
-	Key       string         `gorm:"column:key;not null;comment:键" json:"key"`
-	Value     string         `gorm:"column:value;not null;comment:值" json:"value"`
-	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at;comment:删除时间" json:"deleted_at"`
-	CreatedAt time.Time      `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP;comment:创建时间" json:"created_at"`
-	UpdatedAt time.Time      `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP;comment:更新时间" json:"updated_at"`
+	ID        int64          `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
+	Key       string         `gorm:"column:key;not null;comment:键" json:"key"`     // 键
+	Value     string         `gorm:"column:value;not null;comment:值" json:"value"` // 值
+	DeletedAt gorm.DeletedAt `gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt time.Time      `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt time.Time      `gorm:"column:updated_at" json:"updated_at"`
 }
 
 // TableName Configuration's table name

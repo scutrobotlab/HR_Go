@@ -43,12 +43,12 @@ type guide struct {
 	guideDo
 
 	ALL       field.Asterisk
-	ID        field.Int64  // ID
+	ID        field.Int64
 	Group_    field.String // 组别
 	Guide     field.String // 指南
-	DeletedAt field.Field  // 删除时间
-	CreatedAt field.Time   // 创建时间
-	UpdatedAt field.Time   // 更新时间
+	DeletedAt field.Field
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -211,10 +211,6 @@ func (g guideDo) Select(conds ...field.Expr) IGuideDo {
 
 func (g guideDo) Where(conds ...gen.Condition) IGuideDo {
 	return g.withDO(g.DO.Where(conds...))
-}
-
-func (g guideDo) Exists(subquery interface{ UnderlyingDB() *gorm.DB }) IGuideDo {
-	return g.Where(field.CompareSubQuery(field.ExistsOp, nil, subquery.UnderlyingDB()))
 }
 
 func (g guideDo) Order(conds ...field.Expr) IGuideDo {

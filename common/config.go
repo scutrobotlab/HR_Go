@@ -25,6 +25,9 @@ type Config struct {
 		ClientSecret string
 		RedirectUrl  string
 	}
+	Encrypt struct {
+		Salt string
+	}
 }
 
 func GetConfig(path string) (Config, error) {

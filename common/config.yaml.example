@@ -15,3 +15,5 @@ oAuth:
   clientID:
   clientSecret:
   redirectUrl:
+encrypt:
+  salt: "CHANGE_ME"

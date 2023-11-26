@@ -48,7 +48,7 @@ func (l *CreateAdminLogic) CreateAdmin(in *hr_admin_service.CreateAdminReq) (*hr
 		return nil, err
 	}
 
-	password := common.EncryptPassword(admin.ID, in.Password)
+	password := common.EncryptPassword(l.svcCtx.Common.Encrypt.Salt, admin.ID, in.Password)
 	_, err = a.WithContext(l.ctx).Where(a.ID.Eq(admin.ID)).UpdateColumn(a.Password, password)
 	if err != nil {
 		return nil, err

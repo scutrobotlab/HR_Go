@@ -27,7 +27,7 @@ func NewUpdateAdminPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext
 func (l *UpdateAdminPasswordLogic) UpdateAdminPassword(in *hr_admin_service.UpdateAdminPasswordReq) (*hr_admin_service.StatusResp, error) {
 	a := l.svcCtx.Query.Admin
 
-	encryptedPassword := common.EncryptPassword(in.AdminId, in.Password)
+	encryptedPassword := common.EncryptPassword(l.svcCtx.Common.Encrypt.Salt, in.AdminId, in.Password)
 	_, err := a.WithContext(l.ctx).Where(a.ID.Eq(in.AdminId)).UpdateColumn(a.Password, encryptedPassword)
 	if err != nil {
 		return nil, err

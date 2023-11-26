@@ -33,7 +33,7 @@ func (l *AdminLoginByPasswordLogic) AdminLoginByPassword(in *hr_admin_service.Ad
 		return nil, common.GrpcErrorNotFound(err)
 	}
 
-	if !common.VerifyPassword(admin.ID, in.Password, admin.Password) {
+	if !common.VerifyPassword(l.svcCtx.Common.Encrypt.Salt, admin.ID, in.Password, admin.Password) {
 		return nil, common.GrpcErrorPermissionDenied(fmt.Errorf("password error"))
 	}
 

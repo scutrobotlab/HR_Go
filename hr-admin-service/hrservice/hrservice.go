@@ -19,6 +19,7 @@ type (
 	Admin                     = hr_admin_service.Admin
 	AdminGroup                = hr_admin_service.AdminGroup
 	AdminIdReq                = hr_admin_service.AdminIdReq
+	AdminLoginByPasswordReq   = hr_admin_service.AdminLoginByPasswordReq
 	AdminLoginReq             = hr_admin_service.AdminLoginReq
 	AdminLoginResp            = hr_admin_service.AdminLoginResp
 	Admit                     = hr_admin_service.Admit
@@ -27,8 +28,11 @@ type (
 	ApplicantListItem         = hr_admin_service.ApplicantListItem
 	ApplicantSms              = hr_admin_service.ApplicantSms
 	ClearTimesReq             = hr_admin_service.ClearTimesReq
+	CreateAdminReq            = hr_admin_service.CreateAdminReq
+	CreateAdminResp           = hr_admin_service.CreateAdminResp
 	CreateQuestionReq         = hr_admin_service.CreateQuestionReq
 	CreateQuestionResp        = hr_admin_service.CreateQuestionResp
+	DeleteAdminReq            = hr_admin_service.DeleteAdminReq
 	DeleteApplicantReq        = hr_admin_service.DeleteApplicantReq
 	DeleteEvaluationReq       = hr_admin_service.DeleteEvaluationReq
 	DeleteQuestionReq         = hr_admin_service.DeleteQuestionReq
@@ -112,6 +116,9 @@ type (
 	TimeItem                  = hr_admin_service.TimeItem
 	TimeStatistics            = hr_admin_service.TimeStatistics
 	TimeTableItem             = hr_admin_service.TimeTableItem
+	UpdateAdminPasswordReq    = hr_admin_service.UpdateAdminPasswordReq
+	UpdateAdminReq            = hr_admin_service.UpdateAdminReq
+	UpdateAdminResp           = hr_admin_service.UpdateAdminResp
 	UpdateConfigReq           = hr_admin_service.UpdateConfigReq
 	UpdateConfigResp          = hr_admin_service.UpdateConfigResp
 	UpdateEvaluationReq       = hr_admin_service.UpdateEvaluationReq
@@ -145,6 +152,11 @@ type (
 		SetDefaultStandard(ctx context.Context, in *SetDefaultStandardReq, opts ...grpc.CallOption) (*StatusResp, error)
 		GetOAuthConfig(ctx context.Context, in *AdminIdReq, opts ...grpc.CallOption) (*GetOAuthConfigResp, error)
 		GetFrontendConfig(ctx context.Context, in *AdminIdReq, opts ...grpc.CallOption) (*GetFrontendConfigResp, error)
+		AdminLoginByPassword(ctx context.Context, in *AdminLoginByPasswordReq, opts ...grpc.CallOption) (*AdminLoginResp, error)
+		UpdateAdminPassword(ctx context.Context, in *UpdateAdminPasswordReq, opts ...grpc.CallOption) (*StatusResp, error)
+		CreateAdmin(ctx context.Context, in *CreateAdminReq, opts ...grpc.CallOption) (*CreateAdminResp, error)
+		UpdateAdmin(ctx context.Context, in *UpdateAdminReq, opts ...grpc.CallOption) (*UpdateAdminResp, error)
+		DeleteAdmin(ctx context.Context, in *DeleteAdminReq, opts ...grpc.CallOption) (*StatusResp, error)
 		GetRank(ctx context.Context, in *GetRankReq, opts ...grpc.CallOption) (*GetRankResp, error)
 		GetScore(ctx context.Context, in *GetScoreReq, opts ...grpc.CallOption) (*GetScoreResp, error)
 		PostScore(ctx context.Context, in *PostScoreReq, opts ...grpc.CallOption) (*PostScoreResp, error)
@@ -307,6 +319,31 @@ func (m *defaultHrService) GetOAuthConfig(ctx context.Context, in *AdminIdReq, o
 func (m *defaultHrService) GetFrontendConfig(ctx context.Context, in *AdminIdReq, opts ...grpc.CallOption) (*GetFrontendConfigResp, error) {
 	client := hr_admin_service.NewHrServiceClient(m.cli.Conn())
 	return client.GetFrontendConfig(ctx, in, opts...)
+}
+
+func (m *defaultHrService) AdminLoginByPassword(ctx context.Context, in *AdminLoginByPasswordReq, opts ...grpc.CallOption) (*AdminLoginResp, error) {
+	client := hr_admin_service.NewHrServiceClient(m.cli.Conn())
+	return client.AdminLoginByPassword(ctx, in, opts...)
+}
+
+func (m *defaultHrService) UpdateAdminPassword(ctx context.Context, in *UpdateAdminPasswordReq, opts ...grpc.CallOption) (*StatusResp, error) {
+	client := hr_admin_service.NewHrServiceClient(m.cli.Conn())
+	return client.UpdateAdminPassword(ctx, in, opts...)
+}
+
+func (m *defaultHrService) CreateAdmin(ctx context.Context, in *CreateAdminReq, opts ...grpc.CallOption) (*CreateAdminResp, error) {
+	client := hr_admin_service.NewHrServiceClient(m.cli.Conn())
+	return client.CreateAdmin(ctx, in, opts...)
+}
+
+func (m *defaultHrService) UpdateAdmin(ctx context.Context, in *UpdateAdminReq, opts ...grpc.CallOption) (*UpdateAdminResp, error) {
+	client := hr_admin_service.NewHrServiceClient(m.cli.Conn())
+	return client.UpdateAdmin(ctx, in, opts...)
+}
+
+func (m *defaultHrService) DeleteAdmin(ctx context.Context, in *DeleteAdminReq, opts ...grpc.CallOption) (*StatusResp, error) {
+	client := hr_admin_service.NewHrServiceClient(m.cli.Conn())
+	return client.DeleteAdmin(ctx, in, opts...)
 }
 
 func (m *defaultHrService) GetRank(ctx context.Context, in *GetRankReq, opts ...grpc.CallOption) (*GetRankResp, error) {

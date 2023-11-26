@@ -142,6 +142,31 @@ func (s *HrServiceServer) GetFrontendConfig(ctx context.Context, in *hr_admin_se
 	return l.GetFrontendConfig(in)
 }
 
+func (s *HrServiceServer) AdminLoginByPassword(ctx context.Context, in *hr_admin_service.AdminLoginByPasswordReq) (*hr_admin_service.AdminLoginResp, error) {
+	l := logic.NewAdminLoginByPasswordLogic(ctx, s.svcCtx)
+	return l.AdminLoginByPassword(in)
+}
+
+func (s *HrServiceServer) UpdateAdminPassword(ctx context.Context, in *hr_admin_service.UpdateAdminPasswordReq) (*hr_admin_service.StatusResp, error) {
+	l := logic.NewUpdateAdminPasswordLogic(ctx, s.svcCtx)
+	return l.UpdateAdminPassword(in)
+}
+
+func (s *HrServiceServer) CreateAdmin(ctx context.Context, in *hr_admin_service.CreateAdminReq) (*hr_admin_service.CreateAdminResp, error) {
+	l := logic.NewCreateAdminLogic(ctx, s.svcCtx)
+	return l.CreateAdmin(in)
+}
+
+func (s *HrServiceServer) UpdateAdmin(ctx context.Context, in *hr_admin_service.UpdateAdminReq) (*hr_admin_service.UpdateAdminResp, error) {
+	l := logic.NewUpdateAdminLogic(ctx, s.svcCtx)
+	return l.UpdateAdmin(in)
+}
+
+func (s *HrServiceServer) DeleteAdmin(ctx context.Context, in *hr_admin_service.DeleteAdminReq) (*hr_admin_service.StatusResp, error) {
+	l := logic.NewDeleteAdminLogic(ctx, s.svcCtx)
+	return l.DeleteAdmin(in)
+}
+
 func (s *HrServiceServer) GetRank(ctx context.Context, in *hr_admin_service.GetRankReq) (*hr_admin_service.GetRankResp, error) {
 	l := logic.NewGetRankLogic(ctx, s.svcCtx)
 	return l.GetRank(in)

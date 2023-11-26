@@ -45,6 +45,31 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Path:    "/frontend-config",
 				Handler: admin.GetFrontendConfigHandler(serverCtx),
 			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/login-by-password",
+				Handler: admin.AdminLoginByPasswordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/update-password",
+				Handler: admin.UpdateAdminPasswordHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/create",
+				Handler: admin.CreateAdminHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/update",
+				Handler: admin.UpdateAdminHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/delete",
+				Handler: admin.DeleteAdminHandler(serverCtx),
+			},
 		},
 		rest.WithPrefix("/api/admin"),
 	)

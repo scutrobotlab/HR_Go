@@ -629,6 +629,38 @@ message GetScheduleResp {
   string focus = 3;
 }
 
+message AdminLoginByPasswordReq {
+  string name = 1;
+  string password = 2;
+}
+
+message UpdateAdminPasswordReq {
+  int64 adminId = 1;
+  string password = 2;
+}
+
+message CreateAdminReq {
+  Admin admin = 1;
+  string password = 2;
+}
+
+message CreateAdminResp {
+  Admin admin = 1;
+}
+
+message UpdateAdminReq {
+  int64 adminId = 1;
+  Admin admin = 2;
+}
+
+message UpdateAdminResp {
+  Admin admin = 1;
+}
+
+message DeleteAdminReq {
+  int64 adminId = 1;
+}
+
 service HrService {
   rpc Ping(PingRequest) returns(PingResponse);
 
@@ -658,6 +690,11 @@ service HrService {
   rpc SetDefaultStandard(SetDefaultStandardReq) returns(StatusResp); // 设置默认评分标准
   rpc GetOAuthConfig(AdminIdReq) returns(GetOAuthConfigResp); // 获取 OAuth 配置
   rpc GetFrontendConfig(AdminIdReq) returns(GetFrontendConfigResp); // 获取前端配置
+  rpc AdminLoginByPassword(AdminLoginByPasswordReq) returns(AdminLoginResp); // 管理员密码登录
+  rpc UpdateAdminPassword(UpdateAdminPasswordReq) returns(StatusResp); // 更新管理员密码
+  rpc CreateAdmin(CreateAdminReq) returns(CreateAdminResp); // 创建管理员
+  rpc UpdateAdmin(UpdateAdminReq) returns(UpdateAdminResp); // 更新管理员
+  rpc DeleteAdmin(DeleteAdminReq) returns(StatusResp); // 删除管理员
 
   rpc GetRank(GetRankReq) returns(GetRankResp); // 获取排名
   rpc GetScore(GetScoreReq) returns(GetScoreResp); // 获取评分

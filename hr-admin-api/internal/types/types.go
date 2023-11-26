@@ -48,6 +48,42 @@ type FrontendConfig struct {
 	Url   Url   `json:"url"`
 }
 
+type AdminLoginByPasswordReq struct {
+	Name     string `json:"name"`
+	Password string `json:"password"`
+}
+
+type UpdateAdminPasswordReq struct {
+	AdminId  int64  `json:"admin_id"`
+	Password string `json:"password"`
+}
+
+type CreateAdminReq struct {
+	Name       string   `json:"name"`
+	Password   string   `json:"password"`
+	Groups     []string `json:"groups"`
+	SmsEnabled bool     `json:"sms_enabled"`
+}
+
+type CreateAdminResp struct {
+	Id int64 `json:"id"`
+}
+
+type UpdateAdminReq struct {
+	AdminId    int64    `json:"admin_id"`
+	Name       string   `json:"name"`
+	Groups     []string `json:"groups"`
+	SmsEnabled bool     `json:"sms_enabled"`
+}
+
+type UpdateAdminResp struct {
+	Id int64 `json:"id"`
+}
+
+type DeleteAdminReq struct {
+	AdminId int64 `json:"admin_id"`
+}
+
 type GetAdminResp struct {
 	Id                int64        `json:"id"`
 	UUID              string       `json:"uuid"`

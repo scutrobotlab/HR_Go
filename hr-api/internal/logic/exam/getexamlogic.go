@@ -3,7 +3,6 @@ package exam
 import (
 	"HR_Go/common"
 	hr_service "HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -38,7 +37,7 @@ func (l *GetExamLogic) GetExam(req *types.GetExamReq) (resp *types.GetExamResp, 
 
 	return &types.GetExamResp{
 		ApplicantId: exam.ApplicantId,
-		Questions: util.NotNullList(lo.Map(exam.Questions, func(item *hr_service.Question, _ int) types.Question {
+		Questions: common.NotNullList(lo.Map(exam.Questions, func(item *hr_service.Question, _ int) types.Question {
 			return types.Question{
 				Id:       item.Id,
 				Question: item.Question,

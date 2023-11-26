@@ -1,8 +1,8 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -32,7 +32,7 @@ func (l *GetExamLogic) GetExam(in *hr_service.GetExamReq) (*hr_service.GetExamRe
 
 	applicantQuestions, err := aq.WithContext(l.ctx).Where(aq.ApplicantID.Eq(in.ApplicantId)).Find()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 	var aqMap = lo.Associate(applicantQuestions, func(item *model.ApplicantQuestion) (int64, *model.ApplicantQuestion) {
 		return item.QuestionID, item
@@ -40,12 +40,12 @@ func (l *GetExamLogic) GetExam(in *hr_service.GetExamReq) (*hr_service.GetExamRe
 
 	questions, err := q.WithContext(l.ctx).Where(q.Group_.Eq(in.Group)).Find()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_service.GetExamResp{
 		ApplicantId: in.ApplicantId,
-		Questions: util.NotNullList(lo.Map(questions, func(item *model.Question, _ int) *hr_service.Question {
+		Questions: common.NotNullList(lo.Map(questions, func(item *model.Question, _ int) *hr_service.Question {
 			aqItem := aqMap[item.ID]
 			var answer = ""
 			if aqItem != nil {

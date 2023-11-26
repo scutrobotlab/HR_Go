@@ -2,7 +2,6 @@ package logic
 
 import (
 	"HR_Go/common"
-	"HR_Go/util"
 	"context"
 	"time"
 
@@ -30,12 +29,12 @@ func (l *GetApplicantInfoLogic) GetApplicantInfo(in *hr_admin_service.ApplicantI
 	a := l.svcCtx.Query.Applicant
 	applicant, err := a.WithContext(l.ctx).Where(a.ID.Eq(in.ApplicantId)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	intents, err := getIntentsByApplicantId(l.ctx, l.svcCtx, in.ApplicantId)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	times, err := getTimesByApplicantId(l.ctx, l.svcCtx, in.ApplicantId)

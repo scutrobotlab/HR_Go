@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 
 	"HR_Go/hr-admin-service/internal/svc"
@@ -28,7 +28,7 @@ func (l *DeleteApplicantLogic) DeleteApplicant(in *hr_admin_service.ApplicantIdR
 	a := l.svcCtx.Query.Applicant
 	_, err := a.WithContext(l.ctx).Where(a.ID.Eq(in.ApplicantId)).Delete()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.StatusResp{

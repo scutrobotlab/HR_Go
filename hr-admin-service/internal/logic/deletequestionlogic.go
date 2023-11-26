@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 
 	"HR_Go/hr-admin-service/internal/svc"
@@ -28,7 +28,7 @@ func (l *DeleteQuestionLogic) DeleteQuestion(in *hr_admin_service.DeleteQuestion
 	q := l.svcCtx.Query.Question
 	_, err := q.WithContext(l.ctx).Where(q.ID.Eq(in.QuestionId)).Delete()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_admin_service.StatusResp{

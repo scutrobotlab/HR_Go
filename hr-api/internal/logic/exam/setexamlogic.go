@@ -5,7 +5,6 @@ import (
 	"HR_Go/hr-api/internal/svc"
 	"HR_Go/hr-api/internal/types"
 	hr_service "HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 	"strconv"
@@ -52,7 +51,7 @@ func (l *SetExamLogic) SetExam(req *types.SetExamReq) (resp *types.SetExamResp, 
 
 	return &types.SetExamResp{
 		ApplicantId: 0,
-		Questions: util.NotNullList(lo.Map(examResp.Questions, func(item *hr_service.Question, index int) types.Question {
+		Questions: common.NotNullList(lo.Map(examResp.Questions, func(item *hr_service.Question, index int) types.Question {
 			return types.Question{
 				Id:       item.Id,
 				Question: item.Question,

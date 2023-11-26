@@ -1,9 +1,9 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 	"github.com/samber/lo"
@@ -30,7 +30,7 @@ func (l *GetStatisticsClassifyLogic) GetStatisticsClassify(in *hr_admin_service.
 	i := l.svcCtx.Query.Intent
 	applicants, err := a.WithContext(l.ctx).Find()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	classCountMap := make(map[string]int)

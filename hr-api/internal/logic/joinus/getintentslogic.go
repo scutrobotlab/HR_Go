@@ -3,7 +3,6 @@ package joinus
 import (
 	"HR_Go/common"
 	hr_service "HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -36,7 +35,7 @@ func (l *GetIntentsLogic) GetIntents(req *types.GetIntentsReq) (resp *types.GetI
 	}
 
 	return &types.GetIntentsResp{
-		Intents: util.NotNullList(lo.Map(intentResp.Intents, func(item *hr_service.IntentItem, index int) types.Intent {
+		Intents: common.NotNullList(lo.Map(intentResp.Intents, func(item *hr_service.IntentItem, index int) types.Intent {
 			return types.Intent{
 				Group:       item.Group,
 				ApplicantId: item.ApplicantId,

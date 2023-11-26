@@ -1,4 +1,4 @@
-package util
+package common
 
 import (
 	"google.golang.org/grpc/codes"

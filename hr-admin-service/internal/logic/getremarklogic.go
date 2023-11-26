@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 
 	"HR_Go/hr-admin-service/internal/svc"
@@ -28,7 +28,7 @@ func (l *GetRemarkLogic) GetRemark(in *hr_admin_service.GetRemarkReq) (*hr_admin
 	r := l.svcCtx.Query.Remark
 	remark, err := r.WithContext(l.ctx).Where(r.ApplicantID.Eq(in.ApplicantId), r.AdminID.Eq(in.AdminId)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_admin_service.GetRemarkResp{

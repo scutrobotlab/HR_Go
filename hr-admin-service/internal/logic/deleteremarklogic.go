@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 
 	"HR_Go/hr-admin-service/internal/svc"
@@ -28,7 +28,7 @@ func (l *DeleteRemarkLogic) DeleteRemark(in *hr_admin_service.DeleteRemarkReq) (
 	r := l.svcCtx.Query.Remark
 	_, err := r.WithContext(l.ctx).Where(r.ApplicantID.Eq(in.ApplicantId), r.AdminID.Eq(in.AdminId)).Delete()
 	if err != nil {
-		return &hr_admin_service.StatusResp{Ok: false}, util.GrpcErrorInternal(err)
+		return &hr_admin_service.StatusResp{Ok: false}, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.StatusResp{Ok: true}, nil

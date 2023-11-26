@@ -1,8 +1,8 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 	"time"
@@ -34,7 +34,7 @@ func (l *GetTimeLogic) GetTime(in *hr_service.GetTimeReq) (*hr_service.GetTimeRe
 	var times []*model.Time
 	times, err := t.WithContext(l.ctx).Where(t.Group_.Eq(in.Group)).Find()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 	applicantTime, _ := at.WithContext(l.ctx).Where(at.ApplicantID.Eq(in.ApplicantId), at.Group_.Eq(in.Group)).First()
 
@@ -63,6 +63,6 @@ func (l *GetTimeLogic) GetTime(in *hr_service.GetTimeReq) (*hr_service.GetTimeRe
 	return &hr_service.GetTimeResp{
 		Group:     in.Group,
 		SavedTime: savedTime,
-		Times:     util.NotNullList(timesDto),
+		Times:     common.NotNullList(timesDto),
 	}, nil
 }

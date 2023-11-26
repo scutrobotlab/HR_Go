@@ -1,13 +1,13 @@
 package config
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"github.com/zeromicro/go-zero/core/discov"
 	"github.com/zeromicro/go-zero/rest"
 )
 
 type Config struct {
 	rest.RestConf
-	Auth util.Auth
+	Auth common.Auth
 	Etcd discov.EtcdConf
 }

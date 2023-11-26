@@ -3,7 +3,6 @@ package logic
 import (
 	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 	"time"
@@ -35,11 +34,11 @@ func (l *GetMyResultLogic) GetMyResult(in *hr_service.ApplicantIdReq) (*hr_servi
 
 	timeConfigs, err := tc.WithContext(l.ctx).Find()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 	applicant, err := a.WithContext(l.ctx).Where(a.ID.Eq(in.ApplicantId)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	tcMap := lo.Associate(timeConfigs, func(item *model.TimeConfig) (string, time.Time) {

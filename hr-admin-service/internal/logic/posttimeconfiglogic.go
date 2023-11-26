@@ -1,10 +1,10 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"time"
 
@@ -31,7 +31,7 @@ func (l *PostTimeConfigLogic) PostTimeConfig(in *hr_admin_service.PostTimeConfig
 	for _, it := range in.TimeConfigs {
 		timeValue, err := time.ParseInLocation(time.DateTime, it.Value, time.Local)
 		if err != nil {
-			return nil, util.GrpcErrorInvalidArgument(err)
+			return nil, common.GrpcErrorInvalidArgument(err)
 		}
 		count, _ := tc.WithContext(l.ctx).Where(tc.Key.Eq(it.Key)).Count()
 		if count == 0 {
@@ -43,7 +43,7 @@ func (l *PostTimeConfigLogic) PostTimeConfig(in *hr_admin_service.PostTimeConfig
 			_, err = tc.WithContext(l.ctx).Where(tc.Key.Eq(it.Key)).Update(tc.Value, timeValue)
 		}
 		if err != nil {
-			return nil, util.GrpcErrorInternal(err)
+			return nil, common.GrpcErrorInternal(err)
 		}
 	}
 

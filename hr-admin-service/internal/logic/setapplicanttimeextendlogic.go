@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 
 	"HR_Go/hr-admin-service/internal/svc"
@@ -28,7 +28,7 @@ func (l *SetApplicantTimeExtendLogic) SetApplicantTimeExtend(in *hr_admin_servic
 	at := l.svcCtx.Query.ApplicantTime
 	_, err := at.WithContext(l.ctx).Where(at.ApplicantID.Eq(in.ApplicantId), at.Group_.Eq(in.Group)).UpdateColumn(at.Extend, in.Extend)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.StatusResp{

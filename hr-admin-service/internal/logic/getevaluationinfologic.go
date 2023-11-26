@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 	"encoding/json"
 
@@ -31,18 +31,18 @@ func (l *GetEvaluationInfoLogic) GetEvaluationInfo(in *hr_admin_service.GetEvalu
 
 	evaluationStandard, err := es.WithContext(l.ctx).Where(es.ID.Eq(in.EvaluationId)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	updatedBy, err := getAbstractAdmin(l.ctx, l.svcCtx, evaluationStandard.LastEditAdminID)
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 	count, _ := s.WithContext(l.ctx).Where(s.StandardID.Eq(in.EvaluationId)).Count()
 	standard := make([]*hr_admin_service.Standard, 0)
 	err = json.Unmarshal([]byte(evaluationStandard.Standard), &standard)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.GetEvaluationInfoResp{

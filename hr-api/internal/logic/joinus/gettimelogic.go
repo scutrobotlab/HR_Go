@@ -3,7 +3,6 @@ package joinus
 import (
 	"HR_Go/common"
 	hr_service "HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -59,7 +58,7 @@ func (l *GetTimeLogic) GetTime(req *types.GetTimeReq) (resp *types.GetTimeResp, 
 	return &types.GetTimeResp{
 		Group:     req.Group,
 		SavedTime: savedTime,
-		Time: util.NotNullList(lo.Map(time.Times, func(item *hr_service.TimeItem, index int) types.ChoosableTime {
+		Time: common.NotNullList(lo.Map(time.Times, func(item *hr_service.TimeItem, index int) types.ChoosableTime {
 			return types.ChoosableTime{
 				Id:              item.Id,
 				Group:           item.Group,

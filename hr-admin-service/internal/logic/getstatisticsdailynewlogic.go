@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 	"github.com/samber/lo"
 	"sort"
@@ -31,7 +31,7 @@ func (l *GetStatisticsDailyNewLogic) GetStatisticsDailyNew(in *hr_admin_service.
 	a := l.svcCtx.Query.Applicant
 	applicants, err := a.WithContext(l.ctx).Find()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	timeCountMap := make(map[string]int)

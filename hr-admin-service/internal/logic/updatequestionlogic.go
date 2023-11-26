@@ -1,10 +1,10 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -32,7 +32,7 @@ func (l *UpdateQuestionLogic) UpdateQuestion(in *hr_admin_service.UpdateQuestion
 		Group_:   in.Question.Group,
 	})
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.UpdateQuestionResp{

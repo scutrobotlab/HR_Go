@@ -1,9 +1,9 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-admin-api/internal/types"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"encoding/json"
 	"github.com/samber/lo"
 	"google.golang.org/grpc/codes"
@@ -270,7 +270,7 @@ func RoomGrpcToApi(in []*hr_admin_service.Room) []types.Room {
 			Name:               item.Name,
 			Location:           item.Location,
 			Status:             item.Status,
-			Admins:             util.NotNullList(item.Admins),
+			Admins:             common.NotNullList(item.Admins),
 			Applicant:          item.Applicant,
 			Group:              item.Group,
 			Time:               item.Time,

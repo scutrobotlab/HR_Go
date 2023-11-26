@@ -1,7 +1,6 @@
-package util
+package common
 
 import (
-	"HR_Go/common"
 	"fmt"
 	"testing"
 )
@@ -31,13 +30,13 @@ func TestGetLoginJwtToken(t *testing.T) {
 		TokenTitle     string
 	}
 	tokenConfigs := []TokenConfig{
-		{1, common.SuperAdmin, "SuperAdmin"},
-		{2, common.Admin, "Admin"},
-		{10, common.Applicant, "Applicant"},
+		{1, SuperAdmin, "SuperAdmin"},
+		{2, Admin, "Admin"},
+		{10, Applicant, "Applicant"},
 	}
 
 	for _, config := range tokenConfigs {
-		userInfo := common.UserInfo{config.UserId, config.UserPermission}
+		userInfo := UserInfo{config.UserId, config.UserPermission}
 		token, err := GetLoginJwtToken(auth, userInfo)
 		if err != nil {
 			t.Failed()

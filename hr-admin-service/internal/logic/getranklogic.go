@@ -1,9 +1,9 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"errors"
 	"github.com/samber/lo"
@@ -29,7 +29,7 @@ func (l *GetRankLogic) GetRank(in *hr_admin_service.GetRankReq) (*hr_admin_servi
 	s := l.svcCtx.Query.Score
 	scores, err := s.WithContext(l.ctx).Where(s.Group_.Eq(in.Group)).Find()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	var scoreMap = make(map[int64]float64)
@@ -59,7 +59,7 @@ func (l *GetRankLogic) GetRank(in *hr_admin_service.GetRankReq) (*hr_admin_servi
 		return item.ApplicantID == in.ApplicantId
 	})
 	if !ok {
-		return nil, util.GrpcErrorNotFound(errors.New("该申请者没有评分"))
+		return nil, common.GrpcErrorNotFound(errors.New("该申请者没有评分"))
 	}
 
 	var rank int

@@ -1,8 +1,8 @@
 package sms
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/query"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 	"errors"
@@ -37,7 +37,7 @@ func GenerateSms(ctx context.Context, query *query.Query, typ string, applicantI
 			return nil, err
 		}
 		if appSms.Status == DoNotSend || appSms.Status == InSchedule || appSms.Status == Expired {
-			return nil, util.GrpcErrorUnknown(errors.New("没有发送短信但存在记录"))
+			return nil, common.GrpcErrorUnknown(errors.New("没有发送短信但存在记录"))
 		}
 		// Status == HaveSent or Status == SendFailed or Status == Manual or Status == SendRightNow
 		return &Sms{
@@ -59,7 +59,7 @@ func GenerateSms(ctx context.Context, query *query.Query, typ string, applicantI
 	case "录取结果":
 		handler = ResultSmsHandler{}
 	default:
-		return nil, util.GrpcErrorUnknown(errors.New("短信类型错误"))
+		return nil, common.GrpcErrorUnknown(errors.New("短信类型错误"))
 	}
 	getSms, err := handler.GetSms(ctx, query, applicantId)
 	if err != nil {

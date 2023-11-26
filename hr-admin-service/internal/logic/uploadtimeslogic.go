@@ -1,8 +1,8 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 	"strconv"
@@ -64,7 +64,7 @@ func (l *UploadTimesLogic) UploadTimes(in *hr_admin_service.UploadTimesReq) (*hr
 		}
 		err = t.WithContext(l.ctx).Create(m)
 		if err != nil {
-			return nil, util.GrpcErrorInternal(err)
+			return nil, common.GrpcErrorInternal(err)
 		}
 	}
 

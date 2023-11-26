@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 	"fmt"
 
@@ -29,7 +29,7 @@ func (l *ExportTimesLogic) ExportTimes(in *hr_admin_service.ExportTimesReq) (*hr
 	t := l.svcCtx.Query.Time
 	times, err := t.WithContext(l.ctx).Where(t.Group_.In(in.Groups...)).Find()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 	file := "组别,日期,时间,地点,第几志愿,人数,年级,校区,会议号\n"
 	for _, it := range times {

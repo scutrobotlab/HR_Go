@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 
 	"HR_Go/hr-admin-service/internal/svc"
@@ -30,7 +30,7 @@ func (l *DeleteScoreLogic) DeleteScore(in *hr_admin_service.DeleteScoreReq) (*hr
 	if err != nil {
 		return &hr_admin_service.StatusResp{
 			Ok: false,
-		}, util.GrpcErrorNotFound(err)
+		}, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_admin_service.StatusResp{

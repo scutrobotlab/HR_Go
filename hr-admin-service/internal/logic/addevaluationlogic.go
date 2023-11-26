@@ -1,10 +1,10 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 
@@ -29,7 +29,7 @@ func (l *AddEvaluationLogic) AddEvaluation(in *hr_admin_service.AddEvaluationReq
 	es := l.svcCtx.Query.EvaluationStandard
 	standard, err := json.Marshal(in.Standard)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	m := &model.EvaluationStandard{
@@ -39,11 +39,11 @@ func (l *AddEvaluationLogic) AddEvaluation(in *hr_admin_service.AddEvaluationReq
 	}
 	err = es.WithContext(l.ctx).Create(m)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 	updatedBy, err := getAbstractAdmin(l.ctx, l.svcCtx, m.LastEditAdminID)
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_admin_service.AddEvaluationResp{

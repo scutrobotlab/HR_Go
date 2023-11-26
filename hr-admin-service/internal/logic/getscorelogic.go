@@ -1,9 +1,9 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -27,7 +27,7 @@ func (l *GetScoreLogic) GetScore(in *hr_admin_service.GetScoreReq) (*hr_admin_se
 	s := l.svcCtx.Query.Score
 	score, err := s.WithContext(l.ctx).Where(s.ApplicantID.Eq(in.ApplicantId), s.AdminID.Eq(in.AdminId), s.Group_.Eq(in.Group)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	admin, err := getAbstractAdmin(l.ctx, l.svcCtx, score.AdminID)

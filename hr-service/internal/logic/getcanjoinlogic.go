@@ -2,7 +2,6 @@ package logic
 
 import (
 	"HR_Go/common"
-	"HR_Go/util"
 	"context"
 	"errors"
 	"time"
@@ -38,16 +37,16 @@ func (l *GetCanJoinLogic) GetCanJoin(in *hr_service.GetCanJoinReq) (*hr_service.
 		startKey = common.SelectTimeStart
 		endKey = common.SelectTimeEnd
 	default:
-		return nil, util.GrpcErrorInvalidArgument(errors.New(in.Key))
+		return nil, common.GrpcErrorInvalidArgument(errors.New(in.Key))
 	}
 	tc := l.svcCtx.Query.TimeConfig
 	start, err := tc.WithContext(l.ctx).Where(tc.Key.Eq(startKey)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 	end, err := tc.WithContext(l.ctx).Where(tc.Key.Eq(endKey)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_service.GetCanJoinResp{

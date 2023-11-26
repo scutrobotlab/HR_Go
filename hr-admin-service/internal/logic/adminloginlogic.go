@@ -1,10 +1,10 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -51,7 +51,7 @@ func (l *AdminLoginLogic) AdminLogin(in *hr_admin_service.AdminLoginReq) (*hr_ad
 	param1 := fmt.Sprintf("grant_type=authorization_code&client_id=%s&client_secret=%s&redirect_uri=%s&code=%s", oAuth.ClientId, oAuth.ClientSecret, oAuth.RedirectUrl, in.Code)
 	req1, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/api/oauth/token?%s", l.svcCtx.Common.Url.AdminUrl, param1), nil)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 	resp1, err := http.DefaultClient.Do(req1)
 	if err != nil {
@@ -60,11 +60,11 @@ func (l *AdminLoginLogic) AdminLogin(in *hr_admin_service.AdminLoginReq) (*hr_ad
 	defer resp1.Body.Close()
 
 	if resp1.StatusCode != http.StatusOK {
-		return nil, util.GrpcErrorInvalidArgument(fmt.Errorf("invalid code"))
+		return nil, common.GrpcErrorInvalidArgument(fmt.Errorf("invalid code"))
 	}
 	bytes1, err := io.ReadAll(resp1.Body)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	type Resp1 struct {
@@ -73,29 +73,29 @@ func (l *AdminLoginLogic) AdminLogin(in *hr_admin_service.AdminLoginReq) (*hr_ad
 	resp1Body := &Resp1{}
 	err = json.Unmarshal(bytes1, resp1Body)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	param2 := fmt.Sprintf("access_token=%s", resp1Body.AccessToken)
 	req2, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s/api/oauth/userinfo?%s", l.svcCtx.Common.Url.AdminUrl, param2), nil)
 	resp2, err := http.DefaultClient.Do(req2)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 	defer resp2.Body.Close()
 
 	if resp2.StatusCode != http.StatusOK {
-		return nil, util.GrpcErrorInternal(fmt.Errorf("HTTP %d", resp2.StatusCode))
+		return nil, common.GrpcErrorInternal(fmt.Errorf("HTTP %d", resp2.StatusCode))
 	}
 	bytes2, err := io.ReadAll(resp2.Body)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	resp2Body := make(map[string]any)
 	err = json.Unmarshal(bytes2, &resp2Body)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 	type Group struct {
 		Id    int64
@@ -113,7 +113,7 @@ func (l *AdminLoginLogic) AdminLogin(in *hr_admin_service.AdminLoginReq) (*hr_ad
 	resp2Body["groups"] = groups
 	profileJson, err := json.Marshal(resp2Body)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	adminId := int64(resp2Body["id"].(float64))
@@ -134,7 +134,7 @@ func (l *AdminLoginLogic) AdminLogin(in *hr_admin_service.AdminLoginReq) (*hr_ad
 	if count == 0 {
 		err = a.WithContext(l.ctx).Create(&admin)
 		if err != nil {
-			return nil, util.GrpcErrorInternal(err)
+			return nil, common.GrpcErrorInternal(err)
 		}
 	}
 	_, err = a.WithContext(l.ctx).Where(a.ID.Eq(adminId)).UpdateColumns(model.Admin{
@@ -142,7 +142,7 @@ func (l *AdminLoginLogic) AdminLogin(in *hr_admin_service.AdminLoginReq) (*hr_ad
 		Profile: string(profileJson),
 	})
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.AdminLoginResp{

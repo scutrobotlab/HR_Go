@@ -5,7 +5,6 @@ import (
 	"HR_Go/hr-admin-api/internal/svc"
 	"HR_Go/hr-admin-api/internal/types"
 	hr_admin_service "HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -39,7 +38,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 	if userInfo.Id == 1 {
 		userInfo.Permission = common.SuperAdmin
 	}
-	token, err := util.GetLoginJwtToken(l.svcCtx.Config.Auth, userInfo)
+	token, err := common.GetLoginJwtToken(l.svcCtx.Config.Auth, userInfo)
 	if err != nil {
 		return nil, err
 	}

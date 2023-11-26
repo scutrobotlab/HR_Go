@@ -1,7 +1,6 @@
-package util
+package common
 
 import (
-	"HR_Go/common"
 	"github.com/golang-jwt/jwt/v4"
 	"time"
 )
@@ -12,7 +11,7 @@ type Auth struct {
 }
 
 // GetLoginJwtToken 获取登录Token
-func GetLoginJwtToken(auth Auth, userInfo common.UserInfo) (string, error) {
+func GetLoginJwtToken(auth Auth, userInfo UserInfo) (string, error) {
 	payload := make(map[string]any)
 	payload["id"] = userInfo.Id
 	payload["per"] = userInfo.Permission

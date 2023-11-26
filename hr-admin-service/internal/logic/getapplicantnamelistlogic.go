@@ -1,8 +1,8 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -30,7 +30,7 @@ func (l *GetApplicantNameListLogic) GetApplicantNameList(in *hr_admin_service.Ad
 	a := l.svcCtx.Query.Applicant
 	applicants, err := a.WithContext(l.ctx).Find()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.GetApplicantNameListResp{

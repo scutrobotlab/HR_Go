@@ -1,10 +1,10 @@
 package form
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-api/internal/svc"
 	"HR_Go/hr-api/internal/types"
 	"HR_Go/hr-service/hrservice"
-	"HR_Go/util"
 	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -33,6 +33,6 @@ func (l *GetFormGroupsLogic) GetFormGroups() (resp *types.GetFormGroupsResq, err
 	}
 
 	return &types.GetFormGroupsResq{
-		Groups: util.NotNullList(groups.Groups),
+		Groups: common.NotNullList(groups.Groups),
 	}, nil
 }

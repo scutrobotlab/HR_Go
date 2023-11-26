@@ -1,8 +1,8 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -32,11 +32,11 @@ func (l *GetIntentListLogic) GetIntentList(in *hr_service.ApplicantIdReq) (*hr_s
 
 	intents, err := i.WithContext(l.ctx).Where(i.ApplicantID.Eq(in.ApplicantId)).Find()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_service.GetIntentListResp{
-		Intents: util.NotNullList(lo.Map(intents, func(item *model.Intent, _ int) *hr_service.IntentItem {
+		Intents: common.NotNullList(lo.Map(intents, func(item *model.Intent, _ int) *hr_service.IntentItem {
 			finished := false
 			applicantTime, err := at.WithContext(l.ctx).Where(at.ApplicantID.Eq(in.ApplicantId), at.Group_.Eq(item.Group_)).First()
 			if err == nil && applicantTime.RoomID != 0 {

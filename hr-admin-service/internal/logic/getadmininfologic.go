@@ -1,9 +1,9 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 	"github.com/samber/lo"
@@ -29,13 +29,13 @@ func (l *GetAdminInfoLogic) GetAdminInfo(in *hr_admin_service.AdminIdReq) (*hr_a
 	a := l.svcCtx.Query.Admin
 	admin, err := a.WithContext(l.ctx).Where(a.ID.Eq(in.AdminId)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	profile := &AdminProfile{}
 	err = json.Unmarshal([]byte(admin.Profile), profile)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.GetAdminInfoResp{

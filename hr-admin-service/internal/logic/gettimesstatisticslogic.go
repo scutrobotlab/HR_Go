@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 	"github.com/samber/lo"
 
@@ -29,7 +29,7 @@ func (l *GetTimesStatisticsLogic) GetTimesStatistics(in *hr_admin_service.AdminI
 	t := l.svcCtx.Query.Time
 	times, err := t.WithContext(l.ctx).Find()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	timeCountMap := make(map[string]int)

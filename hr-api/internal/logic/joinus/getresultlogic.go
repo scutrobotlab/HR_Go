@@ -3,7 +3,6 @@ package joinus
 import (
 	"HR_Go/common"
 	hr_service "HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -37,7 +36,7 @@ func (l *GetResultLogic) GetResult() (resp *types.GetResultResp, err error) {
 
 	return &types.GetResultResp{
 		Status: resultResp.Status,
-		Times: util.NotNullList(lo.Map(resultResp.Times, func(item *hr_service.TimeItem, index int) types.SavedTime {
+		Times: common.NotNullList(lo.Map(resultResp.Times, func(item *hr_service.TimeItem, index int) types.SavedTime {
 			return types.SavedTime{
 				Id:       item.Id,
 				Group:    item.Group,
@@ -56,7 +55,7 @@ func (l *GetResultLogic) GetResult() (resp *types.GetResultResp, err error) {
 				MeetingId:   item.MeetingId,
 			}
 		})),
-		Groups: util.NotNullList(lo.Map(resultResp.Groups, func(item *hr_service.AdmitGroup, index int) types.AdmitGroup {
+		Groups: common.NotNullList(lo.Map(resultResp.Groups, func(item *hr_service.AdmitGroup, index int) types.AdmitGroup {
 			return types.AdmitGroup{
 				Group: item.Group,
 				Hint:  item.Hint,

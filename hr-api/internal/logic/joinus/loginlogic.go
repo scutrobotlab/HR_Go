@@ -3,7 +3,6 @@ package joinus
 import (
 	"HR_Go/common"
 	hr_service "HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 
 	"HR_Go/hr-api/internal/svc"
@@ -37,7 +36,7 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		Permission: common.Applicant,
 	}
 	// 是否 Debug 模式不影响
-	token, err := util.GetLoginJwtToken(l.svcCtx.Config.Auth, userInfo)
+	token, err := common.GetLoginJwtToken(l.svcCtx.Config.Auth, userInfo)
 	if err != nil {
 		return nil, err
 	}

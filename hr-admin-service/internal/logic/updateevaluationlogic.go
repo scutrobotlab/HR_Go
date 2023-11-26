@@ -1,10 +1,10 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
 	"HR_Go/hr-admin-service/internal/svc"
 	"HR_Go/hr-admin-service/pb/hr-admin-service"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 
@@ -31,7 +31,7 @@ func (l *UpdateEvaluationLogic) UpdateEvaluation(in *hr_admin_service.UpdateEval
 
 	standard, err := json.Marshal(in.Standard)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	m := &model.EvaluationStandard{
@@ -42,11 +42,11 @@ func (l *UpdateEvaluationLogic) UpdateEvaluation(in *hr_admin_service.UpdateEval
 	}
 	err = es.WithContext(l.ctx).Where(es.ID.Eq(in.EvaluationId)).Save(m)
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 	updatedBy, err := getAbstractAdmin(l.ctx, l.svcCtx, m.LastEditAdminID)
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 	count, _ := s.WithContext(l.ctx).Where(s.StandardID.Eq(in.EvaluationId)).Count()
 

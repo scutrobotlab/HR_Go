@@ -1,8 +1,8 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 	"github.com/samber/lo"
@@ -31,11 +31,11 @@ func (l *GetFormFormatLogic) GetFormFormat(in *hr_service.ApplicantIdReq) (*hr_s
 	f := l.svcCtx.Query.Form
 	forms, err := f.WithContext(l.ctx).Find()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_service.GetFormFormatResp{
-		Forms: util.NotNullList(lo.Map(forms, func(item *model.Form, _ int) *hr_service.FormItem {
+		Forms: common.NotNullList(lo.Map(forms, func(item *model.Form, _ int) *hr_service.FormItem {
 			var options []string
 			_ = json.Unmarshal([]byte(item.Options), &options)
 			return &hr_service.FormItem{

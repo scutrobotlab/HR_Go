@@ -1,4 +1,4 @@
-package util
+package common
 
 func NotNullList[T any](list []T) []T {
 	if len(list) == 0 {

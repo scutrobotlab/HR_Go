@@ -1,9 +1,9 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-service/internal/svc"
 	"HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 
 	"github.com/zeromicro/go-zero/core/logx"
@@ -27,7 +27,7 @@ func (l *GetAnnounceStatusLogic) GetAnnounceStatus(in *hr_service.GetAnnounceSta
 	ac := l.svcCtx.Query.AnnounceConfig
 	first, err := ac.WithContext(l.ctx).Where(ac.Status.Eq(in.Status)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_service.GetAnnounceStatusResp{

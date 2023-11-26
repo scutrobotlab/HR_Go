@@ -1,8 +1,8 @@
 package logic
 
 import (
+	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"encoding/json"
 	"github.com/samber/lo"
@@ -34,7 +34,7 @@ func (l *GetEvaluationsLogic) GetEvaluations(in *hr_admin_service.AdminIdReq) (*
 
 	evaluationStandards, err := es.WithContext(l.ctx).Find()
 	if err != nil {
-		return nil, util.GrpcErrorInternal(err)
+		return nil, common.GrpcErrorInternal(err)
 	}
 
 	return &hr_admin_service.GetEvaluationsResp{

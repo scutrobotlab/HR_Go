@@ -1,7 +1,7 @@
 package logic
 
 import (
-	"HR_Go/util"
+	"HR_Go/common"
 	"context"
 	"encoding/json"
 
@@ -29,7 +29,7 @@ func (l *GetWechatInfoLogic) GetWechatInfo(in *hr_service.ApplicantIdReq) (*hr_s
 	a := l.svcCtx.Query.Applicant
 	applicant, err := a.WithContext(l.ctx).Where(a.ID.Eq(in.ApplicantId)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	profileStr := applicant.Profile

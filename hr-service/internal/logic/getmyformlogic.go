@@ -3,7 +3,6 @@ package logic
 import (
 	"HR_Go/common"
 	"HR_Go/dal/model"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -33,11 +32,11 @@ func (l *GetMyFormLogic) GetMyForm(in *hr_service.ApplicantIdReq) (*hr_service.G
 
 	applicant, err := a.WithContext(l.ctx).Where(a.ID.Eq(in.ApplicantId)).First()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 	intents, err := i.WithContext(l.ctx).Where(i.ApplicantID.Eq(applicant.ID)).Find()
 	if err != nil {
-		return nil, util.GrpcErrorNotFound(err)
+		return nil, common.GrpcErrorNotFound(err)
 	}
 
 	return &hr_service.GetMyFormResp{
@@ -48,7 +47,7 @@ func (l *GetMyFormLogic) GetMyForm(in *hr_service.ApplicantIdReq) (*hr_service.G
 		Phone:    applicant.Phone,
 		Avatar:   applicant.Avatar,
 		Form:     applicant.Form,
-		Intents: util.NotNullList(lo.Map(intents, func(item *model.Intent, _ int) *hr_service.IntentItem {
+		Intents: common.NotNullList(lo.Map(intents, func(item *model.Intent, _ int) *hr_service.IntentItem {
 			return &hr_service.IntentItem{
 				Group:       item.Group_,
 				ApplicantId: item.ApplicantID,

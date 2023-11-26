@@ -1,10 +1,10 @@
 package form
 
 import (
+	"HR_Go/common"
 	"HR_Go/hr-api/internal/svc"
 	"HR_Go/hr-api/internal/types"
 	hr_service "HR_Go/hr-service/pb/hr-service"
-	"HR_Go/util"
 	"context"
 	"github.com/samber/lo"
 
@@ -45,7 +45,7 @@ func (l *GetFormLogic) GetForm() (resp *types.GetFormResq, err error) {
 				Key:       item.Key,
 				Type:      item.Type,
 				Required:  required,
-				Options:   util.NotNullList(item.Options),
+				Options:   common.NotNullList(item.Options),
 				Regexp:    item.Regexp,
 				MaxLength: item.MaxLength,
 			}

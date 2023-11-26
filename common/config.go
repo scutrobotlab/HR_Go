@@ -1,8 +1,10 @@
 package common
 
 import (
+	"fmt"
 	"github.com/zeromicro/go-zero/core/conf"
 	"os"
+	"os/exec"
 )
 
 type Config struct {
@@ -30,6 +32,14 @@ func GetConfig(path string) (Config, error) {
 	pathEnv := os.Getenv("COMMON_CONFIG_PATH")
 	if pathEnv != "" {
 		path = pathEnv
+	}
+	// 如果配置文件不存在，则从配置文件模板复制
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		command := exec.Command("cp", fmt.Sprintf("%s.example", path), path)
+		err = command.Run()
+		if err != nil {
+			return config, err
+		}
 	}
 	err := conf.Load(path, &config)
 	return config, err
